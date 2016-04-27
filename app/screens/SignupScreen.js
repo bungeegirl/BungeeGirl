@@ -5,6 +5,7 @@ import React, {
   Text,
   Image,
   TextInput,
+  NativeModules,
   ScrollView,
   View,
   TouchableWithoutFeedback,
@@ -15,6 +16,7 @@ import React, {
 import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'
 import NavigationBar from 'react-native-navbar'
+import CameraRollView from '../components/CameraRollView'
 var ImagePickerManager = require('NativeModules').ImagePickerManager
 
 var deviceWidth = Dimensions.get('window').width
@@ -62,7 +64,22 @@ class SignupScreen extends Component {
           var button
           if(this.state.month <= 12 && this.state.day <= 31 && this.state.year <= 2020 && this.state.year > 1900) {
             button = <Text
-              onPress={() => this.setState({formIndex: 0})}
+              onPress={() => this.setState({formIndex: 3})}
+              style={styles.titleText}> Next </Text>
+          } else {
+            button = <Text style={[styles.titleText, {color: Colors.darkGrey}]}> Next </Text>
+          }
+          return button
+        }
+      },
+      {
+        component: () => this._renderAvatar(),
+        backAction: () => this.setState({formIndex: 2}),
+        rightButton: () => {
+          var button
+          if(this.state.imageData) {
+            button = <Text
+              onPress={() => this.setState({formIndex: 3})}
               style={styles.titleText}> Next </Text>
           } else {
             button = <Text style={[styles.titleText, {color: Colors.darkGrey}]}> Next </Text>
@@ -78,9 +95,9 @@ class SignupScreen extends Component {
       email: "",
       password: "",
       name: "",
-      month: "",
-      day: "",
-      year: ""
+      month: 12,
+      day: 30,
+      year: 2019
     }
   }
   componentDidMount() {
@@ -103,7 +120,7 @@ class SignupScreen extends Component {
         rightButton={rightButton}/>
       {this.screens[this.state.formIndex].component()}
     </ViewContainer>
-    return content
+    return this._renderAvatar()
   }
 
   _renderEmailPassword() {
@@ -150,12 +167,15 @@ class SignupScreen extends Component {
   _renderImage(asset) {
     var imageSize = deviceWidth / 4
     return (
-      <TouchableWithoutFeedback
-        onPress={(asset) => console.log(asset.node)}>
+      <TouchableOpacity
+        onPress={() =>
+          NativeModules.ReadImageData.readImage(asset.node.image.uri, (image) => {
+            // console.log(image)
+          })}>
         <Image
           source={asset.node.image}
           style={{width: imageSize, height: imageSize}}/>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     )
   }
 
@@ -205,6 +225,46 @@ class SignupScreen extends Component {
 
     return content
   }
+
+  _renderAvatar() {
+    var content =
+    <View style={{flex: 1, alignItems: 'stretch'}}>
+      <View style={styles.container}>
+        <View style={styles.inputContainer}>
+          <Text style={styles.formPretext}>I'm</Text>
+          <Text style={[styles.formPretext, {color: 'white'}]}>{this.state.name}</Text>
+        </View>
+        <View style={[styles.inputContainer, {marginTop: -24}]}>
+          <Text style={styles.formPretext}>Born</Text>
+          <Text style={[styles.formPretext, {color: 'white'}]}>{this.state.month}/{this.state.day}/{this.state.year}</Text>
+        </View>
+        <Text style={[styles.formLabel, {marginTop: 8, marginBottom: 8}]}>Let's put a face to the name</Text>
+      </View>
+      <View style={{flex: 1}}>
+        <CameraRollView
+          imagesPerRow={4}
+          renderImage={(asset, isFirst) => {
+            if(!isFirst) {
+              return this._renderImage(asset)
+            } else {
+              return this._renderPictureIcon()
+            }}} />
+      </View>
+    </View>
+    return content
+  }
+
+  _renderPictureIcon() {
+    var imageSize = deviceWidth / 4
+    var content =
+    <TouchableOpacity>
+    <Image
+      style={{height: imageSize, width: imageSize}}
+      resizeMode='contain'
+      source={require('../assets/photo-placeholder.png')} />
+    </TouchableOpacity>
+    return content
+  }
 }
 
 const styles = StyleSheet.create({
@@ -214,7 +274,6 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 30,
-    flex: 1,
     alignItems: 'stretch',
     backgroundColor: Colors.grey
   },

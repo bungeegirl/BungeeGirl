@@ -9,6 +9,8 @@
     "firebase": "^2.4.2",
     "react": "^0.14.8",
     "react-native": "^0.24.1",
+    "react-native-asset-library-to-base64": "^1.0.1",
+    "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-code-push": "^1.10.5-beta",
     "react-native-facebook-login": "^1.0.3",
     "react-native-navbar": "^1.4.2",
