@@ -46,7 +46,9 @@ class LoginScreen extends Component {
               onPress={() => FBLoginManager.logout(() => {})}>
               <Text style={styles.buttonText}>Log In</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.loginButton}>
+            <TouchableOpacity
+              style={styles.loginButton}
+              onPress={() => this._signUp()}>
               <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
           </View>
@@ -62,6 +64,12 @@ class LoginScreen extends Component {
       } else {
         console.log("Error: ", data);
       }
+    })
+  }
+
+  _signUp() {
+    this.props.navigator.push({
+      ident: 'SignupScreen'
     })
   }
 }
@@ -86,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey'
   },
   introText: {
-    color: Colors.greyText,
+    color: Colors.grey,
     textAlign: 'center',
     fontSize: 20,
     marginBottom: 8,

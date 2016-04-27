@@ -11,6 +11,7 @@
     "react-native": "^0.24.1",
     "react-native-code-push": "^1.10.5-beta",
     "react-native-facebook-login": "^1.0.3",
+    "react-native-navbar": "^1.4.2",
     "underscore": "^1.8.3"
   }
 }

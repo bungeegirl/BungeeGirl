@@ -1,34 +1,44 @@
-'use strict';
 
-var React = require("react-native")
-var { View } = React;
+import React, {
+  Component,
+  StyleSheet,
+  Text,
+  Image,
+  TouchableOpacity,
+  View,
+  Dimensions
+} from 'react-native'
+
+import Colors from '../styles/Colors'
+
+var deviceWidth = Dimensions.get('window').width
+var deviceHeight = Dimensions.get('window').height
 
 var TopNavBar = React.createClass({
 
   render: function() {
     return (
       <View
-        ref="NavBar"
         style={styles.container}>
-        <View style={{
-          height: (this.props.hidden ? 0 : 20),
-          backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : 'white'}} />
-        {this.props.children}
       </View>
     )
   },
 
-  componentWillUnmount: function() {
-  },
-
 })
+
+AppNavigator.propTypes = {
+  leftItem: PropTypes.object,
+  onLeftItemPressed: PropTypes.function,
+  rightItem: PropTypes.object,
+  onRightItemPressed: PropTypes.function,
+  titleText: PropTypes.string.isRequired
+}
 
 var styles = React.StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "stretch",
+    flexDirection: 'center',
+    alignItems: 'center',
   }
 })
 

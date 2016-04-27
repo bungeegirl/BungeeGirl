@@ -1,5 +1,7 @@
 var Colors = {
-  greyText: "#858585"
+  grey: "#858585",
+  fadedGrey: "#9B9B9A",
+  darkGrey: "#414141"
 }
 
 module.exports = Colors
