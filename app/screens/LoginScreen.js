@@ -6,6 +6,7 @@ import React, {
   Image,
   TouchableOpacity,
   View,
+  AsyncStorage,
   Dimensions
 } from 'react-native'
 
@@ -43,7 +44,7 @@ class LoginScreen extends Component {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.loginButton}
-              onPress={() => FBLoginManager.logout(() => {})}>
+              onPress={() => this._login()}>
               <Text style={styles.buttonText}>Log In</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -71,6 +72,11 @@ class LoginScreen extends Component {
     this.props.navigator.push({
       ident: 'SignupScreen'
     })
+  }
+
+  _login() {
+    AsyncStorage.clear()
+    FBLoginManager.logout(() => {})
   }
 }
 const styles = StyleSheet.create({

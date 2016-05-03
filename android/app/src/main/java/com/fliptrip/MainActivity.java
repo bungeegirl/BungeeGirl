@@ -1,6 +1,8 @@
 package com.fliptrip;
 
 import com.facebook.react.ReactActivity;
+import com.imagepicker.ImagePickerPackage;
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.magus.fblogin.FacebookLoginPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactPackage;
@@ -37,6 +39,8 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new ImagePickerPackage(),
+            new RCTCameraPackage(),
             new FacebookLoginPackage(),
             new CodePush(${androidDeploymentKey}, this, BuildConfig.DEBUG)
         );

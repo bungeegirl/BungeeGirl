@@ -20,7 +20,8 @@ class AppNavigator extends Component {
   renderScene(route, navigator) {
     var globalScreenProps = {
       navigator: navigator,
-      firebaseRef: this.props.firebaseRef
+      firebaseRef: this.props.firebaseRef,
+      eventEmitter: this.props.eventEmitter
     }
 
     switch (route.ident) {
@@ -32,6 +33,7 @@ class AppNavigator extends Component {
       case "SignupScreen":
         return (
           <SignupScreen
+            isFacebookAuthenticated={route.isFacebookAuthenticated}
             {...globalScreenProps} />
         )
     }
@@ -40,6 +42,7 @@ class AppNavigator extends Component {
   render() {
     return (
       <Navigator
+        ref="TheNavigator"
         initialRoute={{ident: this.props.initialRoute}}
         renderScene={(route, navigator) => this.renderScene(route, navigator)}
         configureScene={(route) => ({
@@ -47,6 +50,10 @@ class AppNavigator extends Component {
           gestures: route.gestures
         })}/>
     )
+  }
+
+  getNavigator() {
+    return this.refs.TheNavigator
   }
 }
 
