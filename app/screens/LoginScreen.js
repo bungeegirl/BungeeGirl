@@ -23,12 +23,11 @@ class LoginScreen extends Component {
   render() {
     return (
       <ViewContainer backgroundColor='transparent'>
-        <Image
-          source={require('../assets/grid-background.png')}
-          resizeMode='cover'
-          style={styles.backgroundImage} />
         <View style={styles.container}>
-          <View style={styles.logo} />
+          <Image
+            style={styles.logo}
+            resizeMode='contain'
+            source={require('../assets/app-icon.png')}/>
           <Text style={styles.introText}>FlipTrip is for travellers to</Text>
           <Text style={styles.introText}>connect and help each other</Text>
           <Text style={styles.introText}>explore the globe.</Text>
@@ -48,7 +47,7 @@ class LoginScreen extends Component {
               <Text style={styles.buttonText}>Log In</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.loginButton}
+              style={[styles.loginButton, {backgroundColor: Colors.red}]}
               onPress={() => this._signUp()}>
               <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
@@ -109,7 +108,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'grey',
+    backgroundColor: Colors.blue,
     borderRadius: 4,
     marginLeft: 16,
     marginRight: 16,
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
     width: 150,
     borderRadius: 4,
     alignSelf: 'stretch',
-    backgroundColor: 'grey',
+    backgroundColor: Colors.green,
     alignItems: 'center',
     justifyContent: 'center'
   }

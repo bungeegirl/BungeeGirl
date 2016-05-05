@@ -10,6 +10,7 @@ import React, {
 
 import LoginScreen from '../screens/LoginScreen'
 import SignupScreen from '../screens/SignupScreen'
+import QuestionScreen from '../screens/QuestionScreen'
 
 class AppNavigator extends Component {
 
@@ -35,6 +36,11 @@ class AppNavigator extends Component {
           <SignupScreen
             isFacebookAuthenticated={route.isFacebookAuthenticated}
             {...globalScreenProps} />
+        )
+      case "QuestionScreen":
+        return (
+          <QuestionScreen
+            {...globalScreenProps}/>
         )
     }
   }

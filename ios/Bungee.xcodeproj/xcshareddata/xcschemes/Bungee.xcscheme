@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
                BuildableName = "FlipTrip.app"
-               BlueprintName = "FlipTrip"
-               ReferencedContainer = "container:FlipTrip.xcodeproj">
+               BlueprintName = "Bungee"
+               ReferencedContainer = "container:Bungee.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "FlipTripTests.xctest"
-               BlueprintName = "FlipTripTests"
-               ReferencedContainer = "container:FlipTrip.xcodeproj">
+               BuildableName = "Bungee.xctest"
+               BlueprintName = "BungeeTests"
+               ReferencedContainer = "container:Bungee.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "FlipTripTests.xctest"
-               BlueprintName = "FlipTripTests"
-               ReferencedContainer = "container:FlipTrip.xcodeproj">
+               BuildableName = "Bungee.xctest"
+               BlueprintName = "BungeeTests"
+               ReferencedContainer = "container:Bungee.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -58,15 +58,15 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "FlipTrip.app"
-            BlueprintName = "FlipTrip"
-            ReferencedContainer = "container:FlipTrip.xcodeproj">
+            BlueprintName = "Bungee"
+            ReferencedContainer = "container:Bungee.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -81,8 +81,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "FlipTrip.app"
-            BlueprintName = "FlipTrip"
-            ReferencedContainer = "container:FlipTrip.xcodeproj">
+            BlueprintName = "Bungee"
+            ReferencedContainer = "container:Bungee.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -100,8 +100,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "FlipTrip.app"
-            BlueprintName = "FlipTrip"
-            ReferencedContainer = "container:FlipTrip.xcodeproj">
+            BlueprintName = "Bungee"
+            ReferencedContainer = "container:Bungee.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

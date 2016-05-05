@@ -34,11 +34,12 @@ class SignupScreen extends Component {
         rightButton: () => {
           var button
           if(this._validateEmailPassword()) {
-            button = <Text
+            button =
+            <Text
               onPress={() => this.setState({formIndex: 1})}
-              style={styles.titleText}> Next </Text>
+              style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Next </Text>
           } else {
-            button = <Text style={[styles.titleText, {color: Colors.darkGrey}]}> Next </Text>
+            button = <Text style={[styles.titleText, {color: Colors.darkGrey, marginRight: 8}]}> Next </Text>
           }
           return button
         }
@@ -52,9 +53,9 @@ class SignupScreen extends Component {
           if(this._validateName()) {
             button = <Text
               onPress={() => this.setState({formIndex: 2})}
-              style={styles.titleText}> Next </Text>
+              style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Next </Text>
           } else {
-            button = <Text style={[styles.titleText, {color: Colors.darkGrey}]}> Next </Text>
+            button = <Text style={[styles.titleText, {color: Colors.darkGrey, marginRight: 8}]}> Next </Text>
           }
           return button
         }
@@ -68,9 +69,9 @@ class SignupScreen extends Component {
           if(this._validateBirthdate()) {
             button = <Text
               onPress={() => this.setState({formIndex: 3})}
-              style={styles.titleText}> Next </Text>
+              style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Next </Text>
           } else {
-            button = <Text style={[styles.titleText, {color: Colors.darkGrey}]}> Next </Text>
+            button = <Text style={[styles.titleText, {color: Colors.darkGrey, marginRight: 8}]}> Next </Text>
           }
           return button
         }
@@ -84,9 +85,9 @@ class SignupScreen extends Component {
           if(this._validateImage()) {
             button = <Text
               onPress={() => this.setState({formIndex: 4})}
-              style={styles.titleText}> Next </Text>
+              style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Next </Text>
           } else {
-            button = <Text style={[styles.titleText, {color: Colors.darkGrey}]}> Next </Text>
+            button = <Text style={[styles.titleText, {color: Colors.darkGrey, marginRight: 8}]}> Next </Text>
           }
           return button
         }
@@ -100,9 +101,9 @@ class SignupScreen extends Component {
           if(this._validateEmailPassword() && this._validateImage() && this._validateName() && this._validateBirthdate()) {
             button = <Text
               onPress={() => this.setState({formIndex: 4})}
-              style={styles.titleText}> Next </Text>
+              style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Next </Text>
           } else {
-            button = <Text style={[styles.titleText, {color: Colors.darkGrey}]}> Next </Text>
+            button = <Text style={[styles.titleText, {color: Colors.darkGrey, marginRight: 8}]}> Next </Text>
           }
           return button
         }
@@ -144,15 +145,18 @@ class SignupScreen extends Component {
 
   render() {
     var title = <Text style={[styles.titleText, {marginBottom: 4}]}>{this.screens[this.state.formIndex].titleText}</Text>
-    var leftButton = <Text
+    var leftButton =
+    <TouchableOpacity
       onPress={() => this.screens[this.state.formIndex].backAction()}
-      style={styles.titleText}> Back </Text>
+      style={styles.backButton}>
+      <Image
+        source={require('../assets/Nav-Back.png')}/>
+     </TouchableOpacity>
     var rightButton = this.screens[this.state.formIndex].rightButton()
     var content =
-    <ViewContainer backgroundColor={Colors.grey}>
+    <ViewContainer backgroundColor={Colors.beige}>
       <NavigationBar
-        statusBar={{style: 'light-content'}}
-        style={{backgroundColor: Colors.grey, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}}
+        style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}}
         title={title}
         leftButton={leftButton}
         rightButton={rightButton}/>
@@ -230,7 +234,7 @@ class SignupScreen extends Component {
     <View style={[styles.container, {flex: 1}]}>
       <View style={[styles.inputContainer, {marginTop: -10}]}>
         <Text style={styles.formPretext}>I'm</Text>
-        <Text style={[styles.formPretext, {color: 'white'}]}>{this.state.name}</Text>
+        <Text style={styles.formPretext}>{this.state.name}</Text>
       </View>
       <View style={{height: 10}} />
       <Text style={styles.formLabel}>What's your Birthdate?</Text>
@@ -243,7 +247,7 @@ class SignupScreen extends Component {
           placeholder='MM'
           maxLength={2}
           onChangeText={(text) => this.setState({month: text})}/>
-        <Text style={[styles.formPretext, {marginRight: 8, color: Colors.fadedGrey}]}>/</Text>
+        <Text style={[styles.formPretext, {marginRight: 8, color: Colors.fadedGrey}]}>-</Text>
         <TextInput
           keyboardType='numeric'
           ref="DaysTextInput"
@@ -251,7 +255,7 @@ class SignupScreen extends Component {
           placeholder='DD'
           maxLength={2}
           onChangeText={(text) => this.setState({day: text})}/>
-          <Text style={[styles.formPretext, {marginRight: 8, color: Colors.fadedGrey}]}>/</Text>
+        <Text style={[styles.formPretext, {marginRight: 8, color: Colors.fadedGrey}]}>-</Text>
           <TextInput
             keyboardType='numeric'
             ref="YearsTextInput"
@@ -271,11 +275,11 @@ class SignupScreen extends Component {
       <View style={styles.container}>
         <View style={[styles.inputContainer, {marginTop: -10}]}>
           <Text style={styles.formPretext}>I'm</Text>
-          <Text style={[styles.formPretext, {color: 'white'}]}>{this.state.name}</Text>
+          <Text style={styles.formPretext}>{this.state.name}</Text>
         </View>
         <View style={[styles.inputContainer, {marginTop: -24}]}>
           <Text style={styles.formPretext}>Born</Text>
-          <Text style={[styles.formPretext, {color: 'white'}]}>{this.state.month}/{this.state.day}/{this.state.year}</Text>
+          <Text style={styles.formPretext}>{this.state.month}-{this.state.day}-{this.state.year}</Text>
         </View>
         <Text style={[styles.formLabel, {marginTop: 8, marginBottom: 8}]}>Let's put a face to the name</Text>
       </View>
@@ -318,58 +322,69 @@ class SignupScreen extends Component {
       <View style={[styles.container, {flex: 1}]}>
         <View style={[styles.inputContainer, {marginTop: -10}]}>
           <Text style={styles.formPretext}>I'm</Text>
-          <Text style={[styles.formPretext, {color: 'white'}]}>{this.state.name}</Text>
+          <Text style={styles.formPretext}>{this.state.name}</Text>
         </View>
-        <View style={[styles.inputContainer, {marginTop: -24}]}>
+        <View style={[styles.inputContainer, {marginTop: -20}]}>
           <Text style={styles.formPretext}>Born</Text>
-          <Text style={[styles.formPretext, {color: 'white'}]}>{this.state.month}/{this.state.day}/{this.state.year}</Text>
+          <Text style={styles.formPretext}>{this.state.month}/{this.state.day}/{this.state.year}</Text>
         </View>
         <Image
+          resizeMode='contain'
           source={{uri: uri}}
           style={styles.avatarImage}/>
-        <Text style={styles.formPretext}>and looking good!</Text>
+        <Text style={[styles.formPretext, {marginTop: 10, color: Colors.fadedGrey}]}>& looking good!</Text>
+        <Text style={[styles.formLabel, {marginTop: 100, marginBottom: 10}]}>FIGURE OUT YOUR TRAVEL PROFILE</Text>
         <Text
           lineHeight={40}
           numberOfLines={5}
-          style={[styles.formLabel, {marginTop: 16, marginBottom: 16}]}>We’re going to start by asking you a series of questions to figure out your personality, so you can be easily matched with like minded people!</Text>
+          style={{marginTop: 16, marginBottom: 16, fontSize: 20, marginRight: 48}}>We'll use your answers to make sure to find like-minded locals and travellers for you to hang out with.</Text>
         <TouchableOpacity
           onPress={() => {
-            if(this.props.isFacebookAuthenticated) {
-              this.props.eventEmitter.emit('createUserFromFacebookLogin', this.state)
-            } else {
-              this.props.eventEmitter.emit("createUser", this.state)
-            }}}
+            this._createUser()}}
           style={styles.button}>
-          <Text>Discover Your Travel Profile</Text>
+          <Text style={styles.buttonText}>GET STARTED</Text>
+          <View style={{flex: 1}} />
+          <Image
+            resizeMode='contain'
+            source={require('../assets/selection-arrow.png')}
+            style={{width: 48, height: 14, marginRight: 10}}/>
         </TouchableOpacity>
       </View>
     return content
+  }
+
+  _createUser() {
+    if(this.props.isFacebookAuthenticated) {
+      this.props.eventEmitter.emit('createUserFromFacebookLogin', this.state)
+    } else {
+      this.props.eventEmitter.emit("createUser", this.state)
+    }
+    this.props.navigator.push({
+      ident: "QuestionScreen"
+    })
   }
 }
 
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
-    color: 'white'
   },
   container: {
-    padding: 30,
+    padding: 20,
     alignItems: 'stretch',
-    backgroundColor: Colors.grey,
+    backgroundColor: 'transparent',
   },
   formLabel: {
-    color: Colors.darkGrey,
-    fontSize: 21,
+    color: Colors.fadedGrey,
+    fontSize: 18,
   },
   formInput: {
     fontSize: 32,
     height: 74,
-    color: 'white'
   },
   formPretext: {
     fontSize: 32,
     marginRight: 8,
-    color: Colors.fadedGrey
   },
   inputContainer: {
     height: 72,
@@ -377,21 +392,32 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   avatarImage: {
-    width: 64,
-    height: 64,
-    borderRadius: 32
+    width: 88,
+    height: 88,
+    borderRadius: 44
   },
   button: {
-    backgroundColor: 'white',
+    position: 'absolute',
+    flexDirection: 'row',
+    width: deviceWidth - 30,
     height: 50,
+    left: -8,
+    bottom: 30,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 4
+    borderRadius: 4,
+    backgroundColor: Colors.lightBlue,
+    opacity: 0.5
   },
   buttonText: {
-    color: "#414141",
-    fontSize: 21,
-    textAlign: 'center'
+    color: "white",
+    marginLeft: 28,
+    fontSize: 16,
+  },
+  backButton: {
+    width: 48,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 
 })

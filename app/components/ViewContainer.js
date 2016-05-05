@@ -1,7 +1,10 @@
 'use strict';
 
 var React = require("react-native")
-var { View } = React
+var { View, Dimensions, Image } = React
+
+var deviceWidth = Dimensions.get('window').width
+var deviceHeight = Dimensions.get('window').height
 
 var ViewContainer = React.createClass({
 
@@ -9,6 +12,7 @@ var ViewContainer = React.createClass({
   },
 
   render: function() {
+    React.StatusBar.setBarStyle('default')
     if(this.props.statusBarOptions) {
       React.StatusBar.setHidden(true, 'none')
     } else {
@@ -19,6 +23,10 @@ var ViewContainer = React.createClass({
       <View
         ref="Container"
         style={styles.container}>
+        <Image
+          source={require('../assets/container-background.png')}
+          resizeMode='contain'
+          style={styles.backgroundImage}/>
         <View style={{
           height: (this.props.hidden ? 0 : 20),
           backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : 'white'}} />
@@ -38,6 +46,13 @@ var styles = React.StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "stretch",
+  },
+  backgroundImage: {
+    position: 'absolute',
+    height: deviceHeight,
+    width: deviceWidth,
+    top: 0,
+    left: 0
   }
 })
 
