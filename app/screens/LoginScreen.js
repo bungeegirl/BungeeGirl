@@ -40,6 +40,11 @@ class LoginScreen extends Component {
             onPress={() => this._facebookAuth()}>
             <Text style={styles.buttonText}>Connect with Facebook</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.loginButton, {backgroundColor: Colors.red}]}
+            onPress={() => this._logout()}>
+            <Text style={styles.buttonText}>Log Out</Text>
+          </TouchableOpacity>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.loginButton}
@@ -74,6 +79,12 @@ class LoginScreen extends Component {
   }
 
   _login() {
+    this.props.navigator.push({
+      ident: 'SignInScreen'
+    })
+  }
+
+  _logout() {
     AsyncStorage.clear()
     FBLoginManager.logout(() => {})
   }

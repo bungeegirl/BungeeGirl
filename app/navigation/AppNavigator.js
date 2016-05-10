@@ -9,6 +9,7 @@ import React, {
 } from 'react-native'
 
 import LoginScreen from '../screens/LoginScreen'
+import SignInScreen from '../screens/SignInScreen'
 import SignupScreen from '../screens/SignupScreen'
 import QuestionScreen from '../screens/QuestionScreen'
 
@@ -35,6 +36,11 @@ class AppNavigator extends Component {
         return (
           <SignupScreen
             isFacebookAuthenticated={route.isFacebookAuthenticated}
+            {...globalScreenProps} />
+        )
+      case "SignInScreen":
+        return (
+          <SignInScreen
             {...globalScreenProps} />
         )
       case "QuestionScreen":

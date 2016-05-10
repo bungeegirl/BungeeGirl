@@ -8,7 +8,8 @@ var Colors = {
   red: "#F54E31",
   green: "#2DE0C5",
   blue: "#31A8F7",
-  beige: "#FAF8F3"
+  beige: "#FAF8F3",
+  mediumBlue: "#7CC6F7"
 }
 
 module.exports = Colors

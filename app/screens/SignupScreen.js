@@ -97,16 +97,11 @@ class SignupScreen extends Component {
         component: () => this._renderGetStarted(),
         backAction: () => this.setState({formIndex: 3}),
         rightButton: () => {
-          var button
-          if(this._validateEmailPassword() && this._validateImage() && this._validateName() && this._validateBirthdate()) {
-            button = <Text
-              onPress={() => this.setState({formIndex: 4})}
-              style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Next </Text>
-          } else {
-            button = <Text style={[styles.titleText, {color: Colors.darkGrey, marginRight: 8}]}> Next </Text>
-          }
-          return button
-        }
+          return (
+            <Text
+            onPress={() => this._createUser()}
+            style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Next </Text>
+        )}
       },
     ]
     var formIndex
@@ -337,7 +332,7 @@ class SignupScreen extends Component {
         <Text
           lineHeight={40}
           numberOfLines={5}
-          style={{marginTop: 16, marginBottom: 16, fontSize: 20, marginRight: 48}}>We'll use your answers to make sure to find like-minded locals and travellers for you to hang out with.</Text>
+          style={{marginTop: 16, marginBottom: 16, fontSize: 20, marginRight: 48}}>Great, You've set up an awesome profile! Now help us find out what kind of Wanderluster you are. We just need to ask a few questions!</Text>
         <TouchableOpacity
           onPress={() => {
             this._createUser()}}

@@ -29,6 +29,7 @@ class FlipTrip extends Component {
     this.eventEmitter = new EventEmitter()
     this.firebaseRef = new Firebase('https://fliptrip-dev.firebaseio.com/')
     this.state = {
+      loadingData: true,
       userData: {
       }
     }
@@ -38,25 +39,6 @@ class FlipTrip extends Component {
     var firebaseRef = this.firebaseRef
     var renderContext = this
     codePush.sync()
-//     this.firebaseRef.removeUser({
-//       email: 'Ari@gmail.com',
-//       password: 'test'
-//     }, function(error) {
-//   if (error) {
-//     switch (error.code) {
-//       case "INVALID_USER":
-//         console.log("The specified user account does not exist.");
-//         break;
-//       case "INVALID_PASSWORD":
-//         console.log("The specified user account password is incorrect.")
-//         break;
-//       default:
-//         console.log("Error removing user:", error)
-//     }
-//   } else {
-//     console.log("User account deleted successfully!")
-//   }
-// })
     // AsyncStorage.clear()
 
     AsyncStorage.getItem('authMethod', (error, data) => {
@@ -66,6 +48,7 @@ class FlipTrip extends Component {
             email: stores[1][1],
             password: stores[2][1]
           }, (error, authData) => {
+            this.firebaseRef.child('users').child(stores[0][1]).on('value', (userData) => { this._syncUserData(userData.val()) })
             console.log(authData)
           })
         })
@@ -74,7 +57,12 @@ class FlipTrip extends Component {
           this.firebaseRef.authWithOAuthToken('facebook',stores[1][1], (error, authData) => {
             console.log(authData)
           })
+          console.log(stores[0][1])
+          this.firebaseRef.child('users').child(stores[0][1]).on('value', (userData) => { this._syncUserData(userData.val()) })
         })
+      } else {
+        this.setState({loadingData: false})
+        console.log("no user createed")
       }
     })
     this.eventEmitter.addListener('createUser',(userData) => this._createUser(userData))
@@ -88,9 +76,11 @@ class FlipTrip extends Component {
         } else {
           console.log("Authenticated successfully with payload:", authData)
           AsyncStorage.multiSet([['OAuthToken', loginData.credentials.token],['uid', authData.uid]])
-          firebaseRef.child('users').child(authData.uid).set({
+          var email
+          authData.facebook.email ? email = authData.facebook.email : email = ""
+          firebaseRef.child('users').child(authData.uid).update({
             provider: authData.provider,
-            email: authData.facebook.email
+            email: email
           })
           renderContext.refs.TheNavigator.getNavigator().push({
             ident: "SignupScreen",
@@ -114,7 +104,7 @@ class FlipTrip extends Component {
           password: userData.password
         }, (error, authData) => {
           AsyncStorage.multiSet([['uid', data.uid],['email', userData.email], ['password', userData.password],['authMethod', 'email']])
-          this.firebaseRef.child('users').child(data.uid).set({
+          var userData= {
             provider: authData.provider,
             name: userData.name,
             email: userData.email,
@@ -123,8 +113,11 @@ class FlipTrip extends Component {
               month: userData.month,
               day: userData.day,
               year: userData.year,
-            }
-          })
+            },
+            profileCreated: true,
+          }
+          this.firebaseRef.child('users').child(data.uid).set(userData)
+          this.setState({userData: userData})
         })
       }
     })
@@ -133,30 +126,51 @@ class FlipTrip extends Component {
   }
 
   _createUserFromFacebookLogin(userData) {
+    console.log(userData)
     console.log('creating user from facebook')
     AsyncStorage.setItem('authMethod', 'facebook')
     AsyncStorage.getItem('uid', (error, data) => {
       console.log('uid is:',data)
-      this.firebaseRef.child('users').child(data).update({
+      var userDataObject = {
         name: userData.name,
         imageData: userData.imageData,
         birthday: {
           month: userData.month,
           day: userData.day,
           year: userData.year,
-        }
-      })
+        },
+        profileCreated: true,
+      }
+      console.log(userDataObject)
+      this.firebaseRef.child('users').child(data).update(userDataObject)
+      this.setState({userData: userDataObject, loadingData: false})
     })
   }
 
+  _syncUserData(userData) {
+    this.setState({userData: userData, loadingData: false})
+  }
+
   render() {
-    return (
+    var mainContent
+    var initialRoute
+    console.log(this.state.userData)
+    if(this.state.loadingData) {
+      mainContent = <View />
+    } else {
+      if(!this.state.userData.profileCreated) {
+        initialRoute = "LoginScreen"
+      } else {
+        initialRoute = "QuestionScreen"
+      }
+      mainContent =
       <AppNavigator
         ref="TheNavigator"
         eventEmitter={this.eventEmitter}
         firebaseRef={this.firebaseRef}
-        initialRoute="LoginScreen" />
-    )
+        initialRoute={initialRoute} />
+    }
+    return mainContent
   }
 }
 
