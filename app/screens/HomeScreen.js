@@ -23,7 +23,12 @@ class HomeScreen extends Component {
   render() {
     var uri = `data:image/jpeg;base64, ${this.props.userData.imageData}`
     var travelTypes = travelData.travelProfiles
-    var profile = _.where(travelTypes, {ident: this.props.userData.travelType})[0]
+    var profileTitle
+    if(this.props.userData.travelType) {
+      profileTitle = _.where(travelTypes, {ident: this.props.userData.travelType})[0]["title"]
+    } else {
+      profileTitle = ""
+    }
     var content =
     <ViewContainer backgroundColor='transparent'>
       <Text onPress={() => {
@@ -44,7 +49,7 @@ class HomeScreen extends Component {
           resizeMode='contain'
           source={{uri: uri}}
           style={styles.avatarImage}/>
-        <Text style={[styles.formPretext, {marginTop: 10}]}>& I'm a {profile.title}!</Text>
+        <Text style={[styles.formPretext, {marginTop: 10}]}>& I'm a {profileTitle}!</Text>
       </View>
       <TouchableOpacity
         style={styles.logoutButton}
