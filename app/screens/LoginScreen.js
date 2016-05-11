@@ -6,6 +6,7 @@ import React, {
   Image,
   TouchableOpacity,
   View,
+  Alert,
   AsyncStorage,
   Dimensions
 } from 'react-native'
@@ -21,6 +22,7 @@ var FBLoginManager = require('NativeModules').FBLoginManager
 class LoginScreen extends Component {
 
   render() {
+
     return (
       <ViewContainer backgroundColor='transparent'>
         <View style={styles.container}>
@@ -40,11 +42,6 @@ class LoginScreen extends Component {
             onPress={() => this._facebookAuth()}>
             <Text style={styles.buttonText}>Connect with Facebook</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.loginButton, {backgroundColor: Colors.red}]}
-            onPress={() => this._logout()}>
-            <Text style={styles.buttonText}>Log Out</Text>
-          </TouchableOpacity>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.loginButton}
@@ -63,13 +60,13 @@ class LoginScreen extends Component {
   }
 
   _facebookAuth() {
-    FBLoginManager.login(function(error, data) {
-      if (!error) {
-        console.log("Login data: ", data);
-      } else {
-        console.log("Error: ", data);
-      }
+    var successCallBack = (route) => this.props.navigator.resetTo({
+      ident: route
     })
+    var errorCallBack = (error) => {
+      Alert.alert("Error with login", JSON.stringify(error))
+    }
+    this.props.eventEmitter.emit('createUserFromFacebook', successCallBack)
   }
 
   _signUp() {

@@ -135,8 +135,30 @@ class QuestionScreen extends Component {
       <Text style={styles.profileHeader}>I'm a {questions.travelProfiles[maxIndex].title}</Text>
       <Text
         style={styles.profileText}>{questions.travelProfiles[maxIndex].text}</Text>
+      <View style={{flex: 1}} />
+      <TouchableOpacity
+        onPress={() => {
+          this._updateProfile(questions.travelProfiles[maxIndex].ident)}}
+        style={styles.button}>
+        <Text style={styles.buttonText}>GOOD TO KNOW</Text>
+        <View style={{flex: 1}} />
+        <Image
+          resizeMode='contain'
+          source={require('../assets/selection-arrow.png')}
+          style={{width: 48, height: 14, marginRight: 10}}/>
+      </TouchableOpacity>
     </View>
     return content
+  }
+
+
+  _updateProfile(travelIdent) {
+    var successCallBack = () => {
+      this.props.navigator.resetTo({
+        ident: "CityPickerScreen"
+      })
+    }
+    this.props.eventEmitter.emit('updateTravelProfile', travelIdent, successCallBack)
   }
 }
 
@@ -188,7 +210,23 @@ const styles = StyleSheet.create({
   },
   profileText: {
     fontSize: 18
-  }
+  },
+  button: {
+    position: 'absolute',
+    flexDirection: 'row',
+    width: deviceWidth - 30,
+    height: 50,
+    left: -8,
+    bottom: 30,
+    alignItems: 'center',
+    borderRadius: 4,
+    backgroundColor: Colors.lightBlue,
+  },
+  buttonText: {
+    color: "white",
+    marginLeft: 28,
+    fontSize: 16,
+  },
 })
 
 module.exports = QuestionScreen

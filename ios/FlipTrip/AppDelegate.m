@@ -12,6 +12,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "RCTRootView.h"
+#import <Instabug/Instabug.h>
+
 
 @implementation AppDelegate
 
@@ -53,6 +55,11 @@
                                                       moduleName:@"FlipTrip"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
+  
+  //instabug
+  
+  [Instabug startWithToken:@"e75127e113ff6d8db4e9feea60aea3c3" invocationEvent:IBGInvocationEventShake];
+
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];

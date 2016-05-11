@@ -12,6 +12,9 @@ import LoginScreen from '../screens/LoginScreen'
 import SignInScreen from '../screens/SignInScreen'
 import SignupScreen from '../screens/SignupScreen'
 import QuestionScreen from '../screens/QuestionScreen'
+import CityPickerScreen from '../screens/CityPickerScreen'
+import HomeScreen from '../screens/HomeScreen'
+import InfoScreen from '../screens/InfoScreen'
 
 class AppNavigator extends Component {
 
@@ -22,6 +25,8 @@ class AppNavigator extends Component {
   renderScene(route, navigator) {
     var globalScreenProps = {
       navigator: navigator,
+      uid: this.props.uid,
+      userData: this.props.userData,
       firebaseRef: this.props.firebaseRef,
       eventEmitter: this.props.eventEmitter
     }
@@ -31,6 +36,11 @@ class AppNavigator extends Component {
         return (
           <LoginScreen
             {...globalScreenProps} />
+        )
+      case "InfoScreen":
+        return (
+          <InfoScreen
+            {...globalScreenProps}/>
         )
       case "SignupScreen":
         return (
@@ -46,6 +56,16 @@ class AppNavigator extends Component {
       case "QuestionScreen":
         return (
           <QuestionScreen
+            {...globalScreenProps}/>
+        )
+      case "CityPickerScreen":
+        return (
+          <CityPickerScreen
+            {...globalScreenProps}/>
+        )
+      case "HomeScreen":
+        return (
+          <HomeScreen
             {...globalScreenProps}/>
         )
     }
@@ -70,6 +90,7 @@ class AppNavigator extends Component {
 }
 
 AppNavigator.propTypes = {
+  uid: PropTypes.string.isRequired,
   firebaseRef: PropTypes.object.isRequired,
   initialRoute: PropTypes.string.isRequired}
 

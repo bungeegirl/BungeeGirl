@@ -7,6 +7,7 @@ import React, {
   NativeModules,
   ScrollView,
   View,
+  Alert,
   TouchableWithoutFeedback,
   TouchableOpacity,
   Dimensions
@@ -92,7 +93,9 @@ class SignInScreen extends Component {
   }
 
   _login() {
-
+    var successCallBack = (route) => { this.props.navigator.resetTo({ ident: route })}
+    var errorCallBack = (error) => {  Alert.alert('Error signing in', JSON.stringify(error.code))}
+    this.props.eventEmitter.emit('loginUser', this.state, successCallBack, errorCallBack)
   }
 }
 
