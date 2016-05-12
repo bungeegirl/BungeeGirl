@@ -46,7 +46,7 @@ class HomeScreen extends Component {
           <Text style={styles.formPretext}>{this.props.userData.month}/{this.props.userData.day}/{this.props.userData.year}</Text>
         </View>
         <Image
-          resizeMode='contain'
+          resizeMode='cover'
           source={{uri: uri}}
           style={styles.avatarImage}/>
         <Text style={[styles.formPretext, {marginTop: 10}]}>& I'm a {profileTitle}!</Text>

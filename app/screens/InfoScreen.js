@@ -252,7 +252,7 @@ class InfoScreen extends Component {
     var content =
     <TouchableOpacity
       onPress={() =>   ImagePickerManager.launchCamera(options, (response)  => {
-        this.setState({imageData: response.data, formIndex: 4})
+        this.setState({imageData: response.data, formIndex: 3})
     })}>
       <Image
         style={{height: imageSize, width: imageSize}}
@@ -275,7 +275,7 @@ class InfoScreen extends Component {
           <Text style={styles.formPretext}>{this.state.month}/{this.state.day}/{this.state.year}</Text>
         </View>
         <Image
-          resizeMode='contain'
+          resizeMode='cover'
           source={{uri: uri}}
           style={styles.avatarImage}/>
         <Text style={[styles.formPretext, {marginTop: 10, color: Colors.fadedGrey}]}>& looking good!</Text>
