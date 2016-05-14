@@ -187,6 +187,9 @@ class FlipTrip extends Component {
       city: selectedCity,
       onBoardingStep: 'home'
     })
+    var input = {}
+    input[this.state.uid] = true
+    this.firebaseRef.child('cities').child(selectedCity).update(input)
     successCallBack()
   }
 
