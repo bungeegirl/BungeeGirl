@@ -65,6 +65,7 @@ class CityPickerScreen extends Component {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
+    fontFamily: "SueEllenFrancisco",
   },
   rowContainer: {
     width: deviceWidth,
@@ -73,29 +74,36 @@ const styles = StyleSheet.create({
   }
 })
 
+// put in another file
 var cityData = [
   {
     ident: 'new-york',
+    name: 'New York',
     asset: require('../assets/new-york.png')
   },
   {
     ident: 'san-francisco',
+    name: 'San Francisco',
     asset: require('../assets/san-francisco.png')
   },
   {
     ident: 'london',
+    name: 'London',
     asset: require('../assets/london.png')
   },
   {
     ident: 'paris',
+    name: 'Paris',
     asset: require('../assets/paris.png')
   },
   {
     ident: 'copenhagen',
+    name: 'Copenhagen',
     asset: require('../assets/copenhagen.png')
   },
   {
     ident: 'sydney',
+    name: 'Sydney',
     asset: require('../assets/sydney.png')
   }
 ]

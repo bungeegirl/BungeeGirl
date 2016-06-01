@@ -52,7 +52,7 @@ class QuestionScreen extends Component {
       titleText = questions.questions[this.state.questionIndex].theme
     } else {
       mainContent = this._renderProfile()
-      titleText = 'Your Travel Profile'
+      titleText = 'What kind of Bungee Girl are you?'
     }
     var title = <Text style={[styles.titleText, {marginBottom: 4}]}>{titleText}</Text>
     var content =
@@ -165,6 +165,7 @@ class QuestionScreen extends Component {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
+    fontFamily: "SueEllenFrancisco",
   },
   contentContainer: {
     flex: 1,
@@ -202,14 +203,17 @@ const styles = StyleSheet.create({
   },
   circleText: {
     fontSize: 18,
-    color: Colors.beige
+    color: Colors.beige,
+    fontFamily: "SueEllenFrancisco",
   },
   profileHeader: {
     fontSize: 32,
     marginBottom: 20,
+    fontFamily: "SueEllenFrancisco",
   },
   profileText: {
-    fontSize: 18
+    fontSize: 18,
+    fontFamily: "SueEllenFrancisco",
   },
   button: {
     position: 'absolute',
@@ -226,6 +230,7 @@ const styles = StyleSheet.create({
     color: "white",
     marginLeft: 28,
     fontSize: 16,
+    fontFamily: "SueEllenFrancisco",
   },
 })
 

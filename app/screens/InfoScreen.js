@@ -14,9 +14,13 @@ import React, {
 } from 'react-native'
 
 import ViewContainer from '../components/ViewContainer'
+import Icon from 'react-native-vector-icons/Ionicons'
 import Colors from '../styles/Colors'
 import NavigationBar from 'react-native-navbar'
 import CameraRollView from '../components/CameraRollView'
+import moment from 'moment'
+import _ from 'underscore'
+import Spinner from 'react-native-loading-spinner-overlay';
 var ImagePickerManager = require('NativeModules').ImagePickerManager
 
 var deviceWidth = Dimensions.get('window').width
@@ -78,9 +82,41 @@ class InfoScreen extends Component {
         }
       },
       {
+        titleText: 'Your Bio',
+        component: () => this._renderBio(),
+        backAction: () => this.setState({formIndex: 2}),
+        rightButton: () => {
+          var button
+          if(this._validateBio()) {
+            button = <Text
+              onPress={() => this.setState({formIndex: 4})}
+              style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Next </Text>
+          } else {
+            button = <Text style={[styles.titleText, {color: Colors.darkGrey, marginRight: 8}]}> Next </Text>
+          }
+          return button
+        }
+      },
+      {
+        titleText: 'Sign Up',
+        component: () => this._renderProfileImages(),
+        backAction: () => this.setState({formIndex: 3}),
+        rightButton: () => {
+          var button
+          if(this._validateProfileImages()) {
+            button = <Text
+              onPress={() => this.setState({formIndex: 5})}
+              style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Next </Text>
+          } else {
+            button = <Text style={[styles.titleText, {color: Colors.darkGrey, marginRight: 8}]}> Next </Text>
+          }
+          return button
+        }
+      },
+      {
         titleText: 'Get Started',
         component: () => this._renderGetStarted(),
-        backAction: () => this.setState({formIndex: 2}),
+        backAction: () => this.setState({formIndex: 4}),
         rightButton: () => {
           return (
             <Text
@@ -91,12 +127,15 @@ class InfoScreen extends Component {
     ]
     var formIndex = 0
     this.state = {
+      loadingData: false,
       formIndex: formIndex,
       name: "",
       month: "",
       day: "",
       year: "",
       imageData: "",
+      bio: "",
+      profileImages: [],
     }
   }
 
@@ -112,9 +151,16 @@ class InfoScreen extends Component {
     return this.state.imageData != ""
   }
 
+  _validateProfileImages() {
+    return this.state.profileImages.length == 5
+  }
+
+  _validateBio() {
+    return this.state.bio != ""
+  }
+
 
   render() {
-    console.log(this.state.formIndex)
     var title = <Text style={[styles.titleText, {marginBottom: 4}]}>{this.screens[this.state.formIndex].titleText}</Text>
     var leftButton =
     <TouchableOpacity
@@ -132,6 +178,7 @@ class InfoScreen extends Component {
         leftButton={leftButton}
         rightButton={rightButton}/>
       {this.screens[this.state.formIndex].component()}
+      <Spinner visible={this.state.loadingData} />
     </ViewContainer>
     return content
   }
@@ -145,6 +192,7 @@ class InfoScreen extends Component {
         <TextInput
           style={[styles.formInput, {flex: 1}]}
           autoFocus={true}
+          onSubmitEditing={() => this.setState({formIndex: this.state.formIndex + 1})}
           onChangeText={(text) => this.setState({name: text})}/>
       </View>
     </View>
@@ -153,17 +201,67 @@ class InfoScreen extends Component {
   }
 
   _renderImage(asset) {
-    var imageSize = deviceWidth / 4
+    let imageSize = deviceWidth / 4
     return (
       <TouchableOpacity
-        onPress={() =>
+        onPress={() => {
+          this.setState({loadingData: true})
           NativeModules.ReadImageData.readImage(asset.node.image.uri, (image) => {
-            this.setState({imageData: image, formIndex: 3})
-          })}>
+            this.setState({imageData: image, formIndex: 3, loadingData: false})
+          })}}>
         <Image
           key={`asset.node.image.uri`}
           source={asset.node.image}
           style={{width: imageSize, height: imageSize}}/>
+      </TouchableOpacity>
+    )
+  }
+
+  _renderProfileImagePicker(asset) {
+    let imageSize = deviceWidth / 4
+    var profileImages = _.clone(this.state.profileImages)
+    let selected = _.contains(_.pluck(profileImages, 'uri'), asset.node.image.uri)
+    var addImage = () => {
+      this.setState({loadingData: true})
+      NativeModules.ReadImageData.readImage(asset.node.image.uri, (image) => {
+        profileImages.push({uri: asset.node.image.uri, imageData: image})
+        if(profileImages.length == 5) {
+          this.setState({loadingData: false, profileImages: profileImages, formIndex: 5})
+        } else {
+          this.setState({loadingData: false, profileImages: profileImages})
+        }
+      })
+    }
+    var unselectImage = () => {
+      var newImages = _.reject(profileImages, (imageObject) => {
+        return imageObject.uri == asset.node.image.uri
+      })
+      this.setState({profileImages: newImages})
+    }
+    var selectionFuction
+    var checkMark
+    if(selected) {
+      selectionFuction = unselectImage
+      checkMark =
+      <View style={[styles.checkMarkContainer, {width: imageSize, height: imageSize}]}>
+        <Icon
+          size={48}
+          name="md-checkbox"
+          color='white'/>
+      </View>
+    } else {
+      selectionFuction = addImage
+      checkMark = <View />
+    }
+
+    return (
+      <TouchableOpacity
+        onPress={() => selectionFuction()}>
+        <Image
+          key={`asset.node.image.uri`}
+          source={asset.node.image}
+          style={{width: imageSize, height: imageSize}}/>
+        {checkMark}
       </TouchableOpacity>
     )
   }
@@ -208,6 +306,7 @@ class InfoScreen extends Component {
             style={[styles.formInput, {width: 120}]}
             placeholder='YYYY'
             maxLength={4}
+            onSubmitEditing={() => this.setState({formIndex: this.state.formIndex + 1})}
             onChangeText={(text) => this.setState({year: text})}/>
       </View>
     </View>
@@ -216,6 +315,7 @@ class InfoScreen extends Component {
   }
 
   _renderAvatar() {
+    var age = moment().diff(moment({years: this.state.year, months: this.state.month, days: this.state.days}), 'years')
     var content =
     <View style={{flex: 1, alignItems: 'stretch'}}>
       <View style={styles.container}>
@@ -224,8 +324,7 @@ class InfoScreen extends Component {
           <Text style={styles.formPretext}>{this.state.name}</Text>
         </View>
         <View style={[styles.inputContainer, {marginTop: -24}]}>
-          <Text style={styles.formPretext}>Born</Text>
-          <Text style={styles.formPretext}>{this.state.month}-{this.state.day}-{this.state.year}</Text>
+          <Text style={styles.formPretext}>{age} years old</Text>
         </View>
         <Text style={[styles.formLabel, {marginTop: 8, marginBottom: 8}]}>Let's put a face to the name</Text>
       </View>
@@ -238,6 +337,29 @@ class InfoScreen extends Component {
             } else {
               return this._renderPictureIcon()
             }}} />
+      </View>
+    </View>
+    return content
+  }
+
+  _renderProfileImages() {
+    var age = moment().diff(moment({years: this.state.year, months: this.state.month, days: this.state.days}), 'years')
+    var content =
+    <View style={{flex: 1, alignItems: 'stretch'}}>
+      <View style={styles.container}>
+        <View style={[styles.inputContainer, {marginTop: -10}]}>
+          <Text style={styles.formPretext}>I'm</Text>
+          <Text style={styles.formPretext}>{this.state.name}</Text>
+        </View>
+        <View style={[styles.inputContainer, {marginTop: -24}]}>
+          <Text style={styles.formPretext}>{age} years old</Text>
+        </View>
+        <Text style={[styles.formLabel, {marginTop: 8, marginBottom: 8}]}>Pick five images for your profile</Text>
+      </View>
+      <View style={{flex: 1}}>
+        <CameraRollView
+          imagesPerRow={4}
+          renderImage={(asset, isFirst) => { return this._renderProfileImagePicker(asset)}} />
       </View>
     </View>
     return content
@@ -262,41 +384,60 @@ class InfoScreen extends Component {
     return content
   }
 
-  _renderGetStarted() {
+  _renderBio() {
     var uri = `data:image/jpeg;base64, ${this.state.imageData}`
     var content =
-      <View style={[styles.container, {flex: 1}]}>
-        <View style={[styles.inputContainer, {marginTop: -10}]}>
-          <Text style={styles.formPretext}>I'm</Text>
-          <Text style={styles.formPretext}>{this.state.name}</Text>
-        </View>
-        <View style={[styles.inputContainer, {marginTop: -20}]}>
-          <Text style={styles.formPretext}>Born</Text>
-          <Text style={styles.formPretext}>{this.state.month}/{this.state.day}/{this.state.year}</Text>
-        </View>
-        <Image
-          resizeMode='cover'
-          source={{uri: uri}}
-          style={styles.avatarImage}/>
-        <Text style={[styles.formPretext, {marginTop: 10, color: Colors.fadedGrey}]}>& looking good!</Text>
-        <Text style={[styles.formLabel, {marginTop: 100, marginBottom: 10}]}>FIGURE OUT YOUR TRAVEL PROFILE</Text>
-        <Text
-          numberOfLines={5}
-          style={{marginTop: 16, marginBottom: 16, fontSize: 20, marginRight: 48}}>Great, You've set up an awesome profile! Now help us find out what kind of Wanderluster you are. We just need to ask a few questions!</Text>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            this._addProfileData()}}>
-          <View style={styles.buttonBackground}>
-            <Text style={styles.buttonText}>GET STARTED</Text>
-            <View style={{flex: 1}} />
-            <Image
-              resizeMode='contain'
-              source={require('../assets/selection-arrow.png')}
-              style={{width: 48, height: 14, marginRight: 10}}/>
-          </View>
-        </TouchableOpacity>
+    <View style={[styles.container, {flex: 1}]}>
+      <Image
+        resizeMode='cover'
+        source={{uri: uri}}
+        style={styles.avatarImage}/>
+      <Text style={[styles.formLabel, {marginTop: 16, marginBottom: 16}]}>Add a little about yourself...</Text>
+      <TextInput
+        style={styles.bioContainer}
+        maxLength={140}
+        placeholder='Enter a short bio, e.g. “I’m a commercial architect for a big studio, who likes to shop & dine abroad in between projects!'
+        onChangeText={(text) => { this.setState({bio: text}) }}
+        multiline={true}/>
+      <Text style={[styles.formLabel, {marginTop: 16, marginBottom: 16}]}>{this.state.bio.length}/180 Characters</Text>
+    </View>
+    return content
+  }
+
+  _renderGetStarted() {
+    var uri = `data:image/jpeg;base64, ${this.state.imageData}`
+    var age = moment().diff(moment({years: this.state.year, months: this.state.month, days: this.state.days}), 'years')
+    var content =
+    <View style={[styles.container, {flex: 1}]}>
+      <View style={[styles.inputContainer, {marginTop: -10}]}>
+        <Text style={styles.formPretext}>Hi</Text>
+        <Text style={styles.formPretext}>{this.state.name}</Text>
       </View>
+      <View style={[styles.inputContainer, {marginTop: -20}]}>
+        <Text style={styles.formPretext}>{age} years old</Text>
+      </View>
+      <Image
+        resizeMode='cover'
+        source={{uri: uri}}
+        style={styles.avatarImage}/>
+      <Text style={[styles.formLabel, {marginTop: 100, marginBottom: 10}]}>WHAT KIND OF BUNGEE GIRL ARE YOU?</Text>
+      <Text
+        numberOfLines={10}
+        style={styles.bungeeText}>As Bungee Girls we each have a venturesome spirit, wanderlust desires,  embrace risk-taking, crave confidence and seek personal development through exploring the world. But we each have different travel habits. Lets discover what your travel personality is. This can help  you find people just like you!</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          this._addProfileData()}}>
+        <View style={styles.buttonBackground}>
+          <Text style={styles.buttonText}>GET STARTED</Text>
+          <View style={{flex: 1}} />
+          <Image
+            resizeMode='contain'
+            source={require('../assets/selection-arrow.png')}
+            style={{width: 48, height: 14, marginRight: 10}}/>
+        </View>
+      </TouchableOpacity>
+    </View>
     return content
   }
 
@@ -314,6 +455,7 @@ class InfoScreen extends Component {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
+    fontFamily: "SueEllenFrancisco"
   },
   container: {
     padding: 20,
@@ -322,14 +464,29 @@ const styles = StyleSheet.create({
   },
   formLabel: {
     color: Colors.fadedGrey,
+    fontFamily: "SueEllenFrancisco",
     fontSize: 18,
   },
   formInput: {
     fontSize: 32,
+    fontFamily: "SueEllenFrancisco",
     height: 74,
+  },
+  bioContainer: {
+    height: 150,
+    fontSize: 18,
+    fontFamily: "SueEllenFrancisco",
+  },
+  bungeeText: {
+    marginTop: 16,
+    marginBottom: 16,
+    fontSize: 14,
+    marginRight: 48,
+    fontFamily: "SueEllenFrancisco",
   },
   formPretext: {
     fontSize: 32,
+    fontFamily: "SueEllenFrancisco",
     marginRight: 8,
   },
   inputContainer: {
@@ -338,9 +495,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   avatarImage: {
-    width: 88,
-    height: 88,
-    borderRadius: 44
+    width: 120,
+    height: 120,
+    borderRadius: 60
   },
   button: {
     position: 'absolute',
@@ -370,8 +527,14 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  checkMarkContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
-
 })
 
 module.exports = InfoScreen

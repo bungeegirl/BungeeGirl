@@ -4,6 +4,7 @@ import React, {
   StyleSheet,
   Text,
   Alert,
+  TextInput,
   TouchableOpacity,
   Image,
   AsyncStorage,
@@ -16,6 +17,7 @@ import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'
 import travelData from '../local_data/questions'
 import _ from 'underscore'
+import moment from 'moment'
 
 var FBLoginManager = require('NativeModules').FBLoginManager
 
@@ -29,27 +31,28 @@ class HomeScreen extends Component {
     } else {
       profileTitle = ""
     }
+    var age = moment().diff(moment({years: this.props.userData.year, months: this.props.userData.month, days: this.props.userData.days}), 'years')
     var content =
     <ViewContainer backgroundColor='transparent'>
-      <Text onPress={() => {
-        this.props.navigator.resetTo({
-          ident: "LoginScreen"
-        })
-      }}>GO TO LOGIN SCREEN</Text>
       <View style={[styles.container, {flex: 1}]}>
         <View style={[styles.inputContainer, {marginTop: -10}]}>
           <Text style={styles.formPretext}>I'm</Text>
           <Text style={styles.formPretext}>{this.props.userData.name}</Text>
         </View>
         <View style={[styles.inputContainer, {marginTop: -20}]}>
-          <Text style={styles.formPretext}>Born</Text>
-          <Text style={styles.formPretext}>{this.props.userData.month}/{this.props.userData.day}/{this.props.userData.year}</Text>
+          <Text style={styles.formPretext}>{age} years old</Text>
         </View>
         <Image
           resizeMode='cover'
           source={{uri: uri}}
           style={styles.avatarImage}/>
         <Text style={[styles.formPretext, {marginTop: 10}]}>& I'm a {profileTitle}!</Text>
+        <TextInput
+          style={styles.bioContainer}
+          maxLength={140}
+          editable={false}
+          value={this.props.userData.bio}
+          multiline={true}/>
       </View>
       <TouchableOpacity
         style={styles.logoutButton}
@@ -72,6 +75,7 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
+    fontFamily: "SueEllenFrancisco"
   },
   container: {
     padding: 20,
@@ -81,10 +85,17 @@ const styles = StyleSheet.create({
   formInput: {
     fontSize: 32,
     height: 74,
+    fontFamily: "SueEllenFrancisco"
   },
   formPretext: {
     fontSize: 32,
     marginRight: 8,
+    fontFamily: "SueEllenFrancisco"
+  },
+  bioContainer: {
+    height: 150,
+    fontSize: 18,
+    fontFamily: "SueEllenFrancisco",
   },
   inputContainer: {
     height: 72,
@@ -92,9 +103,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   avatarImage: {
-    width: 88,
-    height: 88,
-    borderRadius: 44
+    width: 120,
+    height: 120,
+    borderRadius: 60
   },
   logoutButton: {
     height: 48,
@@ -108,6 +119,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
+    fontFamily: "SueEllenFrancisco",
     color: 'white',
     fontSize: 21
   },

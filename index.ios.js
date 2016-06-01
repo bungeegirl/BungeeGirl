@@ -16,10 +16,14 @@ import React, {
 
 import codePush from "react-native-code-push"
 import AppNavigator from './app/navigation/AppNavigator'
+import RootTabs from './app/navigation/RootTabs'
 import firebase from 'firebase'
 import EventEmitter from 'EventEmitter'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import _ from 'underscore'
+import RNGeocoder from 'react-native-geocoder'
+import Spinner from 'react-native-loading-spinner-overlay';
+
 
 var FBLoginManager = require('NativeModules').FBLoginManager
 
@@ -136,7 +140,7 @@ class FlipTrip extends Component {
   _createUserFromFacebook(successCallBack, errorCallBack) {
     var firebaseRef = this.firebaseRef
     var renderContext = this
-    FBLoginManager.login(function(error, data) {
+    FBLoginManager.loginWithPermissions(["email", "user_hometown", "public_profile"],function(error, data) {
       if (!error) {
         console.log("Login data: ", data);
         firebaseRef.authWithOAuthToken('facebook', data.credentials.token, (error, authData) => {
@@ -145,14 +149,16 @@ class FlipTrip extends Component {
           } else {
             console.log("Authenticated successfully with payload:", authData)
             AsyncStorage.multiSet([['uid', authData.uid],['authMethod', 'facebook']])
-            var email
+            var email, gender
             authData.facebook.email ? email = authData.facebook.email : email = ""
+            authData.facebook.cachedUserProfile.gender ? gender = authData.facebook.cachedUserProfile.gender : gender = ''
             firebaseRef.child('users').child(authData.uid).once('value', (theData) => {
               var onBoardingStep
               _.has(theData.val(), 'onBoardingStep') ? onBoardingStep = theData.val().onBoardingStep : onBoardingStep = 'profile'
               firebaseRef.child('users').child(authData.uid).update({
                 provider: authData.provider,
                 email: email,
+                gender: gender,
                 onBoardingStep: onBoardingStep
               })
               firebaseRef.child('users').child(authData.uid).on('value', (theData) => { renderContext._syncUserData(theData.val(),authData.uid) })
@@ -167,10 +173,16 @@ class FlipTrip extends Component {
   }
 
   _addProfileData(userData, successCallBack, errorCallBack) {
-    console.log(this.state.uid)
-    var userDataToWrite = _.pick(userData, 'name', 'imageData', 'month', 'day', 'year')
+    var userDataToWrite = _.pick(userData, 'name', 'imageData', 'month', 'day', 'year', 'bio')
+    var imageData = {}
+    var imageDataToWrite = _.each(userData.profileImages, (image, index) => {
+      var imageKey = `image${index}`
+      imageData[imageKey] = image.imageData
+    })
+    console.log(imageData)
     userDataToWrite['onBoardingStep'] = 'questions'
     this.firebaseRef.child('users').child(this.state.uid).update(userDataToWrite)
+    this.firebaseRef.child('userImages').child(this.state.uid).update(imageData)
     successCallBack()
   }
 
@@ -220,21 +232,31 @@ class FlipTrip extends Component {
   render() {
     var mainContent
     var initialRoute
-    console.log(this.state.userData)
     if(this.state.loadingData) {
-      mainContent = <View />
+      mainContent = <Spinner visible={true}/>
     } else {
+      console.log(this.state)
       var onBoardingStep
       _.has(this.state.userData, 'onBoardingStep') ? onBoardingStep = this.state.userData.onBoardingStep : onBoardingStep = ""
-      initialRoute = this._routeForStep(onBoardingStep)
-      mainContent =
-      <AppNavigator
-        ref="TheNavigator"
-        uid={this.state.uid}
-        userData={this.state.userData}
-        eventEmitter={this.eventEmitter}
-        firebaseRef={this.firebaseRef}
-        initialRoute={initialRoute} />
+      if(onBoardingStep == 'home') {
+        mainContent =
+        <RootTabs
+          uid={this.state.uid}
+          userData={this.state.userData}
+          eventEmitter={this.eventEmitter}
+          firebaseRef={this.firebaseRef}
+          initialTab='profile'/>
+      } else {
+        initialRoute = this._routeForStep(onBoardingStep)
+        mainContent =
+        <AppNavigator
+          ref="TheNavigator"
+          uid={this.state.uid}
+          userData={this.state.userData}
+          eventEmitter={this.eventEmitter}
+          firebaseRef={this.firebaseRef}
+          initialRoute={initialRoute} />
+      }
     }
     return mainContent
   }

@@ -16,6 +16,7 @@ import React, {
 import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'
 import NavigationBar from 'react-native-navbar'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 var deviceWidth = Dimensions.get('window').width
 var deviceHeight = Dimensions.get('window').height
@@ -26,7 +27,8 @@ class SignInScreen extends Component {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      loading: false,
     }
   }
 
@@ -65,6 +67,7 @@ class SignInScreen extends Component {
         leftButton={leftButton}
         rightButton={rightButton}/>
       {this._renderEmailPassword()}
+      <Spinner visible={this.state.loading} />
     </ViewContainer>
     return content
   }
@@ -93,8 +96,13 @@ class SignInScreen extends Component {
   }
 
   _login() {
-    var successCallBack = (route) => { this.props.navigator.resetTo({ ident: route })}
-    var errorCallBack = (error) => {  Alert.alert('Error signing in', JSON.stringify(error.code))}
+    var successCallBack = (route) => {
+      this.setState({loading: false})
+      this.props.navigator.resetTo({ ident: route })}
+    var errorCallBack = (error) => {
+      this.setState({loading: false})
+      Alert.alert('Error signing in', JSON.stringify(error.code))}
+    this.setState({loading: true})
     this.props.eventEmitter.emit('loginUser', this.state, successCallBack, errorCallBack)
   }
 }
@@ -102,6 +110,7 @@ class SignInScreen extends Component {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
+    fontFamily: "SueEllenFrancisco",
   },
   container: {
     padding: 20,
@@ -111,6 +120,7 @@ const styles = StyleSheet.create({
   formInput: {
     fontSize: 32,
     height: 74,
+    fontFamily: "SueEllenFrancisco",
   },
   button: {
     position: 'absolute',
@@ -125,6 +135,7 @@ const styles = StyleSheet.create({
     opacity: 0.5
   },
   buttonText: {
+    fontFamily: "SueEllenFrancisco",
     color: "white",
     marginLeft: 28,
     fontSize: 16,

@@ -25,7 +25,7 @@ var ViewContainer = React.createClass({
         style={styles.container}>
         <Image
           source={require('../assets/container-background.png')}
-          resizeMode='contain'
+          resizeMode='cover'
           style={styles.backgroundImage}/>
         <View style={{
           height: (this.props.hidden ? 0 : 20),

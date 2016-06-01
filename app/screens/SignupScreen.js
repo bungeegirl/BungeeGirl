@@ -18,6 +18,7 @@ import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'
 import NavigationBar from 'react-native-navbar'
 import CameraRollView from '../components/CameraRollView'
+import Spinner from 'react-native-loading-spinner-overlay';
 var ImagePickerManager = require('NativeModules').ImagePickerManager
 
 var deviceWidth = Dimensions.get('window').width
@@ -48,6 +49,7 @@ class SignupScreen extends Component {
         }
       }
     this.state = {
+      loadingData: false,
       email: "",
       password: "",
     }
@@ -64,7 +66,7 @@ class SignupScreen extends Component {
     var title = <Text style={[styles.titleText, {marginBottom: 4}]}>{this.screen.titleText}</Text>
     var leftButton =
     <TouchableOpacity
-      onPress={() => this.screens.backAction()}
+      onPress={() => this.screen.backAction()}
       style={styles.backButton}>
       <Image
         source={require('../assets/Nav-Back.png')}/>
@@ -78,6 +80,7 @@ class SignupScreen extends Component {
         leftButton={leftButton}
         rightButton={rightButton}/>
       {this.screen.component()}
+      <Spinner visible={this.state.loadingData} />
     </ViewContainer>
     return content
   }
@@ -108,11 +111,14 @@ class SignupScreen extends Component {
   }
 
   _createUser() {
+    this.setState({loadingData: true})
     var errorCallBack = (error) => {
       console.log(error)
+      this.setState({loadingData: false})
       Alert.alert('Error creating user', JSON.stringify(error.code))
     }
     var successCallBack = () => {
+      this.setState({loadingData: false})
       this.props.navigator.resetTo({
         ident: 'InfoScreen'
       })
@@ -129,6 +135,7 @@ class SignupScreen extends Component {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
+    fontFamily: "SueEllenFrancisco",
   },
   container: {
     padding: 20,
@@ -138,14 +145,17 @@ const styles = StyleSheet.create({
   formLabel: {
     color: Colors.fadedGrey,
     fontSize: 18,
+    fontFamily: "SueEllenFrancisco",
   },
   formInput: {
     fontSize: 32,
     height: 74,
+    fontFamily: "SueEllenFrancisco",
   },
   formPretext: {
     fontSize: 32,
     marginRight: 8,
+    fontFamily: "SueEllenFrancisco",
   },
   inputContainer: {
     height: 72,
@@ -173,6 +183,7 @@ const styles = StyleSheet.create({
     color: "white",
     marginLeft: 28,
     fontSize: 16,
+    fontFamily: "SueEllenFrancisco",
   },
   backButton: {
     width: 48,

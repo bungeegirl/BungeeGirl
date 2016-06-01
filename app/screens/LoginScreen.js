@@ -26,33 +26,36 @@ class LoginScreen extends Component {
     return (
       <ViewContainer backgroundColor='transparent'>
         <View style={styles.container}>
-          <Image
-            style={styles.logo}
-            resizeMode='contain'
-            source={require('../assets/app-icon.png')}/>
-          <Text style={styles.introText}>FlipTrip is for travellers to</Text>
-          <Text style={styles.introText}>connect and help each other</Text>
-          <Text style={styles.introText}>explore the globe.</Text>
-          <Text style={[styles.introText, {marginTop: 10}]}>Use the app to meet people</Text>
-          <Text style={styles.introText}>from other major cities and</Text>
-          <Text style={styles.introText}>create unique experiences.</Text>
-          <View style={{flex: 1}} />
-          <TouchableOpacity
-            style={styles.facebookButton}
-            onPress={() => this._facebookAuth()}>
-            <Text style={styles.buttonText}>Connect with Facebook</Text>
-          </TouchableOpacity>
-          <View style={styles.buttonContainer}>
+          <View style={{flex: 3}}>
+            <Image
+              style={styles.logo}
+              resizeMode='contain'
+              source={require('../assets/bungee.png')}/>
+          </View>
+          <View style={{flex: 3}}>
+            <Text style={styles.introText}>Hey Bungee Girl! Are you ready to go on an epic trip?</Text>
+            <Text style={[styles.introText, {marginTop: 10}]}>Traveling alone can be daunting so we've got to stick together! Let us help you make useful connections to make this trip better than you ever expected!</Text>
+            <View style={{flex: 1}} />
+          </View>
+          <View style={{flex: 2, alignSelf: 'stretch'}}>
             <TouchableOpacity
-              style={styles.loginButton}
-              onPress={() => this._login()}>
-              <Text style={styles.buttonText}>Log In</Text>
+              style={styles.facebookButton}
+              onPress={() => this._facebookAuth()}>
+              <Text style={styles.buttonText}>Connect with Facebook</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.loginButton, {backgroundColor: Colors.red}]}
-              onPress={() => this._signUp()}>
-              <Text style={styles.buttonText}>Sign Up</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.loginButton}
+                onPress={() => this._login()}>
+                <Text style={styles.buttonText}>Log In</Text>
+              </TouchableOpacity>
+              <View style={{width: 10, height: 10}} />
+              <TouchableOpacity
+                style={[styles.loginButton, {backgroundColor: Colors.red}]}
+                onPress={() => this._signUp()}>
+                <Text style={styles.buttonText}>Sign Up</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ViewContainer>
@@ -66,7 +69,7 @@ class LoginScreen extends Component {
     var errorCallBack = (error) => {
       Alert.alert("Error with login", JSON.stringify(error))
     }
-    this.props.eventEmitter.emit('createUserFromFacebook', successCallBack)
+    this.props.eventEmitter.emit('createUserFromFacebook', successCallBack, errorCallBack)
   }
 
   _signUp() {
@@ -91,26 +94,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  backgroundImage: {
-    position: 'absolute',
-    width: deviceWidth,
-    height: deviceHeight,
-    top: 0,
-    left: 0,
-  },
   logo: {
-    width: 120,
-    height: 120,
+    width: 150,
+    height: 150,
     marginTop: 48,
     marginBottom: 48,
-    borderRadius: 60,
-    backgroundColor: 'grey'
   },
   introText: {
     color: Colors.grey,
+    fontFamily: "SueEllenFrancisco",
     textAlign: 'center',
     fontSize: 20,
     marginBottom: 8,
+    marginLeft: 32,
+    marginRight: 32
   },
   facebookButton: {
     alignSelf: 'stretch',
@@ -131,11 +128,12 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: 'white',
-    fontSize: 21
+    fontSize: 21,
+    fontFamily: "SueEllenFrancisco",
   },
   loginButton : {
     height: 48,
-    width: 150,
+    flex: 1,
     borderRadius: 4,
     alignSelf: 'stretch',
     backgroundColor: Colors.green,
