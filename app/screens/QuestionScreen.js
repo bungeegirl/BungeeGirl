@@ -83,7 +83,7 @@ class QuestionScreen extends Component {
       <View style={styles.circlesContainer}>
         {circles}
       </View>
-      <Text style={{fontSize: 26}}>{questions.questions[this.state.questionIndex].question}</Text>
+      <Text style={{fontSize: 26, fontFamily: "SueEllenFrancisco"}}>{questions.questions[this.state.questionIndex].question}</Text>
       <View style={{flex: 1}} />
       {buttons}
     </View>
@@ -122,7 +122,7 @@ class QuestionScreen extends Component {
         this.setState({questionIndex: questionIndex + 1})
       }}
       style={styles.buttonContainer}>
-      <Text style={{fontSize: 16, color: Colors.beige}}>{questions.questions[questionIndex].answers[answerIndex]}</Text>
+      <Text style={{fontSize: 16, color: Colors.beige, fontFamily: "SueEllenFrancisco"}}>{questions.questions[questionIndex].answers[answerIndex]}</Text>
     </TouchableOpacity>
     return content
   }

@@ -16,6 +16,7 @@ import React, {
 import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'
 import travelData from '../local_data/questions'
+import ProfileBackground from '../components/ProfileBackground'
 import _ from 'underscore'
 import moment from 'moment'
 
@@ -34,6 +35,9 @@ class HomeScreen extends Component {
     var age = moment().diff(moment({years: this.props.userData.year, months: this.props.userData.month, days: this.props.userData.days}), 'years')
     var content =
     <ViewContainer backgroundColor='transparent'>
+      <ProfileBackground
+        firebaseRef={this.props.firebaseRef}
+        uidToRender={this.props.uid} />
       <View style={[styles.container, {flex: 1}]}>
         <View style={[styles.inputContainer, {marginTop: -10}]}>
           <Text style={styles.formPretext}>I'm</Text>
@@ -75,6 +79,7 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
+    color: Colors.beige,
     fontFamily: "SueEllenFrancisco"
   },
   container: {
@@ -85,16 +90,19 @@ const styles = StyleSheet.create({
   formInput: {
     fontSize: 32,
     height: 74,
+    color: Colors.beige,
     fontFamily: "SueEllenFrancisco"
   },
   formPretext: {
     fontSize: 32,
     marginRight: 8,
+    color: Colors.beige,
     fontFamily: "SueEllenFrancisco"
   },
   bioContainer: {
     height: 150,
     fontSize: 18,
+    color: Colors.beige,
     fontFamily: "SueEllenFrancisco",
   },
   inputContainer: {

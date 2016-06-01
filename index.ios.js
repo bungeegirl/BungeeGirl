@@ -179,7 +179,6 @@ class FlipTrip extends Component {
       var imageKey = `image${index}`
       imageData[imageKey] = image.imageData
     })
-    console.log(imageData)
     userDataToWrite['onBoardingStep'] = 'questions'
     this.firebaseRef.child('users').child(this.state.uid).update(userDataToWrite)
     this.firebaseRef.child('userImages').child(this.state.uid).update(imageData)
