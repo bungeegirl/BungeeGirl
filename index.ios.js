@@ -234,7 +234,6 @@ class FlipTrip extends Component {
     if(this.state.loadingData) {
       mainContent = <Spinner visible={true}/>
     } else {
-      console.log(this.state)
       var onBoardingStep
       _.has(this.state.userData, 'onBoardingStep') ? onBoardingStep = this.state.userData.onBoardingStep : onBoardingStep = ""
       if(onBoardingStep == 'home') {

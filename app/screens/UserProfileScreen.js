@@ -19,32 +19,38 @@ import travelData from '../local_data/questions'
 import UserProfile from '../components/UserProfile'
 import _ from 'underscore'
 import moment from 'moment'
+import NavigationBar from 'react-native-navbar'
 
-var FBLoginManager = require('NativeModules').FBLoginManager
-
-class HomeScreen extends Component {
+class UserProfileScreen extends Component {
   render() {
+    var title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>{this.props.userDisplayData.name}'s Profile </Text>
+    var leftButton =
+    <TouchableOpacity
+      onPress={() => this.props.navigator.pop()}
+      style={styles.backButton}>
+      <Image
+        source={require('../assets/Nav-Back.png')}/>
+     </TouchableOpacity>
+
     var content =
-    <View>
+    <ViewContainer backgroundColor='transparent'>
+      <NavigationBar
+        title={title}
+        leftButton={leftButton}
+        style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
       <UserProfile
-        {...this.props}
-        uidToRender={this.props.uid}
-        userDisplayData={this.props.userData} />
+        {...this.props} />
       <TouchableOpacity
         style={styles.logoutButton}
-        onPress={() => this._logout()}>
-        <Text style={styles.buttonText}>Log Out</Text>
+        onPress={() => {}}>
+        <Text style={styles.buttonText}>Message</Text>
       </TouchableOpacity>
-    </View>
+    </ViewContainer>
     return content
   }
 
-  _logout() {
-    AsyncStorage.clear()
-    FBLoginManager.logout(() => {})
-    this.props.navigator.resetTo({
-      ident: "LoginScreen"
-    })
+  _message() {
+
   }
 }
 
@@ -103,6 +109,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 21
   },
+  backButton: {
+    width: 48,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 })
 
-module.exports = HomeScreen
+module.exports = UserProfileScreen

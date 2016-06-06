@@ -35,6 +35,7 @@
 		493A308D1CE393D600A419F2 /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 493A308B1CE393D600A419F2 /* Instabug.framework */; };
 		493A308E1CE393D600A419F2 /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 493A308C1CE393D600A419F2 /* Instabug.bundle */; };
 		496B805D1CD0328B008D9544 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 496B805C1CD0328B008D9544 /* libz.tbd */; };
+		49AAB6CE1D061BAE0098CB2B /* ArchitectsDaughter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 49AAB6CD1D061BAE0098CB2B /* ArchitectsDaughter.ttf */; };
 		49C2B47D1CD0344900DA3BAF /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C2B47A1CD0344900DA3BAF /* FBSDKCoreKit.framework */; };
 		49C2B47E1CD0344900DA3BAF /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C2B47B1CD0344900DA3BAF /* FBSDKLoginKit.framework */; };
 		49C2B47F1CD0344900DA3BAF /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C2B47C1CD0344900DA3BAF /* FBSDKShareKit.framework */; };
@@ -43,6 +44,7 @@
 		49E062ED1CFF519E0033F1BF /* SueEllenFrancisco.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 49E062EC1CFF519E0033F1BF /* SueEllenFrancisco.ttf */; };
 		49F6B9731CED17F60034F299 /* Native.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F6B9721CED17F60034F299 /* Native.m */; };
 		4A8651506EA748BABCD4BBFF /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30FCA2512AF74BBB9DB1182F /* Ionicons.ttf */; };
+		5061F534614D4F33B735CA6B /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1639727FFC846F49BE28803 /* libRNMail.a */; };
 		5347D99B27A949B19603A070 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97F606085718472FAD79F154 /* FontAwesome.ttf */; };
 		5D08F06217864C4F976E5DCD /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1DB8503753458DBAF88019 /* libRCTCamera.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -160,6 +162,20 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		49E063431CFF8D2B0033F1BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A07974E3B0CE4527892D9760 /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE7F1AFF192F00D3261C;
+			remoteInfo = RNMail;
+		};
+		49E063451CFF8D2B0033F1BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A07974E3B0CE4527892D9760 /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE8A1AFF192F00D3261C;
+			remoteInfo = RNMailTests;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -209,6 +225,7 @@
 		493A308B1CE393D600A419F2 /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Instabug.framework; sourceTree = "<group>"; };
 		493A308C1CE393D600A419F2 /* Instabug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Instabug.bundle; sourceTree = "<group>"; };
 		496B805C1CD0328B008D9544 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		49AAB6CD1D061BAE0098CB2B /* ArchitectsDaughter.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ArchitectsDaughter.ttf; path = ../../../../Downloads/Architects_Daughter/ArchitectsDaughter.ttf; sourceTree = "<group>"; };
 		49C2B47A1CD0344900DA3BAF /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		49C2B47B1CD0344900DA3BAF /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		49C2B47C1CD0344900DA3BAF /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKShareKit.framework"; sourceTree = "<group>"; };
@@ -227,7 +244,9 @@
 		83F167AADBC54A0F843231CF /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		97F606085718472FAD79F154 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		9F1DB8503753458DBAF88019 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
+		A07974E3B0CE4527892D9760 /* RNMail.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNMail.xcodeproj; path = "../node_modules/react-native-mail/RNMail.xcodeproj"; sourceTree = "<group>"; };
 		BE3E2AAD19AA4A00BE0B98E5 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		D1639727FFC846F49BE28803 /* libRNMail.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNMail.a; sourceTree = "<group>"; };
 		DEBD0D906E1D4154B031B393 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		E6FB92FE7CCF4A778C9B03CB /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		F6B2DDBFF89D47DABA9A8D0D /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
@@ -275,6 +294,7 @@
 				493A308D1CE393D600A419F2 /* Instabug.framework in Frameworks */,
 				8B7B75400EEE4BE4B812DBCA /* libRCTActionSheet.a in Frameworks */,
 				CBBE499CE43E4B718CCB4AFE /* libRNVectorIcons.a in Frameworks */,
+				5061F534614D4F33B735CA6B /* libRNMail.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +459,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		49E063301CFF8D2B0033F1BF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				49E063441CFF8D2B0033F1BF /* libRNMail.a */,
+				49E063461CFF8D2B0033F1BF /* RNMailTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -466,6 +495,7 @@
 				DEBD0D906E1D4154B031B393 /* RCTCamera.xcodeproj */,
 				113560DC6E284159B6033D40 /* RNImagePicker.xcodeproj */,
 				76AA213883F147659CF44F0C /* RNVectorIcons.xcodeproj */,
+				A07974E3B0CE4527892D9760 /* RNMail.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -481,6 +511,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				49AAB6CD1D061BAE0098CB2B /* ArchitectsDaughter.ttf */,
 				49E062EC1CFF519E0033F1BF /* SueEllenFrancisco.ttf */,
 				49F6B9721CED17F60034F299 /* Native.m */,
 				493A308B1CE393D600A419F2 /* Instabug.framework */,
@@ -645,6 +676,10 @@
 					ProjectRef = 113560DC6E284159B6033D40 /* RNImagePicker.xcodeproj */;
 				},
 				{
+					ProductGroup = 49E063301CFF8D2B0033F1BF /* Products */;
+					ProjectRef = A07974E3B0CE4527892D9760 /* RNMail.xcodeproj */;
+				},
+				{
 					ProductGroup = 49E0630C1CFF5D5D0033F1BF /* Products */;
 					ProjectRef = 76AA213883F147659CF44F0C /* RNVectorIcons.xcodeproj */;
 				},
@@ -756,6 +791,20 @@
 			remoteRef = 49E0631E1CFF5D5D0033F1BF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		49E063441CFF8D2B0033F1BF /* libRNMail.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNMail.a;
+			remoteRef = 49E063431CFF8D2B0033F1BF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		49E063461CFF8D2B0033F1BF /* RNMailTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RNMailTests.xctest;
+			remoteRef = 49E063451CFF8D2B0033F1BF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -790,6 +839,7 @@
 				493A308E1CE393D600A419F2 /* Instabug.bundle in Resources */,
 				39879AFFF85845449FC0847A /* Entypo.ttf in Resources */,
 				EF67876C1E884ACFA89AF2A2 /* EvilIcons.ttf in Resources */,
+				49AAB6CE1D061BAE0098CB2B /* ArchitectsDaughter.ttf in Resources */,
 				5347D99B27A949B19603A070 /* FontAwesome.ttf in Resources */,
 				375ED7031A4A4FE1ABEDEE60 /* Foundation.ttf in Resources */,
 				4A8651506EA748BABCD4BBFF /* Ionicons.ttf in Resources */,
@@ -885,6 +935,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/Bungee\"",
 					"\"$(SRCROOT)/Bungee\"",
+					"\"$(SRCROOT)/Bungee\"",
 				);
 				PRODUCT_NAME = Bungee;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bungee.app/Bungee";
@@ -910,6 +961,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/Bungee\"",
 					"\"$(SRCROOT)/Bungee\"",
 					"\"$(SRCROOT)/Bungee\"",
 				);
@@ -947,12 +999,14 @@
 					"$(SRCROOT)/../node_modules/react-native-userdefaults-ios/RNUserDefaultsIOS",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/RNGeocoder/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
 				);
 				INFOPLIST_FILE = FlipTrip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/Bungee\"",
 					"\"$(SRCROOT)/Bungee\"",
 					"\"$(SRCROOT)/Bungee\"",
 				);
@@ -991,12 +1045,14 @@
 					"$(SRCROOT)/../node_modules/react-native-userdefaults-ios/RNUserDefaultsIOS",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/RNGeocoder/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
 				);
 				INFOPLIST_FILE = FlipTrip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/Bungee\"",
 					"\"$(SRCROOT)/Bungee\"",
 					"\"$(SRCROOT)/Bungee\"",
 				);
@@ -1053,6 +1109,7 @@
 					"$(SRCROOT)/../node_modules/react-native-userdefaults-ios/RNUserDefaultsIOS",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/RNGeocoder/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1101,6 +1158,7 @@
 					"$(SRCROOT)/../node_modules/react-native-userdefaults-ios/RNUserDefaultsIOS",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/RNGeocoder/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

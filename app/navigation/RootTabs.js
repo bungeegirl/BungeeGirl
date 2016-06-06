@@ -9,6 +9,7 @@ import React, {
 
 import TabNavigator from 'react-native-tab-navigator'
 import AppNavigator from './AppNavigator'
+import Icon from 'react-native-vector-icons/Ionicons'
 import Colors from '../styles/Colors'
 import _ from 'underscore'
 
@@ -30,22 +31,61 @@ class RootTabs extends Component {
     }
 
     var profileIcon =
-    <Image
-      style={{height: 28, width: 28, backgroundColor: Colors.beige}}
-      source={require('../assets/profile-icon.png')}
-      resizeMode='contain'/>
+    <Icon
+      style={{height: 36, width: 36}}
+      name='ios-person-outline'
+      size={40}
+      color={Colors.darkGrey}/>
+
+    var profileIconSelected =
+    <Icon
+      style={{height: 36, width: 36}}
+      name='ios-person'
+      size={40}
+      color={Colors.darkGrey}/>
 
     var chatIcon =
-    <Image
-      style={{height: 28, width: 28, backgroundColor: Colors.beige}}
-      source={require('../assets/profile-icon.png')}
-      resizeMode='contain'/>
+    <Icon
+      style={{height: 32, width: 32}}
+      name='ios-chatbubbles-outline'
+      size={32}
+      color={Colors.darkGrey}/>
+
+    var chatIconSelected =
+    <Icon
+      style={{height: 32, width: 32}}
+      name='ios-chatbubbles'
+      size={32}
+      color={Colors.darkGrey}/>
 
     var travelIcon =
-    <Image
-      style={{height: 28, width: 28, backgroundColor: Colors.beige}}
-      source={require('../assets/travel-icon.png')}
-      resizeMode='contain'/>
+    <Icon
+      style={{height: 32, width: 32}}
+      name='ios-globe-outline'
+      size={32}
+      color={Colors.darkGrey}/>
+
+    var travelIconSelected =
+    <Icon
+      style={{height: 32, width: 32}}
+      name='ios-globe'
+      size={32}
+      color={Colors.darkGrey}/>
+
+    var settingsIcon =
+    <Icon
+      style={{height: 32, width: 32}}
+      name='ios-settings-outline'
+      size={32}
+      color={Colors.darkGrey}/>
+
+    var settingsIconSelected =
+    <Icon
+      style={{height: 32, width: 32}}
+      name='ios-settings'
+      size={32}
+      color={Colors.darkGrey}/>
+
 
     var tabNavigator =
     <TabNavigator
@@ -53,7 +93,7 @@ class RootTabs extends Component {
       <TabNavigator.Item
         selected={this.state.selectedTab === 'profile'}
         renderIcon={() => profileIcon}
-        renderSelectedIcon={() => profileIcon}
+        renderSelectedIcon={() => profileIconSelected}
         onPress={() => this.setState({ selectedTab: 'profile' })}>
         <AppNavigator
           {...globalScreenProps}
@@ -62,20 +102,29 @@ class RootTabs extends Component {
       <TabNavigator.Item
         selected={this.state.selectedTab === 'travel'}
         renderIcon={() => travelIcon}
-        renderSelectedIcon={() => travelIcon}
+        renderSelectedIcon={() => travelIconSelected}
         onPress={() => this.setState({ selectedTab: 'travel' })}>
+        <AppNavigator
+          {...globalScreenProps}
+          initialRoute='ExperienceScreen' />
+      </TabNavigator.Item>
+      <TabNavigator.Item
+        selected={this.state.selectedTab === 'chat'}
+        renderIcon={() => chatIcon}
+        renderSelectedIcon={() => chatIconSelected}
+        onPress={() => this.setState({ selectedTab: 'chat' })}>
         <AppNavigator
           {...globalScreenProps}
           initialRoute='HomeScreen' />
       </TabNavigator.Item>
       <TabNavigator.Item
-        selected={this.state.selectedTab === 'chat'}
-        renderIcon={() => chatIcon}
-        renderSelectedIcon={() => chatIcon}
-        onPress={() => this.setState({ selectedTab: 'chat' })}>
+        selected={this.state.selectedTab === 'settings'}
+        renderIcon={() => settingsIcon}
+        renderSelectedIcon={() => settingsIconSelected}
+        onPress={() => this.setState({ selectedTab: 'settings' })}>
         <AppNavigator
           {...globalScreenProps}
-          initialRoute='HomeScreen' />
+          initialRoute='SettingsScreen' />
       </TabNavigator.Item>
     </TabNavigator>
 

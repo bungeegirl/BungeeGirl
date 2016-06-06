@@ -1,6 +1,7 @@
 package com.fliptrip;
 
 import com.facebook.react.ReactActivity;
+import com.chirag.RNMail.RNMail;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.devfd.RNGeocoder.RNGeocoderPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -41,6 +42,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new RNMail(),
             new VectorIconsPackage(),
             new RNGeocoderPackage(),
             new ImagePickerPackage(),

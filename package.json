@@ -13,9 +13,11 @@
     "react-native-asset-library-to-base64": "^1.0.1",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-code-push": "^1.10.5-beta",
+    "react-native-dropdown": "0.0.6",
     "react-native-facebook-login": "^1.0.3",
     "react-native-image-picker": "^0.18.15",
     "react-native-loading-spinner-overlay": "^0.1.0",
+    "react-native-mail": "^1.0.0",
     "react-native-navbar": "^1.4.2",
     "react-native-vector-icons": "^2.0.3",
     "underscore": "^1.8.3"

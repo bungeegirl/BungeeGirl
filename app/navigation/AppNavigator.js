@@ -13,8 +13,11 @@ import SignInScreen from '../screens/SignInScreen'
 import SignupScreen from '../screens/SignupScreen'
 import QuestionScreen from '../screens/QuestionScreen'
 import CityPickerScreen from '../screens/CityPickerScreen'
+import ExperienceScreen from '../screens/ExperienceScreen'
 import HomeScreen from '../screens/HomeScreen'
 import InfoScreen from '../screens/InfoScreen'
+import CityBrowserScreen from '../screens/CityBrowserScreen'
+import UserProfileScreen from '../screens/UserProfileScreen'
 
 class AppNavigator extends Component {
 
@@ -66,6 +69,24 @@ class AppNavigator extends Component {
       case "HomeScreen":
         return (
           <HomeScreen
+            {...globalScreenProps}/>
+        )
+      case "ExperienceScreen":
+        return (
+          <ExperienceScreen
+            {...globalScreenProps}/>
+        )
+      case "CityBrowserScreen":
+        return(
+          <CityBrowserScreen
+            cityIdent={route.cityIdent}
+            {...globalScreenProps}/>
+        )
+      case "UserProfileScreen":
+        return (
+          <UserProfileScreen
+            userDisplayData={route.userDisplayData}
+            uidToRender={route.uidToRender}
             {...globalScreenProps}/>
         )
     }
