@@ -83,7 +83,7 @@ class QuestionScreen extends Component {
       <View style={styles.circlesContainer}>
         {circles}
       </View>
-      <Text style={{fontSize: 26, fontFamily: "SueEllenFrancisco"}}>{questions.questions[this.state.questionIndex].question}</Text>
+      <Text style={{fontSize: 26, fontFamily: "ArchitectsDaughter"}}>{questions.questions[this.state.questionIndex].question}</Text>
       <View style={{flex: 1}} />
       {buttons}
     </View>
@@ -122,7 +122,7 @@ class QuestionScreen extends Component {
         this.setState({questionIndex: questionIndex + 1})
       }}
       style={styles.buttonContainer}>
-      <Text style={{fontSize: 16, color: Colors.beige, fontFamily: "SueEllenFrancisco"}}>{questions.questions[questionIndex].answers[answerIndex]}</Text>
+      <Text style={{fontSize: 16, color: Colors.beige, fontFamily: "ArchitectsDaughter"}}>{questions.questions[questionIndex].answers[answerIndex]}</Text>
     </TouchableOpacity>
     return content
   }
@@ -165,7 +165,7 @@ class QuestionScreen extends Component {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   contentContainer: {
     flex: 1,
@@ -204,16 +204,16 @@ const styles = StyleSheet.create({
   circleText: {
     fontSize: 18,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   profileHeader: {
     fontSize: 32,
     marginBottom: 20,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   profileText: {
     fontSize: 18,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   button: {
     position: 'absolute',
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     color: "white",
     marginLeft: 28,
     fontSize: 16,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
 })
 

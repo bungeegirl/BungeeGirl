@@ -116,13 +116,13 @@ const styles = StyleSheet.create({
   },
   nameText: {
     color: Colors.beige,
-    fontFamily: 'SueEllenFrancisco',
+    fontFamily: 'ArchitectsDaughter',
     fontSize: 24,
     marginTop: 20
   },
   bioText: {
     color: Colors.darkGrey,
-    fontFamily: 'SueEllenFrancisco',
+    fontFamily: 'ArchitectsDaughter',
     fontSize: 18,
   },
   button: {
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     color: "white",
     marginLeft: 28,
     fontSize: 24,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
 })
 

@@ -16,7 +16,6 @@ import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'
 import NavigationBar from 'react-native-navbar'
 import cityData from '../local_data/cityData'
-import DropDown from 'react-native-dropdown'
 import _ from 'underscore'
 
 var deviceWidth = Dimensions.get('window').width
@@ -73,7 +72,7 @@ module.exports = ExperienceScreen
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   rowContainer: {
     width: deviceWidth,

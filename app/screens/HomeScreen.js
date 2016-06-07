@@ -14,6 +14,7 @@ import React, {
 } from 'react-native'
 
 import ViewContainer from '../components/ViewContainer'
+import NavigationBar from 'react-native-navbar'
 import Colors from '../styles/Colors'
 import travelData from '../local_data/questions'
 import UserProfile from '../components/UserProfile'
@@ -24,18 +25,30 @@ var FBLoginManager = require('NativeModules').FBLoginManager
 
 class HomeScreen extends Component {
   render() {
+    var title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>My Profile</Text>
+
     var content =
-    <View>
+    <ViewContainer backgroundColor='transparent'>
+      <NavigationBar
+        title={title}
+        style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
       <UserProfile
         {...this.props}
         uidToRender={this.props.uid}
         userDisplayData={this.props.userData} />
+      <View style={{alignSelf: 'stretch', flex: 1}}/>
+      <TouchableOpacity
+        style={[styles.logoutButton, {backgroundColor: Colors.blue}]}
+        onPress={() => this._editProfilePictures()}>
+        <Text style={styles.buttonText}>Edit Profile Pics</Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.logoutButton}
         onPress={() => this._logout()}>
         <Text style={styles.buttonText}>Log Out</Text>
       </TouchableOpacity>
-    </View>
+    </ViewContainer>
+
     return content
   }
 
@@ -46,13 +59,17 @@ class HomeScreen extends Component {
       ident: "LoginScreen"
     })
   }
+
+  _editProfilePictures(){
+
+  }
 }
 
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco"
+    fontFamily: "ArchitectsDaughter"
   },
   container: {
     padding: 20,
@@ -63,19 +80,19 @@ const styles = StyleSheet.create({
     fontSize: 32,
     height: 74,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco"
+    fontFamily: "ArchitectsDaughter"
   },
   formPretext: {
     fontSize: 32,
     marginRight: 8,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco"
+    fontFamily: "ArchitectsDaughter"
   },
   bioContainer: {
     height: 150,
     fontSize: 18,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   inputContainer: {
     height: 72,
@@ -89,7 +106,7 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     height: 48,
-    width: 150,
+    width: 200,
     marginBottom: 50,
     borderRadius: 4,
     alignSelf: 'center',
@@ -99,7 +116,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
     color: 'white',
     fontSize: 21
   },

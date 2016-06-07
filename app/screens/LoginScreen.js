@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   introText: {
     color: Colors.grey,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
     textAlign: 'center',
     fontSize: 20,
     marginBottom: 8,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontSize: 21,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   loginButton : {
     height: 48,

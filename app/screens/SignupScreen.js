@@ -135,7 +135,7 @@ class SignupScreen extends Component {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   container: {
     padding: 20,
@@ -145,17 +145,17 @@ const styles = StyleSheet.create({
   formLabel: {
     color: Colors.fadedGrey,
     fontSize: 18,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   formInput: {
     fontSize: 32,
     height: 74,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   formPretext: {
     fontSize: 32,
     marginRight: 8,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   inputContainer: {
     height: 72,
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     color: "white",
     marginLeft: 28,
     fontSize: 16,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   backButton: {
     width: 48,

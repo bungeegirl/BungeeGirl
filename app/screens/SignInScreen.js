@@ -110,7 +110,7 @@ class SignInScreen extends Component {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   container: {
     padding: 20,
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   formInput: {
     fontSize: 32,
     height: 74,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   button: {
     position: 'absolute',
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     opacity: 0.5
   },
   buttonText: {
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
     color: "white",
     marginLeft: 28,
     fontSize: 16,

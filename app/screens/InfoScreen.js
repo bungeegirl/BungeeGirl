@@ -14,6 +14,7 @@ import React, {
 } from 'react-native'
 
 import ViewContainer from '../components/ViewContainer'
+import ProfileImagePicker from '../components/ProfileImagePicker'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Colors from '../styles/Colors'
 import NavigationBar from 'react-native-navbar'
@@ -217,55 +218,6 @@ class InfoScreen extends Component {
     )
   }
 
-  _renderProfileImagePicker(asset) {
-    let imageSize = deviceWidth / 4
-    var profileImages = _.clone(this.state.profileImages)
-    let selected = _.contains(_.pluck(profileImages, 'uri'), asset.node.image.uri)
-    var addImage = () => {
-      this.setState({loadingData: true})
-      NativeModules.ReadImageData.readImage(asset.node.image.uri, (image) => {
-        profileImages.push({uri: asset.node.image.uri, imageData: image})
-        if(profileImages.length == 5) {
-          this.setState({loadingData: false, profileImages: profileImages, formIndex: 5})
-        } else {
-          this.setState({loadingData: false, profileImages: profileImages})
-        }
-      })
-    }
-    var unselectImage = () => {
-      var newImages = _.reject(profileImages, (imageObject) => {
-        return imageObject.uri == asset.node.image.uri
-      })
-      this.setState({profileImages: newImages})
-    }
-    var selectionFuction
-    var checkMark
-    if(selected) {
-      selectionFuction = unselectImage
-      checkMark =
-      <View style={[styles.checkMarkContainer, {width: imageSize, height: imageSize}]}>
-        <Icon
-          size={48}
-          name="md-checkbox"
-          color='white'/>
-      </View>
-    } else {
-      selectionFuction = addImage
-      checkMark = <View />
-    }
-
-    return (
-      <TouchableOpacity
-        onPress={() => selectionFuction()}>
-        <Image
-          key={`asset.node.image.uri`}
-          source={asset.node.image}
-          style={{width: imageSize, height: imageSize}}/>
-        {checkMark}
-      </TouchableOpacity>
-    )
-  }
-
   _renderBirthdate() {
     if(this.state.month.length == 2 && this.state.day.length == 0 && this.state.year.length == 0) {
       this.refs.DaysTextInput.focus()
@@ -343,25 +295,14 @@ class InfoScreen extends Component {
   }
 
   _renderProfileImages() {
-    var age = moment().diff(moment({years: this.state.year, months: this.state.month, days: this.state.days}), 'years')
     var content =
-    <View style={{flex: 1, alignItems: 'stretch'}}>
-      <View style={styles.container}>
-        <View style={[styles.inputContainer, {marginTop: -10}]}>
-          <Text style={styles.formPretext}>I'm</Text>
-          <Text style={styles.formPretext}>{this.state.name}</Text>
-        </View>
-        <View style={[styles.inputContainer, {marginTop: -24}]}>
-          <Text style={styles.formPretext}>{age} years old</Text>
-        </View>
-        <Text style={[styles.formLabel, {marginTop: 8, marginBottom: 8}]}>Pick five images for your profile</Text>
-      </View>
-      <View style={{flex: 1}}>
-        <CameraRollView
-          imagesPerRow={4}
-          renderImage={(asset, isFirst) => { return this._renderProfileImagePicker(asset)}} />
-      </View>
-    </View>
+    <ProfileImagePicker
+      year={this.state.year}
+      month={this.state.month}
+      days={this.state.days}
+      onDataLoad={() => this.setState({loadingData: true})}
+      onFinishLoad={() => this.setState({loadingData: false})}
+      onFinishPicking={(profileImages) => this.setState({loadingData: false, profileImages: profileImages, formIndex: 5})}/>
     return content
   }
 
@@ -455,7 +396,7 @@ class InfoScreen extends Component {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
-    fontFamily: "SueEllenFrancisco"
+    fontFamily: "ArchitectsDaughter"
   },
   container: {
     padding: 20,
@@ -464,29 +405,29 @@ const styles = StyleSheet.create({
   },
   formLabel: {
     color: Colors.fadedGrey,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
     fontSize: 18,
   },
   formInput: {
     fontSize: 32,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
     height: 74,
   },
   bioContainer: {
     height: 150,
     fontSize: 18,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   bungeeText: {
     marginTop: 16,
     marginBottom: 16,
     fontSize: 14,
     marginRight: 48,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   formPretext: {
     fontSize: 32,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
     marginRight: 8,
   },
   inputContainer: {

@@ -23,7 +23,7 @@ import NavigationBar from 'react-native-navbar'
 
 class UserProfileScreen extends Component {
   render() {
-    var title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>{this.props.userDisplayData.name}'s Profile </Text>
+    var title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>{`${this.props.userDisplayData.name}'s Profile`}</Text>
     var leftButton =
     <TouchableOpacity
       onPress={() => this.props.navigator.pop()}
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco"
+    fontFamily: "ArchitectsDaughter"
   },
   container: {
     padding: 20,
@@ -69,19 +69,19 @@ const styles = StyleSheet.create({
     fontSize: 32,
     height: 74,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco"
+    fontFamily: "ArchitectsDaughter"
   },
   formPretext: {
     fontSize: 32,
     marginRight: 8,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco"
+    fontFamily: "ArchitectsDaughter"
   },
   bioContainer: {
     height: 150,
     fontSize: 18,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   inputContainer: {
     height: 72,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
     color: 'white',
     fontSize: 21
   },

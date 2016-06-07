@@ -16,7 +16,7 @@ import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'
 import NavigationBar from 'react-native-navbar'
 import cityData from '../local_data/cityData'
-import DropDown from 'react-native-dropdown'
+import DropDown from '../components/Dropdown/index.js'
 import _ from 'underscore'
 var Mailer = require('NativeModules').RNMail;
 
@@ -57,7 +57,7 @@ class CityPickerScreen extends Component {
         pickerValue = (
          <Option
            key={data.ident}
-           styleText={{fontFamily: 'SueEllenFrancisco'}}>{data.name}</Option>)
+           styleText={{fontFamily: 'ArchitectsDaughter'}}>{data.name}</Option>)
         pickerValues.push(pickerValue)
       })
     pickerValues.push(
@@ -117,7 +117,7 @@ class CityPickerScreen extends Component {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   rowContainer: {
     width: deviceWidth,

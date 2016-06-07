@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 17,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
 })
 module.exports = CityBrowserScreen

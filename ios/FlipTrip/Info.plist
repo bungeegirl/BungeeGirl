@@ -23,7 +23,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1580044078990024</string>
+				<string>fb920085248120493</string>
 			</array>
 		</dict>
 	</array>
@@ -32,9 +32,9 @@
 	<key>CodePushDeploymentKey</key>
 	<string>1ZgSUbgc-8BqNkgYpM1-eVsRVcDnEkeB4ZrAl</string>
 	<key>FacebookAppID</key>
-	<string>1580044078990024</string>
+	<string>920085248120493</string>
 	<key>FacebookDisplayName</key>
-	<string>FlipTrip-Dev</string>
+	<string>Bungee</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -54,7 +54,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>ArchitectsDaughter.ttf</string>
-		<string>SueEllenFrancisco.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>FontAwesome.ttf</string>

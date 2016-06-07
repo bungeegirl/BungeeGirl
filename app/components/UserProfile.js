@@ -17,10 +17,11 @@ import _ from 'underscore'
 import Colors from '../styles/Colors'
 import moment from 'moment'
 import travelData from '../local_data/questions'
+import cityData from '../local_data/cityData'
+
 
 class UserProfile extends Component {
   render() {
-    console.log(this.props)
     var uri = `data:image/jpeg;base64, ${this.props.userDisplayData.imageData}`
     var travelTypes = travelData.travelProfiles
     var profileTitle
@@ -29,6 +30,7 @@ class UserProfile extends Component {
     } else {
       profileTitle = ""
     }
+    var city = _.findWhere(cityData, {ident: this.props.userDisplayData.city})
     var age = moment().diff(moment({years: this.props.userDisplayData.year, months: this.props.userDisplayData.month, days: this.props.userDisplayData.days}), 'years')
     var content =
     <View style={{flex: 1}}>
@@ -44,7 +46,7 @@ class UserProfile extends Component {
           <Text style={styles.formPretext}>{age} years old</Text>
         </View>
         <View style={[styles.inputContainer, {marginTop: -20}]}>
-          <Text style={styles.formPretext}>from {this.props.userDisplayData.city}</Text>
+          <Text style={styles.formPretext}>from {city.name}</Text>
         </View>
         <Image
           resizeMode='cover'
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 17,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco"
+    fontFamily: "ArchitectsDaughter"
   },
   container: {
     padding: 20,
@@ -79,19 +81,19 @@ const styles = StyleSheet.create({
     fontSize: 32,
     height: 74,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco"
+    fontFamily: "ArchitectsDaughter"
   },
   formPretext: {
     fontSize: 32,
     marginRight: 8,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco"
+    fontFamily: "ArchitectsDaughter"
   },
   bioContainer: {
     height: 150,
     fontSize: 18,
     color: Colors.beige,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
   },
   inputContainer: {
     height: 72,
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
     color: 'white',
     fontSize: 21
   },

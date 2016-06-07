@@ -51,7 +51,7 @@ class ProfileBackground extends Component {
         style={{flex: 1, backgroundColor: Colors.red}}>
         <Image
           resizeMode='cover'
-          style={{height: this.state.image1layout.height, width: this.state.image1layout.width}}
+          style={[styles.imageBorder, {height: this.state.image1layout.height, width: this.state.image1layout.width}]}
           source={{uri: uris[0]}}/>
       </View>
       <View style={{flex: 1, backgroundColor: Colors.green, flexDirection: 'row'}}>
@@ -60,7 +60,7 @@ class ProfileBackground extends Component {
           style={{flex: 3, backgroundColor: Colors.blue}}>
           <Image
             resizeMode='cover'
-            style={{height: this.state.image2layout.height, width: this.state.image2layout.width}}
+            style={[styles.imageBorder, {height: this.state.image2layout.height, width: this.state.image2layout.width}]}
             source={{uri: uris[1]}}/>
         </View>
         <View
@@ -68,7 +68,7 @@ class ProfileBackground extends Component {
           style={{flex: 4, backgroundColor: Colors.green}}>
           <Image
             resizeMode='cover'
-            style={{height: this.state.image3layout.height, width: this.state.image3layout.width}}
+            style={[styles.imageBorder, {height: this.state.image3layout.height, width: this.state.image3layout.width}]}
             source={{uri: uris[2]}}/>
         </View>
       </View>
@@ -78,7 +78,7 @@ class ProfileBackground extends Component {
           style={{flex: 4, backgroundColor: Colors.beige}}>
           <Image
             resizeMode='cover'
-            style={{height: this.state.image4layout.height, width: this.state.image4layout.width}}
+            style={[styles.imageBorder, {height: this.state.image4layout.height, width: this.state.image4layout.width}]}
             source={{uri: uris[3]}}/>
         </View>
         <View
@@ -86,7 +86,7 @@ class ProfileBackground extends Component {
           style={{flex: 3, backgroundColor: Colors.mediumBlue}}>
           <Image
             resizeMode='cover'
-            style={{height: this.state.image5layout.height, width: this.state.image5layout.width}}
+            style={[styles.imageBorder, {height: this.state.image5layout.height, width: this.state.image5layout.width}]}
             source={{uri: uris[4]}}/>
         </View>
       </View>
@@ -97,6 +97,11 @@ class ProfileBackground extends Component {
   }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  imageBorder: {
+    borderWidth: 1,
+    borderColor: Colors.beige
+  }
+})
 
 module.exports = ProfileBackground

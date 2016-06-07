@@ -247,7 +247,7 @@ var styles = StyleSheet.create({
   },
   url: {
     fontSize: 9,
-    fontFamily: "SueEllenFrancisco",
+    fontFamily: "ArchitectsDaughter",
     marginBottom: 14,
   },
   image: {
