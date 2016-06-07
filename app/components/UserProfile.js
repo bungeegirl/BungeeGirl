@@ -35,6 +35,7 @@ class UserProfile extends Component {
     var content =
     <View style={{flex: 1}}>
       <ProfileBackground
+        ref="ProfileBackground"
         firebaseRef={this.props.firebaseRef}
         uidToRender={this.props.uidToRender} />
       <View style={[styles.container, {flex: 1}]}>

@@ -85,6 +85,7 @@ class FlipTrip extends Component {
     this.eventEmitter.addListener('citySelected', (selectedCity, successCallBack) => this._updateSelectedCity(selectedCity, successCallBack))
     this.eventEmitter.addListener('createUserFromFacebook',(successCallBack, errorCallBack) => this._createUserFromFacebook(successCallBack, errorCallBack))
     this.eventEmitter.addListener('loginUser', (userData, successCallBack, errorCallBack) => this._loginUser(userData, successCallBack, errorCallBack))
+    this.eventEmitter.addListener('editProfileImages', (profileImages, successCallBack, errorCallBack) => this._editProfileImages(profileImages,successCallBack,errorCallBack))
 
     RCTDeviceEventEmitter.addListener(FBLoginManager.Events["Login"], (loginData) => {
       console.log(loginData)
@@ -181,6 +182,16 @@ class FlipTrip extends Component {
     })
     userDataToWrite['onBoardingStep'] = 'questions'
     this.firebaseRef.child('users').child(this.state.uid).update(userDataToWrite)
+    this.firebaseRef.child('userImages').child(this.state.uid).update(imageData)
+    successCallBack()
+  }
+
+  _editProfileImages(profileImages, successCallBack, errorCallBack) {
+    var imageData = {}
+    var imageDataToWrite = _.each(profileImages, (image, index) => {
+      var imageKey = `image${index}`
+      imageData[imageKey] = image.imageData
+    })
     this.firebaseRef.child('userImages').child(this.state.uid).update(imageData)
     successCallBack()
   }
