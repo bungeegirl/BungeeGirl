@@ -47,7 +47,7 @@ class UserProfile extends Component {
           <Text style={styles.formPretext}>{age} years old</Text>
         </View>
         <View style={[styles.inputContainer, {marginTop: -20}]}>
-          <Text style={styles.formPretext}>from {city.name}</Text>
+          { city && ( <Text style={styles.formPretext}>from {city.name}</Text> ) }
         </View>
         <Image
           resizeMode='cover'
@@ -104,7 +104,9 @@ const styles = StyleSheet.create({
   avatarImage: {
     width: 120,
     height: 120,
-    borderRadius: 60
+    borderRadius: 60,
+    borderWidth: 1,
+    borderColor: Colors.beige
   },
   buttonText: {
     textAlign: 'center',

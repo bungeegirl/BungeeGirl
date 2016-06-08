@@ -45,7 +45,7 @@ class ProfileBackground extends Component {
       return `data:image/jpeg;base64, ${imageData}`
     })
     var content =
-    <View style={{position: 'absolute', height: deviceHeight - 48, top: 0, left: 0, width: deviceWidth}}>
+    <View style={{position: 'absolute', height: deviceHeight - 48 - 66, top: 0, left: 0, width: deviceWidth}}>
       <View
         onLayout={(event) => this.setState({image1layout: event.nativeEvent.layout})}
         style={{flex: 1, backgroundColor: Colors.red}}>

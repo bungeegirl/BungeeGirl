@@ -300,8 +300,10 @@ class InfoScreen extends Component {
       year={this.state.year}
       month={this.state.month}
       days={this.state.days}
+      profileImages={this.state.profileImages}
       onDataLoad={() => this.setState({loadingData: true})}
-      onFinishLoad={() => this.setState({loadingData: false})}
+      deSelectImage={(newImages) => this.setState({profileImages: newImages})}
+      onFinishLoad={(profileImages) => this.setState({loadingData: false, profileImages: profileImages})}
       onFinishPicking={(profileImages) => this.setState({loadingData: false, profileImages: profileImages, formIndex: 5})}/>
     return content
   }

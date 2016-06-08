@@ -24,16 +24,87 @@ var ImagePickerManager = require('NativeModules').ImagePickerManager
 var deviceWidth = Dimensions.get('window').width
 var deviceHeight = Dimensions.get('window').height
 
-class ProfileImagePicker extends Component {
+class ImageRow extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      profileImages: []
+      selected: false
     }
   }
 
+  addImage() {
+    this.props.onDataLoad()
+    var { asset } = this.props
+    var profileImages = this.props.getProfileImages()
+    NativeModules.ReadImageData.readImage(asset.node.image.uri, (image) => {
+      var profileImageClone = _.clone(profileImages)
+      profileImageClone.push({uri: asset.node.image.uri, imageData: image})
+      if(profileImageClone.length == 5) {
+        this.props.onFinishPicking(profileImageClone)
+      } else {
+        this.props.onFinishLoad(profileImageClone)
+        this.setState({selected: true})
+      }
+    })
+  }
+
+  unselectImage() {
+    var profileImageClone = _.clone(this.props.profileImages)
+    var newImages = _.reject(profileImageClone, (imageObject) => {
+      var profileImageClone = _.clone(profileImages)
+
+      return imageObject.uri == asset.node.image.uri
+    })
+    this.props.deSelectImage(newImages)
+    this.setState({selected: false})
+  }
   render() {
-    var {year, month, days, name } = this.props
+
+    var {rowID, asset, index, profileImages } = this.props
+    let imageSize = deviceWidth / 4
+    var selectionFuction
+    var checkMark
+    if(this.state.selected) {
+      selectionFuction = () => this.unselectImage()
+      checkMark =
+      <View style={[styles.checkMarkContainer, {width: imageSize, height: imageSize}]}>
+        <Icon
+          size={48}
+          name="md-checkbox"
+          color='white'/>
+      </View>
+    } else {
+      selectionFuction = () => this.addImage()
+      checkMark = <View />
+    }
+
+    return (
+      <TouchableOpacity
+        onPress={() => selectionFuction()}>
+        <Image
+          key={`asset.node.image.uri`}
+          source={asset.node.image}
+          style={{width: imageSize, height: imageSize}}/>
+        {checkMark}
+      </TouchableOpacity>
+    )
+  }
+
+}
+
+class ProfileImagePicker extends Component {
+  constructor(props) {
+    super(props)
+    var arr = [];
+
+    for (var i=0;i<100;i++) {
+     arr[i] = [];
+    }
+    this.imageRefs = arr
+  }
+
+  render() {
+    var {year, month, days, name, profileImages } = this.props
     var age = moment().diff(moment({years: year, months: month, days: days}), 'years')
     var content =
     <View style={{flex: 1, alignItems: 'stretch'}}>
@@ -49,60 +120,25 @@ class ProfileImagePicker extends Component {
       </View>
       <View style={{flex: 1}}>
         <CameraRollView
+          ref="CameraRoll"
           imagesPerRow={4}
-          renderImage={(asset, isFirst) => { return this._renderProfileImagePicker(asset)}} />
+          renderImage={(asset, isFirst, rowID, index) => { return this._renderProfileImagePicker(asset, rowID, index)}} />
       </View>
     </View>
     return content
   }
 
-  _renderProfileImagePicker(asset) {
-    let imageSize = deviceWidth / 4
-    var profileImages = _.clone(this.state.profileImages)
-    let selected = _.contains(_.pluck(profileImages, 'uri'), asset.node.image.uri)
-    var addImage = () => {
-      this.props.onDataLoad()
-      NativeModules.ReadImageData.readImage(asset.node.image.uri, (image) => {
-        profileImages.push({uri: asset.node.image.uri, imageData: image})
-        if(profileImages.length == 5) {
-          this.props.onFinishPicking(profileImages)
-        } else {
-          this.props.onFinishLoad()
-          this.setState({profileImages: profileImages})
-        }
-      })
-    }
-    var unselectImage = () => {
-      var newImages = _.reject(profileImages, (imageObject) => {
-        return imageObject.uri == asset.node.image.uri
-      })
-      this.setState({profileImages: newImages})
-    }
-    var selectionFuction
-    var checkMark
-    if(selected) {
-      selectionFuction = unselectImage
-      checkMark =
-      <View style={[styles.checkMarkContainer, {width: imageSize, height: imageSize}]}>
-        <Icon
-          size={48}
-          name="md-checkbox"
-          color='white'/>
-      </View>
-    } else {
-      selectionFuction = addImage
-      checkMark = <View />
-    }
-
+  _renderProfileImagePicker(asset, rowID, index) {
+    var renderContext = this
     return (
-      <TouchableOpacity
-        onPress={() => selectionFuction()}>
-        <Image
-          key={`asset.node.image.uri`}
-          source={asset.node.image}
-          style={{width: imageSize, height: imageSize}}/>
-        {checkMark}
-      </TouchableOpacity>
+    <ImageRow
+      {...renderContext.props}
+      key={`image${rowID}${index}`}
+      getProfileImages={() => { return renderContext.props.profileImages}}
+      ref={(component) => this.imageRefs[rowID][index] = component}
+      asset={asset}
+      rowID={rowID}
+      index={index}/>
     )
   }
 }

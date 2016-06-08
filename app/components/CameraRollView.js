@@ -204,7 +204,7 @@ var CameraRollView = React.createClass({
       }
       var isFirst
       (sectionID == 's1' && rowID == '0' && index == 0) ? isFirst = true : isFirst = false
-      return this.props.renderImage(image, isFirst);
+      return this.props.renderImage(image, isFirst, rowID, index);
     });
 
     return (
@@ -247,7 +247,6 @@ var styles = StyleSheet.create({
   },
   url: {
     fontSize: 9,
-    fontFamily: "ArchitectsDaughter",
     marginBottom: 14,
   },
   image: {

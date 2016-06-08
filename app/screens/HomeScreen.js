@@ -32,18 +32,27 @@ class HomeScreen extends Component {
     this.state = {
       loadingData: false,
       render: 'profile',
+      profileImages: []
     }
   }
 
   render() {
     var content
+    console.log('rendering screen', this.state.profileImages.length)
     switch (this.state.render) {
       case 'profile':
         var title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>My Profile</Text>
+        var rightButton =
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => this._editProfilePictures()}>
+          <Text style={[styles.buttonText, {color: Colors.blue, fontSize: 14}]}>Edit</Text>
+        </TouchableOpacity>
         content =
         <ViewContainer backgroundColor='transparent'>
           <NavigationBar
             title={title}
+            rightButton={rightButton}
             style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
           <UserProfile
             {...this.props}
@@ -51,11 +60,6 @@ class HomeScreen extends Component {
             uidToRender={this.props.uid}
             userDisplayData={this.props.userData} />
           <View style={{alignSelf: 'stretch', flex: 1}}/>
-          <TouchableOpacity
-            style={[styles.logoutButton, {backgroundColor: Colors.blue}]}
-            onPress={() => this._editProfilePictures()}>
-            <Text style={styles.buttonText}>Edit Profile Pics</Text>
-          </TouchableOpacity>
           <TouchableOpacity
             style={styles.logoutButton}
             onPress={() => this._logout()}>
@@ -81,11 +85,15 @@ class HomeScreen extends Component {
            <ProfileImagePicker
              year={this.props.userData.year}
              month={this.props.userData.month}
-             days={this.props.userData.days}
+             days={this.props.userData.day}
+             profileImages={this.state.profileImages}
+             deSelectImage={(newImages) => this.setState({profileImages: newImages})}
              onDataLoad={() => this.setState({loadingData: true})}
-             onFinishLoad={() => this.setState({loadingData: false})}
+             onFinishLoad={(profileImages) => {
+               this.setState({loadingData: false, profileImages: profileImages})
+             }}
              onFinishPicking={(profileImages) => {
-               var successCallBack = () => { this.setState({loadingData: false, render: 'profile'})}
+               var successCallBack = () => { this.setState({loadingData: false, render: 'profile', profileImages: []})}
                var errorCallBack = () => {}
                this.props.eventEmitter.emit('editProfileImages', profileImages, successCallBack, errorCallBack)
              }}/>
