@@ -141,7 +141,7 @@ class FlipTrip extends Component {
   _createUserFromFacebook(successCallBack, errorCallBack) {
     var firebaseRef = this.firebaseRef
     var renderContext = this
-    FBLoginManager.loginWithPermissions(["email", "user_hometown", "public_profile"],function(error, data) {
+    FBLoginManager.loginWithPermissions(["email", "public_profile"],function(error, data) {
       if (!error) {
         console.log("Login data: ", data);
         firebaseRef.authWithOAuthToken('facebook', data.credentials.token, (error, authData) => {
@@ -169,6 +169,7 @@ class FlipTrip extends Component {
         })
       } else {
         console.log("Error: ", data);
+        errorCallBack(data)
       }
     })
   }
