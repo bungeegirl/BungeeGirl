@@ -106,16 +106,21 @@ class ProfileImagePicker extends Component {
   render() {
     var {year, month, days, name, profileImages } = this.props
     var age = moment().diff(moment({years: year, months: month, days: days}), 'years')
+    var intro
     var content =
     <View style={{flex: 1, alignItems: 'stretch'}}>
       <View style={styles.container}>
-        <View style={[styles.inputContainer, {marginTop: -10}]}>
-          <Text style={styles.formPretext}>{`I'm`}</Text>
-          <Text style={styles.formPretext}>{name}</Text>
-        </View>
-        <View style={[styles.inputContainer, {marginTop: -24}]}>
-          <Text style={styles.formPretext}>{age} years old</Text>
-        </View>
+        { !this.props.excludeIntro &&
+          <View>
+            <View style={[styles.inputContainer, {marginTop: -10}]}>
+              <Text style={styles.formPretext}>{`I'm`}</Text>
+              <Text style={styles.formPretext}>{name}</Text>
+            </View>
+            <View style={[styles.inputContainer, {marginTop: -24}]}>
+              <Text style={styles.formPretext}>{age} years old</Text>
+            </View>
+          </View>
+        }
         <Text style={[styles.formLabel, {marginTop: 8, marginBottom: 8}]}>Share five of your best travel pics</Text>
       </View>
       <View style={{flex: 1}}>

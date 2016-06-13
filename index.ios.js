@@ -82,10 +82,15 @@ class FlipTrip extends Component {
     this.eventEmitter.addListener('createUser',(userData, successCallBack, errorCallBack) => this._createUser(userData, successCallBack, errorCallBack))
     this.eventEmitter.addListener('addProfileData', (userData, successCallBack, errorCallBack) => this._addProfileData(userData, successCallBack, errorCallBack))
     this.eventEmitter.addListener('updateTravelProfile', (travelIdent, successCallBack) => this._updateTravelProfile(travelIdent, successCallBack))
+    this.eventEmitter.addListener('resetTravelProfile', (travelIdent, successCallBack) => this._updateTravelProfile(travelIdent, successCallBack, true))
     this.eventEmitter.addListener('citySelected', (selectedCity, successCallBack) => this._updateSelectedCity(selectedCity, successCallBack))
     this.eventEmitter.addListener('createUserFromFacebook',(successCallBack, errorCallBack) => this._createUserFromFacebook(successCallBack, errorCallBack))
     this.eventEmitter.addListener('loginUser', (userData, successCallBack, errorCallBack) => this._loginUser(userData, successCallBack, errorCallBack))
     this.eventEmitter.addListener('editProfileImages', (profileImages, successCallBack, errorCallBack) => this._editProfileImages(profileImages,successCallBack,errorCallBack))
+    this.eventEmitter.addListener('editProfileName', (name, successCallBack, errorCallBack) => this._editProfileName(name, successCallBack, errorCallBack))
+    this.eventEmitter.addListener('editProfileBio', (bio, successCallBack, errorCallBack) => this._editProfileBio(bio, successCallBack, errorCallBack))
+    this.eventEmitter.addListener('editBirthdate', (birthdate, successCallBack, errorCallBack) => this._editBirthdate(birthdate, successCallBack, errorCallBack))
+    this.eventEmitter.addListener('editAvatar', (image, successCallBack, errorCallBack) => this._editAvatar(image, successCallBack, errorCallBack))
 
     RCTDeviceEventEmitter.addListener(FBLoginManager.Events["Login"], (loginData) => {
       console.log(loginData)
@@ -187,6 +192,26 @@ class FlipTrip extends Component {
     successCallBack()
   }
 
+  _editProfileName(name, successCallBack, errorCallBack) {
+    this.firebaseRef.child('users').child(this.state.uid).update({name: name})
+    successCallBack()
+  }
+
+  _editProfileBio(bio, successCallBack, errorCallBack) {
+    this.firebaseRef.child('users').child(this.state.uid).update({bio: bio})
+    successCallBack()
+  }
+
+  _editBirthdate(birthdate, successCallBack, errorCallBack) {
+    this.firebaseRef.child('users').child(this.state.uid).update(birthdate)
+    successCallBack()
+  }
+
+  _editAvatar(image, successCallBack, errorCallBack) {
+    this.firebaseRef.child('users').child(this.state.uid).update({imageData: image})
+    successCallBack()
+  }
+
   _editProfileImages(profileImages, successCallBack, errorCallBack) {
     var imageData = {}
     var imageDataToWrite = _.each(profileImages, (image, index) => {
@@ -197,11 +222,17 @@ class FlipTrip extends Component {
     successCallBack()
   }
 
-  _updateTravelProfile(travelIdent, successCallBack) {
-    this.firebaseRef.child('users').child(this.state.uid).update({
-      onBoardingStep: 'citySelect',
-      travelType: travelIdent,
-    })
+  _updateTravelProfile(travelIdent, successCallBack, reset) {
+    if(reset) {
+      this.firebaseRef.child('users').child(this.state.uid).update({
+        travelType: travelIdent,
+      })
+    } else {
+      this.firebaseRef.child('users').child(this.state.uid).update({
+        onBoardingStep: 'citySelect',
+        travelType: travelIdent,
+      })
+    }
     successCallBack()
   }
 

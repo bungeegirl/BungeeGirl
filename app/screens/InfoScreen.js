@@ -15,6 +15,10 @@ import React, {
 
 import ViewContainer from '../components/ViewContainer'
 import ProfileImagePicker from '../components/ProfileImagePicker'
+import NamePicker from '../components/NamePicker'
+import BirthdatePicker from '../components/BirthdatePicker'
+import AvatarPicker from '../components/AvatarPicker'
+import BioEditor from '../components/BioEditor'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Colors from '../styles/Colors'
 import NavigationBar from 'react-native-navbar'
@@ -186,111 +190,36 @@ class InfoScreen extends Component {
 
   _renderName() {
     var content =
-    <View style={[styles.container, {flex: 1}]}>
-      <Text style={styles.formLabel}>What's your name?</Text>
-      <View style={styles.inputContainer}>
-        <Text style={styles.formPretext}>I'm</Text>
-        <TextInput
-          style={[styles.formInput, {flex: 1}]}
-          autoFocus={true}
-          onSubmitEditing={() => this.setState({formIndex: this.state.formIndex + 1})}
-          onChangeText={(text) => this.setState({name: text})}/>
-      </View>
-    </View>
+    <NamePicker
+      onChangeText={(text) => this.setState({name: text})}
+      onSubmitEditing={() => this.setState({formIndex: this.state.formIndex + 1})}/>
 
     return content
   }
 
-  _renderImage(asset) {
-    let imageSize = deviceWidth / 4
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          this.setState({loadingData: true})
-          NativeModules.ReadImageData.readImage(asset.node.image.uri, (image) => {
-            this.setState({imageData: image, formIndex: 3, loadingData: false})
-          })}}>
-        <Image
-          key={`asset.node.image.uri`}
-          source={asset.node.image}
-          style={{width: imageSize, height: imageSize}}/>
-      </TouchableOpacity>
-    )
-  }
-
   _renderBirthdate() {
-    if(this.state.month.length == 2 && this.state.day.length == 0 && this.state.year.length == 0) {
-      this.refs.DaysTextInput.focus()
-    }
-    if(this.state.day.length == 2 && this.state.month.length == 2 && this.state.year.length == 0) {
-      this.refs.YearsTextInput.focus()
-    }
     var content =
-
-    <View style={[styles.container, {flex: 1}]}>
-      <View style={[styles.inputContainer, {marginTop: -10}]}>
-        <Text style={styles.formPretext}>I'm</Text>
-        <Text style={styles.formPretext}>{this.state.name}</Text>
-      </View>
-      <View style={{height: 10}} />
-      <Text style={styles.formLabel}>What's your Birthdate?</Text>
-      <View style={styles.inputContainer}>
-        <Text style={styles.formPretext}>Born</Text>
-        <TextInput
-          keyboardType='numeric'
-          style={[styles.formInput, {width: 60}]}
-          autoFocus={true}
-          placeholder='MM'
-          maxLength={2}
-          onChangeText={(text) => this.setState({month: text})}/>
-        <Text style={[styles.formPretext, {marginRight: 8, color: Colors.fadedGrey}]}>-</Text>
-        <TextInput
-          keyboardType='numeric'
-          ref="DaysTextInput"
-          style={[styles.formInput, {width: 60}]}
-          placeholder='DD'
-          maxLength={2}
-          onChangeText={(text) => this.setState({day: text})}/>
-        <Text style={[styles.formPretext, {marginRight: 8, color: Colors.fadedGrey}]}>-</Text>
-          <TextInput
-            keyboardType='numeric'
-            ref="YearsTextInput"
-            style={[styles.formInput, {width: 120}]}
-            placeholder='YYYY'
-            maxLength={4}
-            onSubmitEditing={() => this.setState({formIndex: this.state.formIndex + 1})}
-            onChangeText={(text) => this.setState({year: text})}/>
-      </View>
-    </View>
-
+    <BirthdatePicker
+      month={this.state.month}
+      day={this.state.day}
+      year={this.state.year}
+      name={this.state.name}
+      onChangeMonth={(text) => this.setState({month: text})}
+      onChangeDay={(text) => this.setState({day: text})}
+      onChangeYear={(text) => this.setState({year: text})}
+      onSubmitEditing={() => this.setState({formIndex: this.state.formIndex + 1})}/>
     return content
   }
 
   _renderAvatar() {
-    var age = moment().diff(moment({years: this.state.year, months: this.state.month, days: this.state.days}), 'years')
     var content =
-    <View style={{flex: 1, alignItems: 'stretch'}}>
-      <View style={styles.container}>
-        <View style={[styles.inputContainer, {marginTop: -10}]}>
-          <Text style={styles.formPretext}>I'm</Text>
-          <Text style={styles.formPretext}>{this.state.name}</Text>
-        </View>
-        <View style={[styles.inputContainer, {marginTop: -24}]}>
-          <Text style={styles.formPretext}>{age} years old</Text>
-        </View>
-        <Text style={[styles.formLabel, {marginTop: 8, marginBottom: 8}]}>Let's put a face to the name</Text>
-      </View>
-      <View style={{flex: 1}}>
-        <CameraRollView
-          imagesPerRow={4}
-          renderImage={(asset, isFirst) => {
-            if(!isFirst) {
-              return this._renderImage(asset)
-            } else {
-              return this._renderPictureIcon()
-            }}} />
-      </View>
-    </View>
+    <AvatarPicker
+      year={this.state.year}
+      month={this.state.month}
+      day={this.state.day}
+      onImageLoad={() => this.setState({loadingData: true})}
+      onImagePress={(image) => this.setState({imageData: image, formIndex: 3, loadingData: false})}/>
+
     return content
   }
 
@@ -308,42 +237,12 @@ class InfoScreen extends Component {
     return content
   }
 
-  _renderPictureIcon() {
-    var imageSize = deviceWidth / 4
-    var options = {
-      cameraType: 'back', // 'front' or 'back'
-
-    }
-    var content =
-    <TouchableOpacity
-      onPress={() =>   ImagePickerManager.launchCamera(options, (response)  => {
-        this.setState({imageData: response.data, formIndex: 3})
-    })}>
-      <Image
-        style={{height: imageSize, width: imageSize}}
-        resizeMode='contain'
-        source={require('../assets/photo-placeholder.png')} />
-    </TouchableOpacity>
-    return content
-  }
-
   _renderBio() {
-    var uri = `data:image/jpeg;base64, ${this.state.imageData}`
     var content =
-    <View style={[styles.container, {flex: 1}]}>
-      <Image
-        resizeMode='cover'
-        source={{uri: uri}}
-        style={styles.avatarImage}/>
-      <Text style={[styles.formLabel, {marginTop: 16, marginBottom: 16}]}>Add a little about yourself...</Text>
-      <TextInput
-        style={styles.bioContainer}
-        maxLength={140}
-        placeholder='Enter a short bio, e.g. “I’m a commercial architect for a big studio, who likes to shop & dine abroad in between projects!'
-        onChangeText={(text) => { this.setState({bio: text}) }}
-        multiline={true}/>
-      <Text style={[styles.formLabel, {marginTop: 16, marginBottom: 16}]}>{this.state.bio.length}/180 Characters</Text>
-    </View>
+    <BioEditor
+      imageData={this.state.imageData}
+      bio={this.state.bio}
+      onChangeText={(text) => this.setState({bio: text})}/>
     return content
   }
 
@@ -363,7 +262,7 @@ class InfoScreen extends Component {
         resizeMode='cover'
         source={{uri: uri}}
         style={styles.avatarImage}/>
-      <Text style={[styles.formLabel, {marginTop: 100, marginBottom: 10}]}>WHAT KIND OF BUNGEE GIRL ARE YOU?</Text>
+      <Text style={[styles.formLabel, {marginTop: 24, marginBottom: 10}]}>WHAT KIND OF BUNGEE GIRL ARE YOU?</Text>
       <Text
         numberOfLines={10}
         style={styles.bungeeText}>As Bungee Girls we each have a venturesome spirit, wanderlust desires,  embrace risk-taking, crave confidence and seek personal development through exploring the world. But we each have different travel habits. Lets discover what your travel personality is. This can help  you find people just like you!</Text>

@@ -102,9 +102,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   avatarImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
+    width: 160,
+    height: 160,
+    borderRadius: 80,
     borderWidth: 1,
     borderColor: Colors.beige
   },

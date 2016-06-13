@@ -14,7 +14,12 @@ import React, {
 } from 'react-native'
 
 import ViewContainer from '../components/ViewContainer'
+import EditListView from '../components/EditListView'
 import ProfileImagePicker from '../components/ProfileImagePicker'
+import NamePicker from '../components/NamePicker'
+import BirthdatePicker from '../components/BirthdatePicker'
+import AvatarPicker from '../components/AvatarPicker'
+import BioEditor from '../components/BioEditor'
 import NavigationBar from 'react-native-navbar'
 import Colors from '../styles/Colors'
 import travelData from '../local_data/questions'
@@ -32,28 +37,49 @@ class HomeScreen extends Component {
     this.state = {
       loadingData: false,
       render: 'profile',
-      profileImages: []
+      profileImages: [],
+      imageData: "",
+      name: "",
+      month: "",
+      day: "",
+      year: "",
+      bio: "",
     }
   }
 
+  _validateBio() {
+    return this.state.bio != ""
+  }
+
+  _validateImage() {
+    return this.state.imageData != ""
+  }
+
+  _validateName() {
+    return this.state.name != ""
+  }
+
+  _validateBirthdate() {
+    return (this.state.month <= 12 && this.state.day <= 31 && this.state.year <= 2020 && this.state.year > 1900)
+  }
+
+
   render() {
-    var content
+    var content,title,leftButton
+    var rightButton = () => {}
     console.log('rendering screen', this.state.profileImages.length)
     switch (this.state.render) {
       case 'profile':
-        var title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>My Profile</Text>
-        var rightButton =
+        title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>My Profile</Text>
+        rightButton = () => (
         <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => this._editProfilePictures()}>
-          <Text style={[styles.buttonText, {color: Colors.blue, fontSize: 14}]}>Edit</Text>
+          style={[styles.backButton, {marginRight: 8}]}
+          onPress={() => this._logout()}>
+          <Text style={[styles.buttonText, {color: Colors.red, fontSize: 14}]}>Logout</Text>
         </TouchableOpacity>
+        )
         content =
-        <ViewContainer backgroundColor='transparent'>
-          <NavigationBar
-            title={title}
-            rightButton={rightButton}
-            style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
+        <View style={{flex: 1}}>
           <UserProfile
             {...this.props}
             ref="UserProfile"
@@ -62,14 +88,14 @@ class HomeScreen extends Component {
           <View style={{alignSelf: 'stretch', flex: 1}}/>
           <TouchableOpacity
             style={styles.logoutButton}
-            onPress={() => this._logout()}>
-            <Text style={styles.buttonText}>Log Out</Text>
+            onPress={() => this._editProfile()}>
+            <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
-        </ViewContainer>
+        </View>
         break;
-      case 'profileImagePicker':
-        var title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>Profile Images</Text>
-        var leftButton =
+      case 'editProfile':
+        title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>Edit Profile</Text>
+        leftButton =
         <TouchableOpacity
           onPress={() => this.setState({render: 'profile'})}
           style={styles.backButton}>
@@ -77,34 +103,188 @@ class HomeScreen extends Component {
             source={require('../assets/Nav-Back.png')}/>
          </TouchableOpacity>
          content =
-         <ViewContainer backgroundColor='transparent'>
-           <NavigationBar
-             title={title}
-             leftButton={leftButton}
-             style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
-           <ProfileImagePicker
-             year={this.props.userData.year}
-             month={this.props.userData.month}
-             days={this.props.userData.day}
-             profileImages={this.state.profileImages}
-             deSelectImage={(newImages) => this.setState({profileImages: newImages})}
-             onDataLoad={() => this.setState({loadingData: true})}
-             onFinishLoad={(profileImages) => {
-               this.setState({loadingData: false, profileImages: profileImages})
-             }}
-             onFinishPicking={(profileImages) => {
-               var successCallBack = () => { this.setState({loadingData: false, render: 'profile', profileImages: []})}
-               var errorCallBack = () => {}
-               this.props.eventEmitter.emit('editProfileImages', profileImages, successCallBack, errorCallBack)
-             }}/>
-           <Spinner visible={this.state.loadingData}/>
-         </ViewContainer>
+         <EditListView
+           editBirthdate={() => this.setState({render: 'editBirthdate'})}
+           editBio={() => this.setState({render: "editBio"})}
+           editHometown={() => this.props.navigator.push({ident: 'CityPickerScreen'})}
+           editTravelType={() => this.props.navigator.push({ident: 'QuestionScreen', resetProfile: true})}
+           editProfilePicture={() => this.setState({render: 'editProfilePicture'})}
+           editName={() => this.setState({render: 'editName'})}
+           editProfileBackgroundPictures={() => this.setState({render: 'editProfileBackgroundPictures'})}/>
+         break;
+      case 'editName':
+        title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>Edit Name</Text>
+        leftButton =
+        <TouchableOpacity
+          onPress={() => this.setState({render: 'editProfile'})}
+          style={styles.backButton}>
+          <Image
+            source={require('../assets/Nav-Back.png')}/>
+         </TouchableOpacity>
+         rightButton = () => {
+           var button
+           if(this._validateName()) {
+             button = <Text
+               onPress={() => this._submitName()}
+               style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Submit </Text>
+           } else {
+             button = <Text style={[styles.titleText, {color: Colors.darkGrey, marginRight: 8}]}> Submit </Text>
+           }
+           return button
+         }
+         content =
+         <NamePicker
+            onSubmitEditing={() => this._submitName()}
+            onChangeText={(text) => this.setState({name: text})}/>
+         break;
+      case 'editBirthdate':
+        title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>Edit Birthday</Text>
+        leftButton =
+        <TouchableOpacity
+          onPress={() => this.setState({render: 'editProfile'})}
+          style={styles.backButton}>
+          <Image
+            source={require('../assets/Nav-Back.png')}/>
+         </TouchableOpacity>
+         rightButton = () => {
+           var button
+           if(this._validateBirthdate()) {
+             button = <Text
+               onPress={() => this._submitBirthdate()}
+               style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Submit </Text>
+           } else {
+             button = <Text style={[styles.titleText, {color: Colors.darkGrey, marginRight: 8}]}> Submit </Text>
+           }
+           return button
+         }
+         content =
+         <BirthdatePicker
+           excludeIntro={true}
+           month={this.state.month}
+           day={this.state.day}
+           year={this.state.year}
+           name={this.state.name}
+           onChangeMonth={(text) => this.setState({month: text})}
+           onChangeDay={(text) => this.setState({day: text})}
+           onChangeYear={(text) => this.setState({year: text})}
+           onSubmitEditing={() => this._submitBirthdate()}/>
+         break;
+      case 'editBio':
+         title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>Edit Bio</Text>
+         leftButton =
+         <TouchableOpacity
+           onPress={() => this.setState({render: 'editProfile'})}
+           style={styles.backButton}>
+           <Image
+             source={require('../assets/Nav-Back.png')}/>
+          </TouchableOpacity>
+          rightButton = () => {
+            var button
+            if(this._validateBio()) {
+              button = <Text
+                onPress={() => this._submitBio()}
+                style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Submit </Text>
+            } else {
+              button = <Text style={[styles.titleText, {color: Colors.darkGrey, marginRight: 8}]}> Submit </Text>
+            }
+            return button
+          }
+          content =
+          <BioEditor
+            imageData={this.props.userData.imageData}
+            onChangeText={(text) => this.setState({bio: text})}
+            bio={this.state.bio}/>
+          break;
+      case 'editProfilePicture':
+        title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>Edit Profile Picture</Text>
+        leftButton =
+        <TouchableOpacity
+          onPress={() => this.setState({render: 'editProfile'})}
+          style={styles.backButton}>
+          <Image
+            source={require('../assets/Nav-Back.png')}/>
+         </TouchableOpacity>
+         rightButton = () => {
+           var button
+           if(this._validateImage()) {
+             button = <Text
+               onPress={() => this._submitAvatar()}
+               style={[styles.titleText, {color: Colors.red, marginRight: 8}]}> Submit </Text>
+           } else {
+             button = <Text style={[styles.titleText, {color: Colors.darkGrey, marginRight: 8}]}> Submit </Text>
+           }
+           return button
+         }
+         content =
+         <AvatarPicker
+            excludeIntro={true}
+            onImageLoad={() => this.setState({loadingData: true})}
+            onImagePress={(imageData) =>  {
+              var successCallBack = () => this.setState({loadingData: false, imageData: "", render: 'profile'})
+              var errorCallBack = () => {}
+              this.props.eventEmitter.emit('editAvatar', imageData, successCallBack, errorCallBack)
+            }}/>
+         break;
+      case 'editProfileBackgroundPictures':
+        title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>Profile Background Images</Text>
+        leftButton =
+        <TouchableOpacity
+          onPress={() => this.setState({render: 'editProfile'})}
+          style={styles.backButton}>
+          <Image
+            source={require('../assets/Nav-Back.png')}/>
+        </TouchableOpacity>
+        content =
+        <ProfileImagePicker
+          excludeIntro={true}
+          year={this.props.userData.year}
+          month={this.props.userData.month}
+          days={this.props.userData.day}
+          profileImages={this.state.profileImages}
+          deSelectImage={(newImages) => this.setState({profileImages: newImages})}
+          onDataLoad={() => this.setState({loadingData: true})}
+          onFinishLoad={(profileImages) => {
+            this.setState({loadingData: false, profileImages: profileImages})
+          }}
+          onFinishPicking={(profileImages) => {
+            var successCallBack = () => { this.setState({loadingData: false, render: 'profile', profileImages: []})}
+            var errorCallBack = () => {}
+            this.props.eventEmitter.emit('editProfileImages', profileImages, successCallBack, errorCallBack)
+          }}/>
          break;
       default:
-
+        content = <View />
     }
 
-    return content
+    return (
+      <ViewContainer backgroundColor='transparent'>
+        <NavigationBar
+          title={title}
+          rightButton={rightButton()}
+          leftButton={leftButton}
+          style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
+        {content}
+        <Spinner visible={this.state.loadingData}/>
+      </ViewContainer>
+    )
+  }
+
+  _submitName() {
+    var successCallBack = () => { this.setState({loadingData: false, render: 'profile', name: ""})}
+    var errorCallBack = () => {}
+    this.props.eventEmitter.emit('editProfileName', this.state.name, successCallBack, errorCallBack)
+  }
+
+  _submitBirthdate() {
+    var successCallBack = () => { this.setState({loadingData: false, render: 'profile', day: "", month: "", year: ""})}
+    var errorCallBack = () => {}
+    this.props.eventEmitter.emit('editBirthdate', {month: this.state.month, day: this.state.day, year: this.state.year}, successCallBack, errorCallBack)
+  }
+
+  _submitBio() {
+    var successCallBack = () => { this.setState({loadingData: false, render: 'profile', bio: ""})}
+    var errorCallBack = () => {}
+    this.props.eventEmitter.emit('editProfileBio', this.state.bio, successCallBack, errorCallBack)
   }
 
   _logout() {
@@ -115,9 +295,8 @@ class HomeScreen extends Component {
     })
   }
 
-  _editProfilePictures(){
-    this.setState({render: 'profileImagePicker'})
-
+  _editProfile(){
+    this.setState({render: 'editProfile'})
   }
 }
 
@@ -172,7 +351,7 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     borderRadius: 4,
     alignSelf: 'center',
-    backgroundColor: Colors.red,
+    backgroundColor: Colors.blue,
     alignItems: 'center',
     justifyContent: 'center'
   },

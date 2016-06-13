@@ -59,7 +59,8 @@ class AppNavigator extends Component {
       case "QuestionScreen":
         return (
           <QuestionScreen
-            {...globalScreenProps}/>
+            {...globalScreenProps}
+            resetProfile={route.resetProfile}/>
         )
       case "CityPickerScreen":
         return (

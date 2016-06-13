@@ -138,7 +138,12 @@ class QuestionScreen extends Component {
       <View style={{flex: 1}} />
       <TouchableOpacity
         onPress={() => {
-          this._updateProfile(questions.travelProfiles[maxIndex].ident)}}
+          if(this.props.resetProfile) {
+            this._resetProfile(questions.travelProfiles[maxIndex].ident)
+          } else {
+            this._setProfile(questions.travelProfiles[maxIndex].ident)
+          }
+        }}
         style={styles.button}>
         <Text style={styles.buttonText}>GOOD TO KNOW</Text>
         <View style={{flex: 1}} />
@@ -152,13 +157,22 @@ class QuestionScreen extends Component {
   }
 
 
-  _updateProfile(travelIdent) {
+  _setProfile(travelIdent) {
     var successCallBack = () => {
       this.props.navigator.resetTo({
         ident: "CityPickerScreen"
       })
     }
     this.props.eventEmitter.emit('updateTravelProfile', travelIdent, successCallBack)
+  }
+
+  _resetProfile(travelIdent) {
+    var successCallBack = () => {
+      this.props.navigator.resetTo({
+        ident: "HomeScreen"
+      })
+    }
+    this.props.eventEmitter.emit('resetTravelProfile', travelIdent, successCallBack)
   }
 }
 
