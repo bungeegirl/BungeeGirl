@@ -26,9 +26,9 @@ class UserProfile extends Component {
   constructor(props){
     super(props)
     this.state ={
-      avatarWidth: 160,
-      avatarHeight: 160,
-      borderRadius: 80
+      avatarWidth: 120,
+      avatarHeight: 120,
+      borderRadius: 60
     }
   }
 
@@ -54,10 +54,10 @@ class UserProfile extends Component {
           <Text style={styles.formPretext}>I'm</Text>
           <Text style={styles.formPretext}>{this.props.userDisplayData.name}</Text>
         </View>
-        <View style={[styles.inputContainer, {marginTop: -20}]}>
+        <View style={[styles.inputContainer, {marginTop: -10}]}>
           <Text style={styles.formPretext}>{age} years old</Text>
         </View>
-        <View style={[styles.inputContainer, {marginTop: -20}]}>
+        <View style={[styles.inputContainer, {marginTop: -10}]}>
           { city && ( <Text style={styles.formPretext}>from {city.name}</Text> ) }
         </View>
         <Lightbox
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     fontFamily: "ArchitectsDaughter"
   },
   formPretext: {
-    fontSize: 32,
+    fontSize: 24,
     marginRight: 8,
     color: Colors.beige,
     fontFamily: "ArchitectsDaughter"
@@ -115,14 +115,14 @@ const styles = StyleSheet.create({
     fontFamily: "ArchitectsDaughter",
   },
   inputContainer: {
-    height: 72,
+    height: 48,
     flexDirection: 'row',
     alignItems: 'center'
   },
   avatarImage: {
-    width: 160,
-    height: 160,
-    borderRadius: 80,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
     borderWidth: 1,
     borderColor: Colors.beige
   },

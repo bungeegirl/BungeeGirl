@@ -78,6 +78,12 @@ class HomeScreen extends Component {
           <Text style={[styles.buttonText, {color: Colors.red, fontSize: 14}]}>Logout</Text>
         </TouchableOpacity>
         )
+        leftButton =
+        <TouchableOpacity
+          style={[styles.backButton, {marginLeft: 8}]}
+          onPress={() => this._editProfile()}>
+          <Text style={[styles.buttonText, {color: Colors.blue, fontSize: 14}]}>Edit</Text>
+        </TouchableOpacity>
         content =
         <View style={{flex: 1}}>
           <UserProfile
@@ -85,12 +91,7 @@ class HomeScreen extends Component {
             ref="UserProfile"
             uidToRender={this.props.uid}
             userDisplayData={this.props.userData} />
-          <View style={{alignSelf: 'stretch', flex: 1}}/>
-          <TouchableOpacity
-            style={styles.logoutButton}
-            onPress={() => this._editProfile()}>
-            <Text style={styles.buttonText}>Edit</Text>
-          </TouchableOpacity>
+
         </View>
         break;
       case 'editProfile':
