@@ -29,15 +29,34 @@ class ProfileBackground extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.uidToRender)
-    this.props.firebaseRef.child('userImages').child(this.props.uidToRender).once('value', (imageData) => {
-      var profileImages = _.values(imageData.val())
-      this.setState({
-        profileImages: profileImages
+    if(this.props.uidToRender) {
+      this.props.firebaseRef.child('userImages').child(this.props.uidToRender).once('value', (imageData) => {
+        var profileImages = _.values(imageData.val())
+        this.setState({
+          profileImages: profileImages
+        })
+      }, (error) => {
+        console.log(error)
       })
-    }, (error) => {
-      console.log(error)
-    })
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(!_.isEmpty(nextProps.uidToRender) && _(this.props.uidToRender != nextProps.uidToRender)) {
+      this.props.firebaseRef.child('userImages').child(nextProps.uidToRender).once('value', (imageData) => {
+        var profileImages = _.values(imageData.val())
+        this.setState({
+          profileImages: profileImages
+        })
+      }, (error) => {
+        console.log(error)
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    if(this.props.uidToRender)
+      this.props.firebaseRef.child('userImages').child(this.props.uidToRender).off()
   }
 
   render() {

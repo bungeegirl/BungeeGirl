@@ -32,9 +32,9 @@ class LoginScreen extends Component {
               resizeMode='contain'
               source={require('../assets/bungee.png')}/>
           </View>
-          <View style={{flex: 3}}>
+          <View style={{flex: 3, marginTop: 24}}>
             <Text style={styles.introText}>Hey Bungee Girl! Are you ready to go on an epic trip?</Text>
-            <Text style={[styles.introText, {marginTop: 10}]}>Traveling alone can be daunting so we've got to stick together! Let us help you make useful connections to make this trip better than you ever expected!</Text>
+            <Text style={[styles.introText, {marginTop: 4}]}>Traveling alone can be daunting so we've got to stick together! Let us help you make useful connections to make this trip better than you ever expected!</Text>
             <View style={{flex: 1}} />
           </View>
           <View style={{flex: 2, alignSelf: 'stretch'}}>
@@ -95,16 +95,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logo: {
-    width: 150,
-    height: 150,
-    marginTop: 48,
-    marginBottom: 48,
+    width: 250,
+    height: 250,
+    marginTop: 8,
+    marginBottom: 8,
   },
   introText: {
     color: Colors.grey,
     fontFamily: "ArchitectsDaughter",
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 18,
+    marginTop: 16,
     marginBottom: 8,
     marginLeft: 32,
     marginRight: 32
@@ -116,6 +117,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.blue,
     borderRadius: 4,
     marginLeft: 16,
+    marginTop: 16,
     marginRight: 16,
     height: 48,
   },

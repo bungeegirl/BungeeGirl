@@ -26,8 +26,6 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 
 var FBLoginManager = require('NativeModules').FBLoginManager
-
-
 class FlipTrip extends Component {
   constructor(props) {
     super(props)
@@ -238,6 +236,12 @@ class FlipTrip extends Component {
   }
 
   _updateSelectedCity(selectedCity, successCallBack) {
+    if(this.state.userData.city) {
+      let oldCity = this.state.userData.city
+      var removeInput = {}
+      removeInput[this.state.uid] = false
+      this.firebaseRef.child('cities').child(oldCity).child(this.state.uid).remove()
+    }
     this.firebaseRef.child('users').child(this.state.uid).update({
       city: selectedCity,
       onBoardingStep: 'home'
@@ -245,6 +249,7 @@ class FlipTrip extends Component {
     var input = {}
     input[this.state.uid] = true
     this.firebaseRef.child('cities').child(selectedCity).update(input)
+
     successCallBack()
   }
 
