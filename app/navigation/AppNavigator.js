@@ -16,6 +16,8 @@ import CityPickerScreen from '../screens/CityPickerScreen'
 import ExperienceScreen from '../screens/ExperienceScreen'
 import HomeScreen from '../screens/HomeScreen'
 import InfoScreen from '../screens/InfoScreen'
+import ChatListScreen from '../screens/ChatListScreen'
+import ChatScreen from '../screens/ChatScreen'
 import CityBrowserScreen from '../screens/CityBrowserScreen'
 import UserProfileScreen from '../screens/UserProfileScreen'
 
@@ -76,6 +78,19 @@ class AppNavigator extends Component {
         return (
           <ExperienceScreen
             {...globalScreenProps}/>
+        )
+      case "ChatListScreen":
+        return (
+          <ChatListScreen
+            {...globalScreenProps}/>
+        )
+      case "ChatScreen":
+        return (
+          <ChatScreen
+            {...globalScreenProps}
+            userName={route.userName}
+            otherUserImage={route.otherUserImage}
+            userUid={route.userUid}/>
         )
       case "CityBrowserScreen":
         return(

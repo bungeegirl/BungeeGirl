@@ -18,9 +18,20 @@ import Colors from '../styles/Colors'
 import moment from 'moment'
 import travelData from '../local_data/questions'
 import cityData from '../local_data/cityData'
+import Lightbox from 'react-native-lightbox'
 
+var deviceWidth = Dimensions.get('window').width
 
 class UserProfile extends Component {
+  constructor(props){
+    super(props)
+    this.state ={
+      avatarWidth: 160,
+      avatarHeight: 160,
+      borderRadius: 80
+    }
+  }
+
   render() {
     var uri = `data:image/jpeg;base64, ${this.props.userDisplayData.imageData}`
     var travelTypes = travelData.travelProfiles
@@ -49,10 +60,17 @@ class UserProfile extends Component {
         <View style={[styles.inputContainer, {marginTop: -20}]}>
           { city && ( <Text style={styles.formPretext}>from {city.name}</Text> ) }
         </View>
-        <Image
-          resizeMode='cover'
-          source={{uri: uri}}
-          style={styles.avatarImage}/>
+        <Lightbox
+          underlayColor={Colors.beige}
+          backgroundColor={Colors.beige}
+          onOpen={() => this.setState({avatarWidth: deviceWidth, avatarHeight: deviceWidth, borderRadius: deviceWidth/2})}
+          onClose={() => this.setState({avatarWidth: 160, avatarHeight: 160, borderRadius: 160/2})}
+          activeProps={{alignItems: 'center', justifyContent: 'center'}}>
+          <Image
+            resizeMode='cover'
+            source={{uri: uri}}
+            style={[styles.avatarImage, {width: this.state.avatarWidth, height: this.state.avatarHeight, borderRadius: this.state.borderRadius}]}/>
+        </Lightbox>
         <Text style={[styles.formPretext, {marginTop: 10}]}>& I'm a {profileTitle}!</Text>
         <TextInput
           style={styles.bioContainer}

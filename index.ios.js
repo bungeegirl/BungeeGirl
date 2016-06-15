@@ -92,6 +92,7 @@ class FlipTrip extends Component {
     this.eventEmitter.addListener('editBirthdate', (birthdate, successCallBack, errorCallBack) => this._editBirthdate(birthdate, successCallBack, errorCallBack))
     this.eventEmitter.addListener('editAvatar', (image, successCallBack, errorCallBack) => this._editAvatar(image, successCallBack, errorCallBack))
 
+    this.eventEmitter.addListener('initiateMessage', (uid) => this._initiateMessage(uid))
     RCTDeviceEventEmitter.addListener(FBLoginManager.Events["Login"], (loginData) => {
       console.log(loginData)
       AsyncStorage.multiSet([['OAuthToken', loginData.credentials.token]])
@@ -269,6 +270,12 @@ class FlipTrip extends Component {
   }
   _syncUserData(userData, uid) {
     this.setState({userData: userData, loadingData: false, uid: uid})
+  }
+
+  _initiateMessage(uid) {
+    console.log("attempting initiation")
+    this.firebaseRef.child('chats').child(this.state.uid).child(uid).update({ chatRequested: true, chatAccepted: false })
+    this.firebaseRef.child('chats').child(uid).child(this.state.uid).update({ chatRequested: true, chatAccepted: false })
   }
 
   render() {

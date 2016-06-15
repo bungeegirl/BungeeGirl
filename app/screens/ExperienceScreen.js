@@ -56,7 +56,6 @@ class ExperienceScreen extends Component {
           ident: 'CityBrowserScreen',
           cityIdent: cityIdent
         })
-        // var successCallBack = () => this.props.navigator.resetTo({ ident: "HomeScreen" })
       }}>
         <Image
           source={rowData.asset}

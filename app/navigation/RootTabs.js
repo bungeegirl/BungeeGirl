@@ -115,7 +115,7 @@ class RootTabs extends Component {
         onPress={() => this.setState({ selectedTab: 'chat' })}>
         <AppNavigator
           {...globalScreenProps}
-          initialRoute='HomeScreen' />
+          initialRoute='ChatListScreen' />
       </TabNavigator.Item>
       <TabNavigator.Item
         selected={this.state.selectedTab === 'settings'}

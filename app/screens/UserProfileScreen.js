@@ -42,7 +42,7 @@ class UserProfileScreen extends Component {
         {...this.props} />
       <TouchableOpacity
         style={styles.logoutButton}
-        onPress={() => {}}>
+        onPress={() => this._message()}>
         <Text style={styles.buttonText}>Message</Text>
       </TouchableOpacity>
     </ViewContainer>
@@ -50,7 +50,13 @@ class UserProfileScreen extends Component {
   }
 
   _message() {
-
+    this.props.eventEmitter.emit("initiateMessage", this.props.uidToRender)
+    this.props.navigator.push({
+      ident: "ChatScreen",
+      userName: this.props.userDisplayData.name,
+      otherUserImage: this.props.userDisplayData.imageData,
+      userUid: this.props.uidToRender
+    })
   }
 }
 
