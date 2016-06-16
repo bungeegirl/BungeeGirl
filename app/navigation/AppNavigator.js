@@ -16,6 +16,8 @@ import CityPickerScreen from '../screens/CityPickerScreen'
 import ExperienceScreen from '../screens/ExperienceScreen'
 import HomeScreen from '../screens/HomeScreen'
 import InfoScreen from '../screens/InfoScreen'
+import TravelerProfileScreen from '../screens/TravelerProfileScreen'
+import TravelerProfileInfoScreen from '../screens/TravelerProfileInfoScreen'
 import ChatListScreen from '../screens/ChatListScreen'
 import ChatScreen from '../screens/ChatScreen'
 import CityBrowserScreen from '../screens/CityBrowserScreen'
@@ -93,10 +95,25 @@ class AppNavigator extends Component {
             userUid={route.userUid}/>
         )
       case "CityBrowserScreen":
-        return(
+        return (
           <CityBrowserScreen
             cityIdent={route.cityIdent}
             {...globalScreenProps}/>
+        )
+
+      case "TravelerProfileScreen":
+        return (
+          <TravelerProfileScreen
+            {...globalScreenProps}
+            resetProfile={route.resetProfile}/>
+        )
+
+      case "TravelerProfileInfoScreen":
+        return (
+          <TravelerProfileInfoScreen
+            {...globalScreenProps}
+            travelerType={route.travelerType}
+            profileInfo={route.profileInfo}/>
         )
       case "UserProfileScreen":
         return (

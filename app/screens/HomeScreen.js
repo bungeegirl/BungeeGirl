@@ -67,7 +67,7 @@ class HomeScreen extends Component {
   render() {
     var content,title,leftButton
     var rightButton = () => {}
-    console.log('rendering screen', this.state.profileImages.length)
+    console.log('rendering screen', this.props.userData)
     switch (this.state.render) {
       case 'profile':
         title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>My Profile</Text>
@@ -108,9 +108,10 @@ class HomeScreen extends Component {
            editBirthdate={() => this.setState({render: 'editBirthdate'})}
            editBio={() => this.setState({render: "editBio"})}
            editHometown={() => this.props.navigator.push({ident: 'CityPickerScreen'})}
-           editTravelType={() => this.props.navigator.push({ident: 'QuestionScreen', resetProfile: true})}
+           editTravelType={() => this.props.navigator.push({ident: 'TravelerProfileScreen', resetProfile: true})}
            editProfilePicture={() => this.setState({render: 'editProfilePicture'})}
            editName={() => this.setState({render: 'editName'})}
+           validateFacebookInfo={() => this._validateFacebookInfo()}
            editProfileBackgroundPictures={() => this.setState({render: 'editProfileBackgroundPictures'})}/>
          break;
       case 'editName':
@@ -286,6 +287,12 @@ class HomeScreen extends Component {
     var successCallBack = () => { this.setState({loadingData: false, render: 'profile', bio: ""})}
     var errorCallBack = () => {}
     this.props.eventEmitter.emit('editProfileBio', this.state.bio, successCallBack, errorCallBack)
+  }
+
+  _validateFacebookInfo() {
+    var successCallBack = () => { this.setState({loadingData: false, render: 'profile'})}
+    var errorCallBack = () => {}
+    this.props.eventEmitter.emit('validateFacebookInfo', successCallBack, errorCallBack)
   }
 
   _logout() {

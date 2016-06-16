@@ -144,8 +144,22 @@ class QuestionScreen extends Component {
             this._setProfile(questions.travelProfiles[maxIndex].ident)
           }
         }}
-        style={styles.button}>
-        <Text style={styles.buttonText}>GOOD TO KNOW</Text>
+        style={[styles.button, {bottom: 90}]}>
+        <Text style={styles.buttonText}>TOTALLY AGREE</Text>
+        <View style={{flex: 1}} />
+        <Image
+          resizeMode='contain'
+          source={require('../assets/selection-arrow.png')}
+          style={{width: 48, height: 14, marginRight: 10}}/>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          this.props.navigator.push({
+            ident: "TravelerProfileScreen"
+          })
+        }}
+        style={[styles.button, {marginTop: 10, backgroundColor: Colors.lightRed}]}>
+        <Text style={styles.buttonText}>LET ME PICK</Text>
         <View style={{flex: 1}} />
         <Image
           resizeMode='contain'

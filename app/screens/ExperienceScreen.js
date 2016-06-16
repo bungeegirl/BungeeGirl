@@ -30,7 +30,7 @@ class ExperienceScreen extends Component {
   }
 
   render() {
-    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>Find me and experience in:</Text>
+    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>I'm interested in traveling to...</Text>
     var content =
     <ViewContainer backgroundColor={Colors.beige}>
       <NavigationBar

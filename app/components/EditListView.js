@@ -36,6 +36,9 @@ class EditListView extends Component {
     }, {
       title: 'Background Pictures',
       onPress: () => props.editProfileBackgroundPictures()
+    }, {
+      title: 'Verify with Facebook',
+      onPress: () => props.validateFacebookInfo()
     }]
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 

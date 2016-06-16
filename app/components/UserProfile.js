@@ -19,6 +19,7 @@ import moment from 'moment'
 import travelData from '../local_data/questions'
 import cityData from '../local_data/cityData'
 import Lightbox from 'react-native-lightbox'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 var deviceWidth = Dimensions.get('window').width
 
@@ -53,6 +54,18 @@ class UserProfile extends Component {
         <View style={[styles.inputContainer, {marginTop: -10}]}>
           <Text style={styles.formPretext}>I'm</Text>
           <Text style={styles.formPretext}>{this.props.userDisplayData.name}</Text>
+          {this.props.userData.gender == 'female' &&
+            <Icon
+              style={{width: 18, height: 18}}
+              size={18}
+              name='ios-checkmark-circle'
+              color={Colors.green}/>}
+          {this.props.userData.gender == 'male' &&
+            <Icon
+              style={{width: 18, height: 18}}
+              size={18}
+              name='ios-close-circle'
+              color={Colors.red}/>}
         </View>
         <View style={[styles.inputContainer, {marginTop: -10}]}>
           <Text style={styles.formPretext}>{age} years old</Text>

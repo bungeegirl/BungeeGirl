@@ -17,6 +17,7 @@ import React, {
 import codePush from "react-native-code-push"
 import AppNavigator from './app/navigation/AppNavigator'
 import RootTabs from './app/navigation/RootTabs'
+import OnBoardingScreen from './app/screens/OnBoardingScreen'
 import firebase from 'firebase'
 import EventEmitter from 'EventEmitter'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
@@ -33,6 +34,7 @@ class FlipTrip extends Component {
     this.firebaseRef = new Firebase('https://fliptrip-dev.firebaseio.com/')
     this.state = {
       loadingData: true,
+      sawOnBoardingScreen: false,
       userData: {
       },
       uid: '',
@@ -46,8 +48,9 @@ class FlipTrip extends Component {
     // AsyncStorage.clear()
     //   FBLoginManager.logout(() => {})
 
-    AsyncStorage.getItem('authMethod', (error, data) => {
-      if(data == 'email') {
+    AsyncStorage.multiGet(['authMethod','onBoardingScreen'], (error, data) => {
+      this.setState({sawOnBoardingScreen: data[1][1]})
+      if(data[0][1] == 'email') {
         AsyncStorage.multiGet(['uid', 'email', 'password'], (err, stores) => {
           this.firebaseRef.authWithPassword({
             email: stores[1][1],
@@ -58,7 +61,7 @@ class FlipTrip extends Component {
             console.log(authData)
           })
         })
-      } else if (data == 'facebook') {
+      } else if (data[0][1] == 'facebook') {
         AsyncStorage.multiGet(['uid', 'OAuthToken'], (err, stores) => {
           console.log(stores)
           this.firebaseRef.authWithOAuthToken('facebook',stores[1][1], (error, authData) => {
@@ -83,6 +86,7 @@ class FlipTrip extends Component {
     this.eventEmitter.addListener('resetTravelProfile', (travelIdent, successCallBack) => this._updateTravelProfile(travelIdent, successCallBack, true))
     this.eventEmitter.addListener('citySelected', (selectedCity, successCallBack) => this._updateSelectedCity(selectedCity, successCallBack))
     this.eventEmitter.addListener('createUserFromFacebook',(successCallBack, errorCallBack) => this._createUserFromFacebook(successCallBack, errorCallBack))
+    this.eventEmitter.addListener('validateFacebookInfo', (successCallBack, errorCallBack) => this._validateFacebookInfo(successCallBack, errorCallBack))
     this.eventEmitter.addListener('loginUser', (userData, successCallBack, errorCallBack) => this._loginUser(userData, successCallBack, errorCallBack))
     this.eventEmitter.addListener('editProfileImages', (profileImages, successCallBack, errorCallBack) => this._editProfileImages(profileImages,successCallBack,errorCallBack))
     this.eventEmitter.addListener('editProfileName', (name, successCallBack, errorCallBack) => this._editProfileName(name, successCallBack, errorCallBack))
@@ -138,6 +142,51 @@ class FlipTrip extends Component {
           this.firebaseRef.child('users').child(data.uid).set(userDataToWrite)
           successCallBack()
         })
+      }
+    })
+  }
+
+  _validateFacebookInfo(successCallBack, errorCallBack) {
+    var firebaseRef = this.firebaseRef
+    var renderContext = this
+    FBLoginManager.loginWithPermissions(["email", "public_profile"],function(error, data) {
+      if (!error) {
+        console.log("Login data: ", data);
+        firebaseRef.authWithOAuthToken('facebook', data.credentials.token, (error, authData) => {
+          if(error) {
+            errorCallBack()
+          } else {
+            console.log("Authenticated successfully with payload:", authData)
+            AsyncStorage.getItem('authMethod', (error, data) => {
+              if(data == 'email') {
+                AsyncStorage.multiGet(['uid', 'email', 'password'], (err, stores) => {
+                  firebaseRef.authWithPassword({
+                    email: stores[1][1],
+                    password: stores[2][1]
+                  }, (error, authData2) => {
+                    console.log("reauthenticated with email", authData)
+                    if(authData.facebook.cachedUserProfile.gender) {
+                      firebaseRef.child('users').child(renderContext.state.uid).update({
+                        gender: authData.facebook.cachedUserProfile.gender
+                      })
+                    }
+                    console.log(authData)
+                  })
+                })
+              } else if (data == 'facebook') {
+                if(authData.facebook.cachedUserProfile.gender) {
+                  firebaseRef.child('users').child(renderContext.state.uid).update({
+                    gender: authData.facebook.cachedUserProfile.gender
+                  })
+                }
+              }
+            })
+            successCallBack()
+          }
+        })
+      } else {
+        console.log("Error: ", data);
+        errorCallBack()
       }
     })
   }
@@ -288,6 +337,13 @@ class FlipTrip extends Component {
     var initialRoute
     if(this.state.loadingData) {
       mainContent = <Spinner visible={true}/>
+    } else if(!this.state.sawOnBoardingScreen){
+      mainContent =
+      <OnBoardingScreen
+        onComplete={() => {
+          AsyncStorage.setItem('onBoardingScreen', JSON.stringify(true))
+          this.setState({sawOnBoardingScreen: true})
+        }}/>
     } else {
       var onBoardingStep
       _.has(this.state.userData, 'onBoardingStep') ? onBoardingStep = this.state.userData.onBoardingStep : onBoardingStep = ""
