@@ -88,6 +88,7 @@ class HomeScreen extends Component {
         <View style={{flex: 1}}>
           <UserProfile
             {...this.props}
+            name={this.state.name}
             ref="UserProfile"
             uidToRender={this.props.uid}
             userDisplayData={this.props.userData} />
@@ -272,7 +273,7 @@ class HomeScreen extends Component {
   }
 
   _submitName() {
-    var successCallBack = () => { this.setState({loadingData: false, render: 'profile', name: ""})}
+    var successCallBack = () => { this.setState({loadingData: false, render: 'profile', name: this.state.name})}
     var errorCallBack = () => {}
     this.props.eventEmitter.emit('editProfileName', this.state.name, successCallBack, errorCallBack)
   }

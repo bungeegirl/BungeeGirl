@@ -4,7 +4,7 @@ var questions = [
     question: "My travel squad usually consists of:",
     answers: [
       "a small group of brave comrades",
-      "by myself or with",
+      "I'm a loner",
       "other jet-setters like me",
       "usually my family or the same friends",
       "whoever wants a tan just as much as I do"
@@ -23,7 +23,7 @@ var questions = [
   },
   {
     theme: "Travel Frequency",
-    question: "My preference from travel frequency is:",
+    question: "My travel frequency preference is...",
     answers: [
       "It doesn't matter as long as the trip has some high impact activities",
       "I rather take longer trips several weeks at a time",
@@ -37,10 +37,10 @@ var questions = [
     question: "When it comes to traveling this is more my style:",
     answers: [
       "Exploring relatively unknown and uncommon destinations",
-      "Spend a lot of time learning the culture and getting to know the locals",
-      "Visiting as many countries as I can, eating great food and a wicked agenda",
-      "I can't seem to leave a place without visiting the most popular attractions",
-      "Warm climates where I spend the majority of time in a bathing suit"
+      "Spending a lot of time learning the culture and getting to know the locals",
+      "Eating great food, hitting up chic bars in as many countries as I can",
+      "Visiting the most popular attractions",
+      "Margarita in hand vegging on a beach"
     ]
   },
   {

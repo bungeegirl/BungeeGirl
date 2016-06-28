@@ -1,5 +1,6 @@
 import React, {
   AppRegistry,
+  AsyncStorage,
   Component,
   StyleSheet,
   Text,
@@ -36,24 +37,29 @@ class EditListView extends Component {
     }, {
       title: 'Background Pictures',
       onPress: () => props.editProfileBackgroundPictures()
-    }, {
-      title: 'Verify with Facebook',
-      onPress: () => props.validateFacebookInfo()
     }]
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     this.state = {
+      authMethod: "",
       dataSource: ds.cloneWithRows(rows)
     }
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('authMethod', (error, data) => {
+      this.setState({authMethod: data})
+    })
   }
 
   render() {
     var content
     content =
-    <View style={{flex: 1}}>
+    <View>
       <ListView
         dataSource={this.state.dataSource}
         renderRow={(rowData) => this._renderRow(rowData)}/>
+      {this._renderVerification()}
     </View>
 
     return content
@@ -71,6 +77,17 @@ class EditListView extends Component {
         style={{width: 48, height: 14, marginLeft: 10}}/>
     </TouchableOpacity>
 
+    return row
+  }
+
+  _renderVerification() {
+    var row = <View />
+    if(this.state.authMethod != 'facebook') {
+      row = this._renderRow({
+        title: 'Verify gender with Facebook',
+        onPress: () => props.validateFacebookInfo()
+      })
+    }
     return row
   }
 

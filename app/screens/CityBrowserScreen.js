@@ -42,7 +42,7 @@ class CityBrowserScreen extends Component {
   }
 
   render() {
-    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>Users in {this.state.city.name}:</Text>
+    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>Bungee travelers in {this.state.city.name}:</Text>
     var leftButton =
     <TouchableOpacity
       onPress={() => this.props.navigator.pop()}

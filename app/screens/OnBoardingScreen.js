@@ -41,13 +41,14 @@ var swiper = React.createClass({
       onMomentumScrollEnd={this._onMomentumScrollEnd}
       showsButtons={true}>
         <View style={styles.slide}>
+          <Text style={[styles.text, {fontSize: 48, marginBottom: 24}]}>Here's how the app works</Text>
           <Text style={styles.text}>Create a really cool profile where you can display some of your best travel experiences. We also have a fun way to find out what your travel identity is.</Text>
         </View>
         <View style={styles.slide}>
           <Text style={styles.text}>Choose which city you want to travel to.</Text>
         </View>
         <View style={styles.slide}>
-          <Text style={styles.text}> Get connected with like-minded bungee girls from the selected location that also have an interest in traveling to YOUR city as well. Because you each want to travel to each others' city, you can help each other out with trip ideas, safety tips, accommodation and someone to hang out with when you get there.</Text>
+          <Text style={styles.text}> Get connected with like-minded bungee girls from the selected location, who also have an interest in traveling to YOUR city. Because you each want to travel to each others' city, you can help each other out with trip ideas, safety tips, accommodation and someone to hang out with when you get there.</Text>
         </View>
         <View
           style={styles.slide}>
