@@ -17,6 +17,8 @@ import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'
 import NavigationBar from 'react-native-navbar'
 import _ from 'underscore'
+import cityData from '../local_data/cityData'
+
 
 var deviceWidth = Dimensions.get('window').width
 
@@ -38,6 +40,7 @@ class ChatRow extends Component {
   }
 
   render() {
+    var city = _.findWhere(cityData, {ident: this.state.userData.city})
     let content =
     <TouchableOpacity
       onPress={() => this.props.navigator.push({
@@ -55,7 +58,7 @@ class ChatRow extends Component {
             style={[styles.avatar, {marginLeft: 10}]}
             source={{uri: `data:image/jpeg;base64, ${this.state.userData.imageData}`}}/>
           <View style={{flex: 1, height: 54, justifyContent: 'center'}}>
-            <Text style={[styles.titleText, {marginLeft: 10, color: Colors.darkGrey, fontWeight: '500' }]}>{this.state.userData.name}</Text>
+            <Text style={[styles.titleText, {marginLeft: 10, color: Colors.darkGrey, fontWeight: '500' }]}>{this.state.userData.name} from {city.name}</Text>
             <Text
               numberOfLines={1}
               style={[styles.titleText, {marginLeft: 10, color: Colors.darkGrey, fontWeight: '400' }]}>{this.props.rowData[1].lastMessage}</Text>

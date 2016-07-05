@@ -39,6 +39,7 @@ class ChatContainer extends Component {
         image: child.val().uid == this.props.uid && {uri: `data:image/jpeg;base64, ${this.props.userData.imageData}`} || {uri: `data:image/jpeg;base64, ${this.props.otherUserImage}`},
         position: child.val().uid == this.props.uid && 'right' || 'left',
         date: new Date(child.val().date),
+        userData: child.val().userData,
         uniqueId: child.key(),
         uid: child.val().uid
       })
@@ -59,6 +60,7 @@ class ChatContainer extends Component {
       text: message.text,
       name: this.props.userData.name,
       uid: this.props.uid,
+      userData: this.props.userData,
       date: new Date().getTime()
     })
     this.props.firebaseRef.child('chats').child(this.props.userUid).child(this.props.uid).update({
@@ -68,6 +70,7 @@ class ChatContainer extends Component {
       text: message.text,
       name: this.props.userData.name,
       uid: this.props.uid,
+      userData: this.props.userData,
       date: new Date().getTime()
     })
   }
@@ -91,6 +94,7 @@ class ChatContainer extends Component {
           backgroundColor: Colors.blue,
         },
       }}
+      onImagePress={(rowData) => { this._navigateToProfile(rowData) }}
       messages={this.state.messages}
       handleSend={this.handleSend.bind(this)}
       maxHeight={Dimensions.get('window').height - 20 - 48}
@@ -98,6 +102,14 @@ class ChatContainer extends Component {
     </View>
 
     return content
+  }
+
+  _navigateToProfile(rowData) {
+    this.props.navigator.push({
+      ident: "UserProfileScreen",
+      userDisplayData: rowData.userData,
+      uidToRender: rowData.uid
+    })
   }
 
 }

@@ -19,11 +19,13 @@ import travelData from '../local_data/questions'
 import UserProfile from '../components/UserProfile'
 import _ from 'underscore'
 import moment from 'moment'
+import cityData from '../local_data/cityData'
 import NavigationBar from 'react-native-navbar'
 
 class UserProfileScreen extends Component {
   render() {
-    var title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>{`${this.props.userDisplayData.name}'s Profile`}</Text>
+    var city = _.findWhere(cityData, {ident: this.props.userDisplayData.city})
+    var title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>{`${this.props.userDisplayData.name} from ${city.name}`}</Text>
     var leftButton =
     <TouchableOpacity
       onPress={() => this.props.navigator.pop()}

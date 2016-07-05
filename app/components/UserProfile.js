@@ -56,15 +56,15 @@ class UserProfile extends Component {
           <Text style={styles.formPretext}>{this.props.userDisplayData.name}</Text>
           {this.props.userDisplayData.gender == 'female' &&
             <Icon
-              style={{width: 18, height: 18}}
-              size={18}
+              style={{width: 32, height: 32}}
+              size={32}
               name='ios-female'
               color={Colors.green}/>}
           {this.props.userDisplayData.gender == 'male' &&
             <Icon
-              style={{width: 18, height: 18}}
-              size={18}
-              name='ios-close-circl'
+              style={{width: 32, height: 32}}
+              size={32}
+              name='ios-close-circle'
               color={Colors.red}/>}
         </View>
         <View style={[styles.inputContainer, {marginTop: -10}]}>
