@@ -3,6 +3,7 @@ import React, {
   Component,
   StyleSheet,
   Text,
+  ActionSheetIOS,
   Alert,
   TextInput,
   TouchableOpacity,
@@ -67,7 +68,6 @@ class HomeScreen extends Component {
   render() {
     var content,title,leftButton
     var rightButton = () => {}
-    console.log('rendering screen', this.props.userData)
     switch (this.state.render) {
       case 'profile':
         title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>My Profile</Text>
@@ -92,6 +92,20 @@ class HomeScreen extends Component {
             ref="UserProfile"
             uidToRender={this.props.uid}
             userDisplayData={this.props.userData} />
+          <TouchableOpacity
+            onPress={() => {
+              ActionSheetIOS.showShareActionSheetWithOptions({
+                message: "Check out this app Bungee!",
+                url: "http://www.bungeegirl.com"
+              },
+            (error) => alert(error),
+            (success, method) => {
+
+            })
+            }}
+            style={styles.logoutButton}>
+            <Text style={styles.buttonText}>Share</Text>
+          </TouchableOpacity>
 
         </View>
         break;

@@ -37,7 +37,8 @@ class CityBrowserScreen extends Component {
 
   componentDidMount() {
     this.props.firebaseRef.child(`cities/${this.state.city.ident}`).once('value', (users) => {
-      this.setState({dataSource: this.state.dataSource.cloneWithRows(_.without(_.keys(users.val()), this.props.uid)), isLoading: false})
+      let userData = _.without(_.keys(users.val()), this.props.uid)
+      this.setState({dataSource: this.state.dataSource.cloneWithRows(userData), isLoading: false})
     })
   }
 
