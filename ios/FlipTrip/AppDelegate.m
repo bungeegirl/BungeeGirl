@@ -14,7 +14,7 @@
 #import "RCTRootView.h"
 #import <Instabug/Instabug.h>
 
-
+@import Batch;
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -44,11 +44,11 @@
    * simulator in the "Release" build configuration.
    */
   
-  #ifdef DEBUG
-    jsCodeLocation = [NSURL URLWithString:@"http://10.0.0.6:8081/index.ios.bundle?platform=ios&dev=true"];
-  #else
+//  #ifdef DEBUG
+//    jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+//  #else
     jsCodeLocation = [CodePush bundleURL];
-  #endif
+//  #endif
 //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
@@ -59,7 +59,12 @@
   //instabug
   
   [Instabug startWithToken:@"e75127e113ff6d8db4e9feea60aea3c3" invocationEvent:IBGInvocationEventShake];
+  
+  // Start Batch
+  [Batch startWithAPIKey:@"DEV578EC1727F9EEACE8AA2F865374"];
 
+  // register for push
+  [BatchPush registerForRemoteNotifications];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];

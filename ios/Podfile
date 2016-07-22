@@ -5,6 +5,8 @@
 
 target 'Bungee' do
 
+pod 'Batch', '~> 1.5'
+
 end
 
 target 'BungeeTests' do

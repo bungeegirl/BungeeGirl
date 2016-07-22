@@ -12,6 +12,8 @@
 #import "RCTEventDispatcher.h"
 
 @import CoreLocation;
+@import Batch;
+
 
 @interface Native : NSObject <RCTBridgeModule>
 @end
@@ -45,6 +47,13 @@ RCT_EXPORT_METHOD(locationFromLatitude:(CLLocationDegrees) latitude longitude:(C
      
      
    }];
+}
+
+RCT_EXPORT_METHOD(setBatchId:(NSString*) batchId)
+{
+  BatchUserDataEditor *editor = [BatchUser editor];
+  [editor setIdentifier:@"batchId"]; // Set to `nil` if you want to remove the identifier.
+  [editor save];
 }
 
 @end

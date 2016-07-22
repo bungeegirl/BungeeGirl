@@ -16,6 +16,7 @@ import React, {
 
 import codePush from "react-native-code-push"
 import AppNavigator from './app/navigation/AppNavigator'
+import { NativeModules } from 'react-native';
 import RootTabs from './app/navigation/RootTabs'
 import OnBoardingScreen from './app/screens/OnBoardingScreen'
 import firebase from 'firebase'
@@ -25,6 +26,7 @@ import _ from 'underscore'
 import RNGeocoder from 'react-native-geocoder'
 import Spinner from 'react-native-loading-spinner-overlay';
 
+const Native = NativeModules.Native;
 
 var FBLoginManager = require('NativeModules').FBLoginManager
 class FlipTrip extends Component {
@@ -57,6 +59,7 @@ class FlipTrip extends Component {
             password: stores[2][1]
           }, (error, authData) => {
             var uid = stores[0][1]
+            Native.setBatchId(authData.uid)
             this.firebaseRef.child('users').child(uid).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
             console.log(authData)
           })
@@ -64,15 +67,20 @@ class FlipTrip extends Component {
       } else if (data[0][1] == 'facebook') {
         AsyncStorage.multiGet(['uid', 'OAuthToken'], (err, stores) => {
           console.log(stores)
-          this.firebaseRef.authWithOAuthToken('facebook',stores[1][1], (error, authData) => {
-            if(error) {
-              Alert.alert('Error', JSON.stringify(error.code))
-              this.setState({loadingData: false})
-            } else {
-              var uid = stores[0][1]
-              this.firebaseRef.child('users').child(stores[0][1]).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
-            }
-          })
+          if(stores[1][1]) {
+            this.firebaseRef.authWithOAuthToken('facebook',stores[1][1], (error, authData) => {
+              if(error) {
+                Alert.alert('Error', JSON.stringify(error.code))
+                this.setState({loadingData: false})
+              } else {
+                Native.setBatchId(authData.uid)
+                var uid = stores[0][1]
+                this.firebaseRef.child('users').child(stores[0][1]).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
+              }
+            })
+          } else {
+            this.setState({loadingData: false})
+          }
 
         })
       } else {
@@ -131,6 +139,7 @@ class FlipTrip extends Component {
           email: userData.email,
           password: userData.password
         }, (error, authData) => {
+          Native.setBatchId(authData.uid)
           AsyncStorage.multiSet([['uid', data.uid],['email', userData.email], ['password', userData.password],['authMethod', 'email']])
           var userDataToWrite = {
             provider: authData.provider,
@@ -156,6 +165,7 @@ class FlipTrip extends Component {
           if(error) {
             errorCallBack()
           } else {
+            Native.setBatchId(authData.uid)
             console.log("Authenticated successfully with payload:", authData)
             AsyncStorage.getItem('authMethod', (error, data) => {
               if(data == 'email') {
@@ -201,6 +211,7 @@ class FlipTrip extends Component {
           if(error) {
             errorCallBack(error)
           } else {
+            Native.setBatchId(authData.uid)
             console.log("Authenticated successfully with payload:", authData)
             AsyncStorage.multiSet([['uid', authData.uid],['authMethod', 'facebook']])
             var email, gender
@@ -310,6 +321,7 @@ class FlipTrip extends Component {
       if(error) {
         errorCallBack(error)
       } else {
+        Native.setBatchId(authData.uid)
         AsyncStorage.multiSet([['uid', authData.uid],['email', userData.email], ['password', userData.password],['authMethod', 'email']])
       }
     })
