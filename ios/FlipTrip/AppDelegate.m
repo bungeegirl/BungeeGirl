@@ -61,7 +61,8 @@
   [Instabug startWithToken:@"e75127e113ff6d8db4e9feea60aea3c3" invocationEvent:IBGInvocationEventShake];
   
   // Start Batch
-  [Batch startWithAPIKey:@"DEV578EC1727F9EEACE8AA2F865374"];
+//  [Batch startWithAPIKey:@"DEV578EC1727F9EEACE8AA2F865374"];
+  [Batch startWithAPIKey:@"578EC1727C200A73BE71A173171ECF"];
 
   // register for push
   [BatchPush registerForRemoteNotifications];

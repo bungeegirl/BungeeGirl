@@ -73,6 +73,7 @@ class ChatContainer extends Component {
       userData: this.props.userData,
       date: new Date().getTime()
     })
+    this.props.eventEmitter.emit('sendPushWithMessage', {uid: this.props.userUid, name: this.props.userData.name, text: message.text})
   }
 
   handleReceive(message = {}) {

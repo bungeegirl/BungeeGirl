@@ -102,7 +102,7 @@ class FlipTrip extends Component {
     this.eventEmitter.addListener('editBirthdate', (birthdate, successCallBack, errorCallBack) => this._editBirthdate(birthdate, successCallBack, errorCallBack))
     this.eventEmitter.addListener('editAvatar', (image, successCallBack, errorCallBack) => this._editAvatar(image, successCallBack, errorCallBack))
 
-    this.eventEmitter.addListener('initiateMessage', (uid) => this._initiateMessage(uid))
+    this.eventEmitter.addListener('sendPushWithMessage', (messageData) => this._sendPushWithMessage(messageData))
     RCTDeviceEventEmitter.addListener(FBLoginManager.Events["Login"], (loginData) => {
       console.log(loginData)
       AsyncStorage.multiSet([['OAuthToken', loginData.credentials.token]])
@@ -339,9 +339,43 @@ class FlipTrip extends Component {
   }
 
   _initiateMessage(uid) {
+    // send push message
     console.log("attempting initiation")
     this.firebaseRef.child('chats').child(this.state.uid).child(uid).update({ chatRequested: true, chatAccepted: false })
     this.firebaseRef.child('chats').child(uid).child(this.state.uid).update({ chatRequested: true, chatAccepted: false })
+  }
+
+  _sendPushWithMessage(messageData) {
+    const {uid, name, text } = messageData
+    const uri = 'https://api.batch.com/1.0/578EC1727C200A73BE71A173171ECF/transactional/send'
+    const body = {
+      'group_id': `${this.state.uid}-${uid}`,
+      'recipients': {
+        'custom_ids': [uid]
+      },
+      'message': {
+        'title': name,
+        'body': `${name}: ${text}`
+      }
+    }
+
+    const apiData = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Authorization': '38d2666af1f34348af2e5876bc4198ce'
+      },
+      body: JSON.stringify(body)
+    }
+
+    fetch(uri, apiData)
+    .then((response) => {
+      console.log('success', response)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
   }
 
   render() {
