@@ -102,7 +102,7 @@ class CityPickerScreen extends Component {
   _selectCity(cityObject) {
     var successCallBack
     successCallBack = () =>  {
-      this.props.navigator.resetTo({ ident: "Home" })
+      this.props.navigator.resetTo({ ident: "HomeScreen" })
     }
     this.props.eventEmitter.emit('citySelected', cityObject.ident, successCallBack)
   }

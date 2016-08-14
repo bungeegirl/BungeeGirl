@@ -48,7 +48,8 @@ class ExperienceScreen extends Component {
         title={title}/>
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={(rowData) => this._renderRow(rowData)}/>
+        renderRow={(rowData) => this._renderRow(rowData)}
+        renderFooter={() => this.renderFooter()}/>
     </ViewContainer>
 
     return content
@@ -62,10 +63,11 @@ class ExperienceScreen extends Component {
     <TouchableOpacity
       style={styles.rowContainer}
       onPress={() => {
-        this.props.navigator.push({
+        var successCallBack = () => this.props.navigator.push({
           ident: 'CityBrowserScreen',
-          cityIdent: cityIdent
+          cityIdent: cityIdent,
         })
+        this.props.eventEmitter.emit('browsedCity',cityIdent,successCallBack)
       }}>
         <Image
           source={rowData.asset}
@@ -73,6 +75,34 @@ class ExperienceScreen extends Component {
           style={{width: imageWidth, height: imageHeight}}/>
     </TouchableOpacity>
     return row
+  }
+
+  renderFooter() {
+    var homeCity = _.filter(cityData, (city) => { return city.ident == this.props.userData.city })[0]
+    var imageWidth = deviceWidth - 20
+    var imageHeight = (240 / imageWidth) * imageWidth
+    var cityIdent = homeCity.ident
+    return (
+      <View>
+        <View style={{flex: 1, padding: 20}}>
+          <Text style={[styles.titleText, {textAlign: 'center'}]}>Meet solo travelers from your home city</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.rowContainer}
+          onPress={() => {
+            this.props.navigator.push({
+              ident: 'CityBrowserScreen',
+              cityIdent: cityIdent,
+              homeCity: true
+            })
+          }}>
+            <Image
+              source={homeCity.asset}
+              resizeMode='contain'
+              style={{width: imageWidth, height: imageHeight}}/>
+        </TouchableOpacity>
+      </View>
+    )
   }
 }
 

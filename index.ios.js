@@ -93,6 +93,7 @@ class FlipTrip extends Component {
     this.eventEmitter.addListener('updateTravelProfile', (travelIdent, successCallBack) => this._updateTravelProfile(travelIdent, successCallBack))
     this.eventEmitter.addListener('resetTravelProfile', (travelIdent, successCallBack) => this._updateTravelProfile(travelIdent, successCallBack, true))
     this.eventEmitter.addListener('citySelected', (selectedCity, successCallBack) => this._updateSelectedCity(selectedCity, successCallBack))
+    this.eventEmitter.addListener('browsedCity', (selectedCity, successCallBack) => this._browsedCity(selectedCity, successCallBack))
     this.eventEmitter.addListener('createUserFromFacebook',(successCallBack, errorCallBack) => this._createUserFromFacebook(successCallBack, errorCallBack))
     this.eventEmitter.addListener('validateFacebookInfo', (successCallBack, errorCallBack) => this._validateFacebookInfo(successCallBack, errorCallBack))
     this.eventEmitter.addListener('loginUser', (userData, successCallBack, errorCallBack) => this._loginUser(userData, successCallBack, errorCallBack))
@@ -299,20 +300,31 @@ class FlipTrip extends Component {
   _updateSelectedCity(selectedCity, successCallBack) {
     if(this.state.userData.city) {
       let oldCity = this.state.userData.city
-      this.firebaseRef.child('cities').child(oldCity).child(this.state.uid).remove()
+      this.firebaseRef.child('cities').child(oldCity).child(this.state.uid).once('value', (userData) => {
+        this.firebaseRef.child('cities').child(oldCity).child(this.state.uid).remove()
+        this.firebaseRef.child('cities').child(selectedCity).child(this.state.uid).update(userData.val())
+      })
+    } else {
+      var input = {
+        uid: this.state.uid,
+        name: this.state.userData.name,
+        travelType: this.state.userData.travelType,
+        bio: this.state.userData.bio,
+      }
+      this.firebaseRef.child('cities').child(selectedCity).child(this.state.uid).update(input)
+      this.firebaseRef.child('users').child(this.state.uid).update({
+        city: selectedCity,
+        onBoardingStep: 'home'
+      })
     }
-    this.firebaseRef.child('users').child(this.state.uid).update({
-      city: selectedCity,
-      onBoardingStep: 'home'
-    })
-    var input = {
-      uid: this.state.uid,
-      name: this.state.userData.name,
-      travelType: this.state.userData.travelType,
-      bio: this.state.userData.bio,
-    }
-    this.firebaseRef.child('cities').child(selectedCity).child(this.state.uid).update(input)
+    successCallBack()
+  }
 
+  _browsedCity(selectedCity, successCallBack) {
+    var timestamp = new Date().getTime()
+    var timeVisited = {}
+    timeVisited[`${selectedCity}`] = timestamp
+    this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update(timeVisited)
     successCallBack()
   }
 

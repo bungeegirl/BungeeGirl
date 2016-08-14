@@ -37,12 +37,17 @@ class CityBrowserScreen extends Component {
 
   componentDidMount() {
     this.props.firebaseRef.child(`cities/${this.state.city.ident}`).once('value', (users) => {
-      let userData = _.sortBy(users.val(), (user) => {
-        return user.travelType == this.props.userData.travelType
-      }).reverse()
-      // let onlyWithTravelTo = _.filter(userData, (user) => {
-      //   return user.travelTo == this.props.userData.city
-      // })
+      let userData
+      if(this.props.homeCity) {
+        userData = _.reject(users.val(), (user) => { return user.uid == this.props.uid})
+      } else {
+        userData =
+        _.chain(users.val())
+          .filter((user) => { return user[`${this.props.userData.city}`]})
+          .sortBy((user) => { return user[`${this.props.userData.city}`]})
+          .value()
+        userData.reverse()
+      }
       this.setState({dataSource: this.state.dataSource.cloneWithRows(userData), isLoading: false})
     })
   }
@@ -83,11 +88,14 @@ class CityBrowserScreen extends Component {
 
   renderHeader() {
     var userCity = _.findWhere(cityData, {ident: this.props.userData.city})
-    return (
+    var content = <View />
+    if (!this.props.homeCity) {
+      content =
       <View style={styles.header}>
          <Text style={[styles.titleText, {marginBottom: 4, textAlign: 'center'}]}>Bungee travelers from {this.state.city.name} who are interested in {userCity.name}</Text>
       </View>
-    )
+    }
+    return content
   }
 
   _renderRow(rowData, sectionID, rowID) {

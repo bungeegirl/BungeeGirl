@@ -97,6 +97,7 @@ class AppNavigator extends Component {
       case "CityBrowserScreen":
         return (
           <CityBrowserScreen
+            homeCity={route.homeCity}
             cityIdent={route.cityIdent}
             {...globalScreenProps}/>
         )
