@@ -50,8 +50,11 @@ class CityPickerScreen extends Component {
   }
 
   render() {
+    var homeSelectText, selectText
+    homeSelectText = "What's your home city"
+    selectText = "Select your home city"
     var selectedCityObject = _.findWhere(cityData, {name: this.state.selectedCity})
-    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>What's your home city?</Text>
+    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>{homeSelectText}</Text>
     var pickerValues = []
     _.each(cityData, (data) => {
         pickerValue = (
@@ -85,7 +88,7 @@ class CityPickerScreen extends Component {
           width={deviceWidth - 100}
           ref="SELECT1"
           optionListRef={this._getOptionList.bind(this)}
-          defaultValue="Select your home city"
+          defaultValue={selectText}
           onSelect={(selection) => this.setState({selectedCity: selection})}>
           {pickerValues}
         </Select>
@@ -97,7 +100,10 @@ class CityPickerScreen extends Component {
   }
 
   _selectCity(cityObject) {
-    var successCallBack = () => this.props.navigator.resetTo({ ident: "HomeScreen" })
+    var successCallBack
+    successCallBack = () =>  {
+      this.props.navigator.resetTo({ ident: "Home" })
+    }
     this.props.eventEmitter.emit('citySelected', cityObject.ident, successCallBack)
   }
 

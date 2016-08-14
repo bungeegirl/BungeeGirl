@@ -25,15 +25,25 @@ class ExperienceScreen extends Component {
     super(props)
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(cityData)
+      dataSource: ds.cloneWithRows(_.reject(cityData, (city) => {
+        return city.ident == props.userData.city
+      }))
     }
   }
 
   render() {
     var title = <Text style={[styles.titleText, {marginBottom: 4}]}>I'm interested in traveling to...</Text>
+    var leftButton =
+    <TouchableOpacity
+      onPress={() => this.props.navigator.pop()}
+      style={styles.backButton}>
+      <Image
+        source={require('../assets/Nav-Back.png')}/>
+     </TouchableOpacity>
     var content =
     <ViewContainer backgroundColor={Colors.beige}>
       <NavigationBar
+        leftButton={leftButton}
         style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}}
         title={title}/>
       <ListView
@@ -77,5 +87,11 @@ const styles = StyleSheet.create({
     width: deviceWidth,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
+  backButton: {
+    width: 48,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 })

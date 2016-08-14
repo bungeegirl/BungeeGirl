@@ -41,51 +41,62 @@ class ProfileCard extends Component {
 
   render() {
     var content
+    var image, button
     if(!_.isEmpty(this.state.userData)){
-      let { userData } = this.state
-      var city = _.findWhere(cityData, { ident: userData.city })
-      var uri = `data:image/jpeg;base64, ${userData.imageData}`
-      content =
-      <View style={styles.cardContainer}>
+      var uri = `data:image/jpeg;base64, ${this.state.userData.imageData}`
+      image =
+      <Image
+        resizeMode='cover'
+        style={styles.avatar}
+        source={{uri: uri}}/>
+      button =
+      <TouchableOpacity
+        onPress={() => {
+          this.props.navigator.push({
+            ident: 'UserProfileScreen',
+            uidToRender: this.props.userUid,
+            userDisplayData: userData,
+          })
+        }}
+        style={styles.button}>
+        <Text style={styles.buttonText}>Connect</Text>
+        <View style={{flex: 1}} />
         <Image
-          resizeMode='cover'
-          style={styles.imageBackground}
-          source={city.backgroundAsset}>
-          <Image
-            resizeMode='cover'
-            style={styles.avatar}
-            source={{uri: uri}}/>
-          <Text style={styles.nameText}>I'm {userData.name}, a {userData.travelType}</Text>
-          <Text style={styles.bioText}>{userData.bio}</Text>
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigator.push({
-                ident: 'UserProfileScreen',
-                uidToRender: this.props.userUid,
-                userDisplayData: userData,
-              })
-            }}
-            style={styles.button}>
-            <Text style={styles.buttonText}>Connect</Text>
-            <View style={{flex: 1}} />
-            <Image
-              resizeMode='contain'
-              source={require('../assets/selection-arrow.png')}
-              style={{width: 48, height: 14, marginRight: 10}}/>
-          </TouchableOpacity>
-        </Image>
-      </View>
+          resizeMode='contain'
+          source={require('../assets/selection-arrow.png')}
+          style={{width: 48, height: 14, marginRight: 10}}/>
+      </TouchableOpacity>
     } else {
-      content =
-      <View style={styles.cardContainer}>
-        <View style={{backgroundColor: Colors.lightBlue, flex: 1, alignSelf: 'stretch', borderRadius: 2, alignItems: "center", justifyContent: 'center'}}>
-          <ActivityIndicatorIOS
-            style={{alignItems: 'center', justifyContent: 'center', height: 80}}
-            animating={_.isEmpty(this.state.userData)}/>
-        </View>
-
-      </View>
+      image =
+      <ActivityIndicatorIOS
+        style={styles.avatar}
+        animating={_.isEmpty(this.state.userData)}/>
+      button = <View />
     }
+    let { userData } = this.state
+    content =
+    <View style={styles.cardContainer}>
+      <Image
+        resizeMode='cover'
+        style={styles.imageBackground}
+        source={this.props.city.backgroundAsset}>
+        {image}
+        <Text style={styles.nameText}>I'm {this.props.name}, a {this.props.travelType}</Text>
+        <Text style={styles.bioText}>{this.props.bio}</Text>
+        {button}
+      </Image>
+    </View>
+    // } else {
+    //   content =
+    //   <View style={styles.cardContainer}>
+    //     <View style={{backgroundColor: Colors.lightBlue, flex: 1, alignSelf: 'stretch', borderRadius: 2, alignItems: "center", justifyContent: 'center'}}>
+    //       <ActivityIndicatorIOS
+    //         style={{alignItems: 'center', justifyContent: 'center', height: 80}}
+    //         animating={_.isEmpty(this.state.userData)}/>
+    //     </View>
+    //
+    //   </View>
+    // }
 
     return content
   }
