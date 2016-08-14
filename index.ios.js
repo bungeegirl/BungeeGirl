@@ -158,7 +158,7 @@ class FlipTrip extends Component {
   _validateFacebookInfo(successCallBack, errorCallBack) {
     var firebaseRef = this.firebaseRef
     var renderContext = this
-    FBLoginManager.loginWithPermissions(["email", "public_profile"],function(error, data) {
+    FBLoginManager.loginWithPermissions(["email", "public_profile", "user_hometown"],function(error, data) {
       if (!error) {
         console.log("Login data: ", data);
         firebaseRef.authWithOAuthToken('facebook', data.credentials.token, (error, authData) => {
@@ -204,15 +204,15 @@ class FlipTrip extends Component {
   _createUserFromFacebook(successCallBack, errorCallBack) {
     var firebaseRef = this.firebaseRef
     var renderContext = this
-    FBLoginManager.loginWithPermissions(["email", "public_profile"],function(error, data) {
+    FBLoginManager.loginWithPermissions(["email", "public_profile", "user_hometown"],function(error, data) {
       if (!error) {
         console.log("Login data: ", data);
         firebaseRef.authWithOAuthToken('facebook', data.credentials.token, (error, authData) => {
           if(error) {
             errorCallBack(error)
           } else {
-            Native.setBatchId(authData.uid)
             console.log("Authenticated successfully with payload:", authData)
+            Native.setBatchId(authData.uid)
             AsyncStorage.multiSet([['uid', authData.uid],['authMethod', 'facebook']])
             var email, gender
             authData.facebook.email ? email = authData.facebook.email : email = ""
@@ -224,7 +224,8 @@ class FlipTrip extends Component {
                 provider: authData.provider,
                 email: email,
                 gender: gender,
-                onBoardingStep: onBoardingStep
+                onBoardingStep: onBoardingStep,
+                uid: authData.uid
               })
               firebaseRef.child('users').child(authData.uid).on('value', (theData) => { renderContext._syncUserData(theData.val(),authData.uid) })
               successCallBack(renderContext._routeForStep(onBoardingStep))
@@ -298,17 +299,19 @@ class FlipTrip extends Component {
   _updateSelectedCity(selectedCity, successCallBack) {
     if(this.state.userData.city) {
       let oldCity = this.state.userData.city
-      var removeInput = {}
-      removeInput[this.state.uid] = false
       this.firebaseRef.child('cities').child(oldCity).child(this.state.uid).remove()
     }
     this.firebaseRef.child('users').child(this.state.uid).update({
       city: selectedCity,
       onBoardingStep: 'home'
     })
-    var input = {}
-    input[this.state.uid] = true
-    this.firebaseRef.child('cities').child(selectedCity).update(input)
+    var input = {
+      uid: this.state.uid,
+      name: this.state.userData.name,
+      travelType: this.state.userData.travelType,
+      bio: this.state.userData.bio,
+    }
+    this.firebaseRef.child('cities').child(selectedCity).child(this.state.uid).update(input)
 
     successCallBack()
   }
