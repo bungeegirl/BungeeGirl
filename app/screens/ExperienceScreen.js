@@ -32,18 +32,10 @@ class ExperienceScreen extends Component {
   }
 
   render() {
-    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>I'm interested in traveling to...</Text>
-    var leftButton =
-    <TouchableOpacity
-      onPress={() => this.props.navigator.pop()}
-      style={styles.backButton}>
-      <Image
-        source={require('../assets/Nav-Back.png')}/>
-     </TouchableOpacity>
+    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>Meet solo travelers in...</Text>
     var content =
     <ViewContainer backgroundColor={Colors.beige}>
       <NavigationBar
-        leftButton={leftButton}
         style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}}
         title={title}/>
       <ListView

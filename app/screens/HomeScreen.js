@@ -63,7 +63,19 @@ class HomeScreen extends Component {
   _validateBirthdate() {
     return (this.state.month <= 12 && this.state.day <= 31 && this.state.year <= 2020 && this.state.year > 1900)
   }
-
+  // <TouchableOpacity
+  //   onPress={() => {
+  //     ActionSheetIOS.showShareActionSheetWithOptions({
+  //       message: "Check out this app Bungee!",
+  //       url: "http://www.bungeegirl.com"
+  //     },
+  //   (error) => alert(error),
+  //   (success, method) => {
+  //   })
+  //   }}
+  //   style={styles.logoutButton}>
+  //   <Text style={styles.buttonText}>Share</Text>
+  // </TouchableOpacity>
 
   render() {
     var content,title,leftButton
@@ -92,21 +104,6 @@ class HomeScreen extends Component {
             ref="UserProfile"
             uidToRender={this.props.uid}
             userDisplayData={this.props.userData} />
-          <TouchableOpacity
-            onPress={() => {
-              ActionSheetIOS.showShareActionSheetWithOptions({
-                message: "Check out this app Bungee!",
-                url: "http://www.bungeegirl.com"
-              },
-            (error) => alert(error),
-            (success, method) => {
-
-            })
-            }}
-            style={styles.logoutButton}>
-            <Text style={styles.buttonText}>Share</Text>
-          </TouchableOpacity>
-
         </View>
         break;
       case 'editProfile':

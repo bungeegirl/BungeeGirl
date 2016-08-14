@@ -92,7 +92,7 @@ class CityBrowserScreen extends Component {
     if (!this.props.homeCity) {
       content =
       <View style={styles.header}>
-         <Text style={[styles.titleText, {marginBottom: 4, textAlign: 'center'}]}>Bungee travelers from {this.state.city.name} who are interested in {userCity.name}</Text>
+         <Text style={[styles.titleText, {marginBottom: 4, textAlign: 'center'}]}>Meet solo travelers from {this.state.city.name} who are interested in {userCity.name}</Text>
       </View>
     }
     return content
