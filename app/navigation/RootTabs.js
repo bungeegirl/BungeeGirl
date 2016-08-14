@@ -117,15 +117,6 @@ class RootTabs extends Component {
           {...globalScreenProps}
           initialRoute='ChatListScreen' />
       </TabNavigator.Item>
-      <TabNavigator.Item
-        selected={this.state.selectedTab === 'settings'}
-        renderIcon={() => settingsIcon}
-        renderSelectedIcon={() => settingsIconSelected}
-        onPress={() => this.setState({ selectedTab: 'settings' })}>
-        <AppNavigator
-          {...globalScreenProps}
-          initialRoute='SettingsScreen' />
-      </TabNavigator.Item>
     </TabNavigator>
 
     return tabNavigator
