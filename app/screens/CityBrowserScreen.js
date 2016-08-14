@@ -37,13 +37,18 @@ class CityBrowserScreen extends Component {
 
   componentDidMount() {
     this.props.firebaseRef.child(`cities/${this.state.city.ident}`).once('value', (users) => {
-      let userData = _.without(_.keys(users.val()), this.props.uid)
+      let userData = _.sortBy(users.val(), (user) => {
+        return user.travelType == this.props.userData.travelType
+      }).reverse()
+      // let onlyWithTravelTo = _.filter(userData, (user) => {
+      //   return user.travelTo == this.props.userData.city
+      // })
       this.setState({dataSource: this.state.dataSource.cloneWithRows(userData), isLoading: false})
     })
   }
 
   render() {
-    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>Bungee travelers in {this.state.city.name}:</Text>
+    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>Bungee city explorer</Text>
     var leftButton =
     <TouchableOpacity
       onPress={() => this.props.navigator.pop()}
@@ -66,6 +71,7 @@ class CityBrowserScreen extends Component {
         <ListView
           initialListSize={3}
           style={{marginTop: 10}}
+          renderHeader={() => this.renderHeader()}
           enableEmptySections={true}
           dataSource={this.state.dataSource}
           renderRow={(rowData, sectionID, rowID) => this._renderRow(rowData, sectionID, rowID)}/>
@@ -75,11 +81,24 @@ class CityBrowserScreen extends Component {
     return content
   }
 
+  renderHeader() {
+    var userCity = _.findWhere(cityData, {ident: this.props.userData.city})
+    return (
+      <View style={styles.header}>
+         <Text style={[styles.titleText, {marginBottom: 4, textAlign: 'center'}]}>Bungee travelers from {this.state.city.name} who are interested in {userCity.name}</Text>
+      </View>
+    )
+  }
+
   _renderRow(rowData, sectionID, rowID) {
     var rowContent =
     <ProfileCard
       {...this.props}
-      userUid={rowData} />
+      city={this.state.city}
+      name={rowData.name}
+      bio={rowData.bio}
+      travelType={rowData.travelType}
+      userUid={rowData.uid} />
     return rowContent
   }
 }
@@ -90,6 +109,10 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  header: {
+    flex: 1,
+    padding: 20,
   },
   titleText: {
     fontSize: 17,

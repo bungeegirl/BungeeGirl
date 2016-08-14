@@ -23,7 +23,7 @@ var questions = [
   },
   {
     theme: "Travel Frequency",
-    question: "My travel frequency preference is...",
+    question: "My preferred travel frequency preference is...",
     answers: [
       "It doesn't matter as long as the trip has some high impact activities",
       "I rather take longer trips several weeks at a time",
@@ -38,7 +38,7 @@ var questions = [
     answers: [
       "Exploring relatively unknown and uncommon destinations",
       "Spending a lot of time learning the culture and getting to know the locals",
-      "Eating great food, hitting up chic bars in as many countries as I can",
+      "Eating great food and hitting up chic bars in as many countries as I can",
       "Visiting the most popular attractions",
       "Margarita in hand vegging on a beach"
     ]
@@ -50,7 +50,7 @@ var questions = [
       "Snowboarded in the Swiss Alps",
       "Criss-crossed through Europe on the Eurail",
       "Attended a festival in Ibizia",
-      "Taken a guided tour of the Great Wall of China",
+      "Took a guided tour of the Great Wall of China",
       "Basked in the sun on a yacht in Bermuda"
     ]
   },
@@ -72,7 +72,7 @@ var questions = [
       "Sandboard in the Sahara Desert",
       "Spend a month trekking through SouthEast Asia",
       "Eat gelattos in Florence, Italy",
-      "Feel magical in Disney Land",
+      "Feel magical at Disney World",
       "Soak up the sun on a Caribbean beach"
     ]
   }

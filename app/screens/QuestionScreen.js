@@ -122,7 +122,7 @@ class QuestionScreen extends Component {
         this.setState({questionIndex: questionIndex + 1})
       }}
       style={styles.buttonContainer}>
-      <Text style={{fontSize: 16, color: Colors.beige, fontFamily: "ArchitectsDaughter"}}>{questions.questions[questionIndex].answers[answerIndex]}</Text>
+      <Text style={{fontSize: 18, color: Colors.beige, fontFamily: "ArchitectsDaughter"}}>{questions.questions[questionIndex].answers[answerIndex]}</Text>
     </TouchableOpacity>
     return content
   }

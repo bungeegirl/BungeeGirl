@@ -234,6 +234,7 @@ class HomeScreen extends Component {
          }
          content =
          <AvatarPicker
+            name={this.state.name}
             excludeIntro={true}
             onImageLoad={() => this.setState({loadingData: true})}
             onImagePress={(imageData) =>  {
