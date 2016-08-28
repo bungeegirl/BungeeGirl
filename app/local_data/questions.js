@@ -23,7 +23,7 @@ var questions = [
   },
   {
     theme: "Travel Frequency",
-    question: "My preferred travel frequency preference is...",
+    question: "My preferred travel frequency is...",
     answers: [
       "It doesn't matter as long as the trip has some high impact activities",
       "I rather take longer trips several weeks at a time",

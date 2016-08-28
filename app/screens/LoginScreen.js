@@ -4,6 +4,7 @@ import React, {
   StyleSheet,
   Text,
   Image,
+  ActivityIndicatorIOS,
   TouchableOpacity,
   View,
   Alert,
@@ -21,8 +22,14 @@ var FBLoginManager = require('NativeModules').FBLoginManager
 
 class LoginScreen extends Component {
 
-  render() {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isLoading: false
+    }
+  }
 
+  render() {
     return (
       <ViewContainer backgroundColor='transparent'>
         <View style={styles.container}>
@@ -32,12 +39,7 @@ class LoginScreen extends Component {
               resizeMode='contain'
               source={require('../assets/bungee.png')}/>
           </View>
-          <View style={{flex: 3, marginTop: 24}}>
-            <Text style={styles.introText}>Hey Bungee Girl! Are you ready to go on an epic trip?</Text>
-            <Text style={[styles.introText, {marginTop: 4}]}>Traveling alone can be daunting so we've got to stick together! Let us help you make useful connections to make this trip better than you ever expected!</Text>
-            <View style={{flex: 1}} />
-          </View>
-          <View style={{flex: 2, alignSelf: 'stretch'}}>
+          <View style={{flex: 1, alignSelf: 'stretch'}}>
             <TouchableOpacity
               style={styles.facebookButton}
               onPress={() => this._facebookAuth()}>
@@ -58,17 +60,29 @@ class LoginScreen extends Component {
             </View>
           </View>
         </View>
+        { this.state.isLoading && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicatorIOS
+              size='large'
+              animating={true}/>
+          </View>
+        )}
       </ViewContainer>
     )
   }
 
   _facebookAuth() {
-    var successCallBack = (route) => this.props.navigator.resetTo({
+    var renderContext = this
+    var successCallBack = (route) => {
+      renderContext.setState({isLoading: false})
+      this.props.navigator.resetTo({
       ident: route
-    })
+    })}
     var errorCallBack = (error) => {
+      renderContext.setState({isLoading: false})
       Alert.alert("Error with login", JSON.stringify(error))
     }
+    this.setState({isLoading: true})
     this.props.eventEmitter.emit('createUserFromFacebook', successCallBack, errorCallBack)
   }
 
@@ -95,9 +109,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logo: {
-    width: 250,
-    height: 250,
-    marginTop: 8,
+    width: 300,
+    height: 300,
+    marginTop: 100,
     marginBottom: 8,
   },
   introText: {
@@ -141,7 +155,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.green,
     alignItems: 'center',
     justifyContent: 'center'
-  }
+  },
+  loadingContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: deviceHeight,
+    width: deviceWidth,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 })
 
 module.exports = LoginScreen

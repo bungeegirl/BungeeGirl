@@ -32,7 +32,7 @@ class ExperienceScreen extends Component {
   }
 
   render() {
-    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>Meet solo travelers in...</Text>
+    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>Meet solo travelers from...</Text>
     var content =
     <ViewContainer backgroundColor={Colors.beige}>
       <NavigationBar
@@ -77,7 +77,7 @@ class ExperienceScreen extends Component {
     return (
       <View>
         <View style={{flex: 1, padding: 20}}>
-          <Text style={[styles.titleText, {textAlign: 'center'}]}>Meet solo travelers from your home city</Text>
+          <Text style={[styles.titleText, {textAlign: 'center'}]}>or find a travel buddy in your home city</Text>
         </View>
         <TouchableOpacity
           style={styles.rowContainer}

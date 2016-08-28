@@ -4,6 +4,7 @@ import React, {
   Text,
   Image,
   View,
+  ActivityIndicatorIOS,
   Dimensions
 } from 'react-native'
 
@@ -67,16 +68,22 @@ class ProfileBackground extends Component {
     <View style={{position: 'absolute', height: deviceHeight - 48 - 66, top: 0, left: 0, width: deviceWidth}}>
       <View
         onLayout={(event) => this.setState({image1layout: event.nativeEvent.layout})}
-        style={{flex: 1, backgroundColor: Colors.red}}>
+        style={{flex: 1}}>
+        <View style={[styles.activityBackground, {height: this.state.image1layout.height, width: this.state.image1layout.width}]}>
+          <ActivityIndicatorIOS animating={true} />
+        </View>
         <Image
           resizeMode='cover'
           style={[styles.imageBorder, {height: this.state.image1layout.height, width: this.state.image1layout.width}]}
           source={{uri: uris[0]}}/>
       </View>
-      <View style={{flex: 1, backgroundColor: Colors.green, flexDirection: 'row'}}>
+      <View style={{flex: 1, flexDirection: 'row'}}>
         <View
           onLayout={(event) => this.setState({image2layout: event.nativeEvent.layout})}
-          style={{flex: 3, backgroundColor: Colors.blue}}>
+          style={{flex: 3}}>
+          <View style={[styles.activityBackground, {height: this.state.image2layout.height, width: this.state.image2layout.width}]}>
+            <ActivityIndicatorIOS animating={true} />
+          </View>
           <Image
             resizeMode='cover'
             style={[styles.imageBorder, {height: this.state.image2layout.height, width: this.state.image2layout.width}]}
@@ -84,17 +91,23 @@ class ProfileBackground extends Component {
         </View>
         <View
           onLayout={(event) => this.setState({image3layout: event.nativeEvent.layout})}
-          style={{flex: 4, backgroundColor: Colors.green}}>
+          style={{flex: 4}}>
+          <View style={[styles.activityBackground, {height: this.state.image3layout.height, width: this.state.image3layout.width}]}>
+            <ActivityIndicatorIOS animating={true} />
+          </View>
           <Image
             resizeMode='cover'
             style={[styles.imageBorder, {height: this.state.image3layout.height, width: this.state.image3layout.width}]}
             source={{uri: uris[2]}}/>
         </View>
       </View>
-      <View style={{flex: 1, backgroundColor: Colors.beige, flexDirection: 'row'}}>
+      <View style={{flex: 1, flexDirection: 'row'}}>
         <View
           onLayout={(event) => this.setState({image4layout: event.nativeEvent.layout})}
-          style={{flex: 4, backgroundColor: Colors.beige}}>
+          style={{flex: 4}}>
+          <View style={[styles.activityBackground, {height: this.state.image4layout.height, width: this.state.image4layout.width}]}>
+            <ActivityIndicatorIOS animating={true} />
+          </View>
           <Image
             resizeMode='cover'
             style={[styles.imageBorder, {height: this.state.image4layout.height, width: this.state.image4layout.width}]}
@@ -102,7 +115,10 @@ class ProfileBackground extends Component {
         </View>
         <View
           onLayout={(event) => this.setState({image5layout: event.nativeEvent.layout})}
-          style={{flex: 3, backgroundColor: Colors.mediumBlue}}>
+          style={{flex: 3}}>
+          <View style={[styles.activityBackground, {height: this.state.image5layout.height, width: this.state.image5layout.width}]}>
+            <ActivityIndicatorIOS animating={true} />
+          </View>
           <Image
             resizeMode='cover'
             style={[styles.imageBorder, {height: this.state.image5layout.height, width: this.state.image5layout.width}]}
@@ -120,6 +136,13 @@ const styles = StyleSheet.create({
   imageBorder: {
     borderWidth: 1,
     borderColor: Colors.beige
+  },
+  activityBackground: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
 

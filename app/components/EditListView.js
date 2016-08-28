@@ -85,7 +85,7 @@ class EditListView extends Component {
     if(this.state.authMethod != 'facebook') {
       row = this._renderRow({
         title: 'Verify gender with Facebook',
-        onPress: () => props.validateFacebookInfo()
+        onPress: () => this.props.validateFacebookInfo()
       })
     }
     return row

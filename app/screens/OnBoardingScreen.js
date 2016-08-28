@@ -38,8 +38,9 @@ var swiper = React.createClass({
   render: function() {
     return (
       <Swiper style={styles.wrapper}
-      onMomentumScrollEnd={this._onMomentumScrollEnd}
-      showsButtons={true}>
+        onMomentumScrollEnd={this._onMomentumScrollEnd}
+        showsButtons={true}
+        loop={false}>
         <View style={styles.slide}>
           <Text style={[styles.text, {fontSize: 48, marginBottom: 24}]}>Here's how the app works</Text>
           <Text style={styles.text}>Create a really cool profile where you can display some of your best travel experiences. We also have a fun way to find out what your travel identity is.</Text>
@@ -48,7 +49,7 @@ var swiper = React.createClass({
           <Text style={styles.text}>Choose which city you want to travel to.</Text>
         </View>
         <View style={styles.slide}>
-          <Text style={styles.text}> Get connected with like-minded bungee girls from the selected location, who also have an interest in traveling to YOUR city. Because you each want to travel to each others' city, you can help each other out with trip ideas, safety tips, accommodation and someone to hang out with when you get there.</Text>
+          <Text style={styles.text}> Start connecting with like-minded solo female travelers from locations you want to visit. Your connection will be based on the fact that you each have an equal interest in visiting each other's city for a future solo trip. You can help each other out to enhance your trip experience. You can also connect in your own home city, you may find a travel buddy for your next trip</Text>
         </View>
         <View
           style={styles.slide}>

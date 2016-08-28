@@ -22,7 +22,6 @@ class ChatContainer extends Component {
 
   constructor(props) {
     super(props)
-    console.log(props.userUid)
     this._messages = []
     this.state = {
       messages: this._messages,
@@ -86,6 +85,7 @@ class ChatContainer extends Component {
   }
 
   render() {
+    console.log('renderChat')
     let content =
     <View >
     <GiftedMessenger

@@ -74,6 +74,7 @@ class ProfileCard extends Component {
       button = <View />
     }
     let { userData } = this.state
+    console.log(this.props.travelingTo)
     content =
     <View style={styles.cardContainer}>
       <Image
@@ -82,21 +83,11 @@ class ProfileCard extends Component {
         source={this.props.city.backgroundAsset}>
         {image}
         <Text style={styles.nameText}>I'm {this.props.name}, a {this.props.travelType}</Text>
+        { this.props.travelingTo &&  <Text style={[styles.bioText, {color: 'white'}]}>Traveling to: {this.props.travelingTo}</Text> }
         <Text style={styles.bioText}>{this.props.bio}</Text>
         {button}
       </Image>
     </View>
-    // } else {
-    //   content =
-    //   <View style={styles.cardContainer}>
-    //     <View style={{backgroundColor: Colors.lightBlue, flex: 1, alignSelf: 'stretch', borderRadius: 2, alignItems: "center", justifyContent: 'center'}}>
-    //       <ActivityIndicatorIOS
-    //         style={{alignItems: 'center', justifyContent: 'center', height: 80}}
-    //         animating={_.isEmpty(this.state.userData)}/>
-    //     </View>
-    //
-    //   </View>
-    // }
 
     return content
   }

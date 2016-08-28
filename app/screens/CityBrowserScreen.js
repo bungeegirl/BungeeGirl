@@ -2,6 +2,7 @@ import React, {
   AppRegistry,
   Component,
   StyleSheet,
+  AlertIOS,
   Text,
   Alert,
   TouchableOpacity,
@@ -50,10 +51,20 @@ class CityBrowserScreen extends Component {
       }
       this.setState({dataSource: this.state.dataSource.cloneWithRows(userData), isLoading: false})
     })
+    if (this.props.homeCity) {
+      AlertIOS.prompt(
+        "Where do you want to travel next?",
+        null,
+        text => this.props.eventEmitter.emit('travelingTo', text)
+      )
+    }
   }
 
   render() {
-    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>Bungee city explorer</Text>
+    var title = <Text style={[styles.titleText, {marginBottom: 4}]}>Bungee girls from {this.state.city.name}</Text>
+    if (this.props.homeCity) {
+      title = <Text style={[styles.titleText, {marginBottom: 4}]}>Find a travel buddy</Text>
+    }
     var leftButton =
     <TouchableOpacity
       onPress={() => this.props.navigator.pop()}
@@ -76,7 +87,6 @@ class CityBrowserScreen extends Component {
         <ListView
           initialListSize={3}
           style={{marginTop: 10}}
-          renderHeader={() => this.renderHeader()}
           enableEmptySections={true}
           dataSource={this.state.dataSource}
           renderRow={(rowData, sectionID, rowID) => this._renderRow(rowData, sectionID, rowID)}/>
@@ -86,25 +96,20 @@ class CityBrowserScreen extends Component {
     return content
   }
 
-  renderHeader() {
-    var userCity = _.findWhere(cityData, {ident: this.props.userData.city})
-    var content = <View />
-    if (!this.props.homeCity) {
-      content =
-      <View style={styles.header}>
-         <Text style={[styles.titleText, {marginBottom: 4, textAlign: 'center'}]}>Meet solo travelers from {this.state.city.name} who are interested in {userCity.name}</Text>
-      </View>
-    }
-    return content
-  }
-
   _renderRow(rowData, sectionID, rowID) {
+    let travelingTo = false
+    console.log(rowData)
+    if (this.props.homeCity && rowData.travelingTo) {
+      travelingTo = rowData.travelingTo
+    }
     var rowContent =
     <ProfileCard
       {...this.props}
       city={this.state.city}
       name={rowData.name}
+      fromHomeCity={this.props.homeCity}
       bio={rowData.bio}
+      travelingTo={travelingTo}
       travelType={rowData.travelType}
       userUid={rowData.uid} />
     return rowContent

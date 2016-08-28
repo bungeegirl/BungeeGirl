@@ -52,6 +52,7 @@ class FlipTrip extends Component {
 
     AsyncStorage.multiGet(['authMethod','onBoardingScreen'], (error, data) => {
       this.setState({sawOnBoardingScreen: data[1][1]})
+      console.log(data[1])
       if(data[0][1] == 'email') {
         AsyncStorage.multiGet(['uid', 'email', 'password'], (err, stores) => {
           this.firebaseRef.authWithPassword({
@@ -102,6 +103,7 @@ class FlipTrip extends Component {
     this.eventEmitter.addListener('editProfileBio', (bio, successCallBack, errorCallBack) => this._editProfileBio(bio, successCallBack, errorCallBack))
     this.eventEmitter.addListener('editBirthdate', (birthdate, successCallBack, errorCallBack) => this._editBirthdate(birthdate, successCallBack, errorCallBack))
     this.eventEmitter.addListener('editAvatar', (image, successCallBack, errorCallBack) => this._editAvatar(image, successCallBack, errorCallBack))
+    this.eventEmitter.addListener('travelingTo', (text) => this._updateTravelingTo(text))
 
     this.eventEmitter.addListener('sendPushWithMessage', (messageData) => this._sendPushWithMessage(messageData))
     RCTDeviceEventEmitter.addListener(FBLoginManager.Events["Login"], (loginData) => {
@@ -254,12 +256,16 @@ class FlipTrip extends Component {
   }
 
   _editProfileName(name, successCallBack, errorCallBack) {
-    this.firebaseRef.child('users').child(this.state.uid).update({name: name})
+    let update = {name: name}
+    this.firebaseRef.child('users').child(this.state.uid).update(update)
+    this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update(update)
     successCallBack()
   }
 
   _editProfileBio(bio, successCallBack, errorCallBack) {
-    this.firebaseRef.child('users').child(this.state.uid).update({bio: bio})
+    let update = {bio: bio}
+    this.firebaseRef.child('users').child(this.state.uid).update(update)
+    this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update(update)
     successCallBack()
   }
 
@@ -271,6 +277,10 @@ class FlipTrip extends Component {
   _editAvatar(image, successCallBack, errorCallBack) {
     this.firebaseRef.child('users').child(this.state.uid).update({imageData: image})
     successCallBack()
+  }
+
+  _updateTravelingTo(text) {
+    this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update({travelingTo: text})
   }
 
   _editProfileImages(profileImages, successCallBack, errorCallBack) {
@@ -294,6 +304,7 @@ class FlipTrip extends Component {
         travelType: travelIdent,
       })
     }
+    this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update({travelType: travelIdent})
     successCallBack()
   }
 
@@ -304,6 +315,7 @@ class FlipTrip extends Component {
         this.firebaseRef.child('cities').child(oldCity).child(this.state.uid).remove()
         this.firebaseRef.child('cities').child(selectedCity).child(this.state.uid).update(userData.val())
       })
+      this.firebaseRef.child('users').child(this.state.uid).update({city: selectedCity})
     } else {
       var input = {
         uid: this.state.uid,
@@ -317,14 +329,14 @@ class FlipTrip extends Component {
         onBoardingStep: 'home'
       })
     }
+
     successCallBack()
   }
 
   _browsedCity(selectedCity, successCallBack) {
     var timestamp = new Date().getTime()
-    var timeVisited = {}
-    timeVisited[`${selectedCity}`] = timestamp
-    this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update(timeVisited)
+    var timeVisited = {selectedCity: timestamp}
+    console.log(selectedCity, timestamp)
     successCallBack()
   }
 
