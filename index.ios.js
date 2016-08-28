@@ -296,13 +296,13 @@ class FlipTrip extends Component {
       this.firebaseRef.child('users').child(this.state.uid).update({
         travelType: travelIdent,
       })
+      this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update({travelType: travelIdent})
     } else {
       this.firebaseRef.child('users').child(this.state.uid).update({
         onBoardingStep: 'citySelect',
         travelType: travelIdent,
       })
     }
-    this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update({travelType: travelIdent})
     successCallBack()
   }
 
