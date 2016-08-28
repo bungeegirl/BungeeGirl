@@ -100,6 +100,7 @@ class RootTabs extends Component {
           initialRoute='HomeScreen' />
       </TabNavigator.Item>
       <TabNavigator.Item
+        testID="travel-tab"
         selected={this.state.selectedTab === 'travel'}
         renderIcon={() => travelIcon}
         renderSelectedIcon={() => travelIconSelected}

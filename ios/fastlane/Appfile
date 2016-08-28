@@ -1,0 +1,7 @@
+app_identifier "com.bungeegirl.app" # The bundle identifier of your app
+apple_id "Maxine@bungeegirl.com" # Your Apple email address
+
+team_id "D7VR5Q6S6Z"  # Developer Portal Team ID
+
+# you can even provide different app identifiers, Apple IDs and team names per lane:
+# More information: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Appfile.md

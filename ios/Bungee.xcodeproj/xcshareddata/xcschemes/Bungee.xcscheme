@@ -52,6 +52,16 @@
                ReferencedContainer = "container:Bungee.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "49EF98251D7396AD00BE3CC3"
+               BuildableName = "BungeeUITests.xctest"
+               BlueprintName = "BungeeUITests"
+               ReferencedContainer = "container:Bungee.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

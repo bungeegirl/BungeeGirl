@@ -24,6 +24,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1A478C020C3748C4AB525450 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B2DDBFF89D47DABA9A8D0D /* libRNImagePicker.a */; };
+		33E2D04173AC02261B86D528 /* libPods-BungeeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE4891A9F0E783192A68C2F5 /* libPods-BungeeTests.a */; };
 		375ED7031A4A4FE1ABEDEE60 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE3E2AAD19AA4A00BE0B98E5 /* Foundation.ttf */; };
 		39879AFFF85845449FC0847A /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83F167AADBC54A0F843231CF /* Entypo.ttf */; };
 		491241EC1D061F00004E7B92 /* ArchitectsDaughter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 491241EB1D061EF5004E7B92 /* ArchitectsDaughter.ttf */; };
@@ -41,6 +42,8 @@
 		49C2B47F1CD0344900DA3BAF /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C2B47C1CD0344900DA3BAF /* FBSDKShareKit.framework */; };
 		49C2B4BE1CD08A2C00DA3BAF /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C2B4BD1CD08A2500DA3BAF /* libRCTCameraRoll.a */; };
 		49C2B4C01CD08C3200DA3BAF /* AssetLibraryToBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C2B4BF1CD08C3200DA3BAF /* AssetLibraryToBase64.m */; };
+		49EF98291D7396AD00BE3CC3 /* BungeeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EF98281D7396AD00BE3CC3 /* BungeeUITests.swift */; };
+		49EF98661D739AD800BE3CC3 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EF98651D739AD800BE3CC3 /* SnapshotHelper.swift */; };
 		49F6B9731CED17F60034F299 /* Native.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F6B9721CED17F60034F299 /* Native.m */; };
 		4A8651506EA748BABCD4BBFF /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30FCA2512AF74BBB9DB1182F /* Ionicons.ttf */; };
 		5061F534614D4F33B735CA6B /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1639727FFC846F49BE28803 /* libRNMail.a */; };
@@ -51,8 +54,8 @@
 		8B7B75400EEE4BE4B812DBCA /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5879D55D36354DF6BBBF6B0E /* libRCTActionSheet.a */; };
 		A07BBB662A724A5E9BE67698 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FFF6DABF2A0C41709FC04E2E /* Octicons.ttf */; };
 		C183959A3F314700A03BF36D /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A84A097C3746F5BE5AFC89 /* libCodePush.a */; };
-		C7BE1E1E49E3017D9B5E58D0 /* libPods-Bungee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E01A312CCC08D1FDD4E594 /* libPods-Bungee.a */; };
 		CBBE499CE43E4B718CCB4AFE /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F187C06FE84DBAAECA3587 /* libRNVectorIcons.a */; };
+		D054A57F456D54BDF7A9C97E /* libPods-Bungee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 871088164441662B633125C0 /* libPods-Bungee.a */; };
 		EF67876C1E884ACFA89AF2A2 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A0AFED33DD24A859A688635 /* EvilIcons.ttf */; };
 /* End PBXBuildFile section */
 
@@ -176,6 +179,13 @@
 			remoteGlobalIDString = 46FEDE8A1AFF192F00D3261C;
 			remoteInfo = RNMailTests;
 		};
+		49EF982B1D7396AD00BE3CC3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = Bungee;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -202,7 +212,6 @@
 		00E356EE1AD99517003FC87E /* Bungee.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Bungee.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* FlipTripTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlipTripTests.m; sourceTree = "<group>"; };
-		10E01A312CCC08D1FDD4E594 /* libPods-Bungee.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bungee.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		113560DC6E284159B6033D40 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
@@ -232,6 +241,10 @@
 		49C2B47C1CD0344900DA3BAF /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		49C2B4B81CD08A2500DA3BAF /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		49C2B4BF1CD08C3200DA3BAF /* AssetLibraryToBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AssetLibraryToBase64.m; path = "../node_modules/react-native-asset-library-to-base64/ios/AssetLibraryToBase64.m"; sourceTree = "<group>"; };
+		49EF98261D7396AD00BE3CC3 /* BungeeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BungeeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49EF98281D7396AD00BE3CC3 /* BungeeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BungeeUITests.swift; sourceTree = "<group>"; };
+		49EF982A1D7396AD00BE3CC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49EF98651D739AD800BE3CC3 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		49F6B9721CED17F60034F299 /* Native.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Native.m; sourceTree = "<group>"; };
 		5879D55D36354DF6BBBF6B0E /* libRCTActionSheet.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTActionSheet.a; sourceTree = "<group>"; };
 		5957706F9CC5445A8911A46D /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
@@ -240,17 +253,21 @@
 		76AA213883F147659CF44F0C /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7D634936C0A3477AA0A876AA /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
+		7FE869036506E43D3689BB53 /* Pods-Bungee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bungee.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bungee/Pods-Bungee.release.xcconfig"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		83F167AADBC54A0F843231CF /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		871088164441662B633125C0 /* libPods-Bungee.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bungee.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BF69ACDF4BCE9E148782618 /* Pods-BungeeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BungeeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BungeeTests/Pods-BungeeTests.release.xcconfig"; sourceTree = "<group>"; };
 		97F606085718472FAD79F154 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		992E3CBD2AE8777ABFA7CDDA /* Pods-BungeeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BungeeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BungeeTests/Pods-BungeeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F1DB8503753458DBAF88019 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 		A07974E3B0CE4527892D9760 /* RNMail.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNMail.xcodeproj; path = "../node_modules/react-native-mail/RNMail.xcodeproj"; sourceTree = "<group>"; };
-		BB6255D398411831290BD171 /* Pods-Bungee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bungee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bungee/Pods-Bungee.debug.xcconfig"; sourceTree = "<group>"; };
 		BE3E2AAD19AA4A00BE0B98E5 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		C4EA201E5C9D13DE61F567B2 /* Pods-Bungee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bungee.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bungee/Pods-Bungee.release.xcconfig"; sourceTree = "<group>"; };
+		C7DB1B5A330692F1E9D85CB6 /* Pods-Bungee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bungee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bungee/Pods-Bungee.debug.xcconfig"; sourceTree = "<group>"; };
 		D1639727FFC846F49BE28803 /* libRNMail.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNMail.a; sourceTree = "<group>"; };
 		DEBD0D906E1D4154B031B393 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		E6FB92FE7CCF4A778C9B03CB /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		EE4891A9F0E783192A68C2F5 /* libPods-BungeeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BungeeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6B2DDBFF89D47DABA9A8D0D /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		F6F6A6B817154ABE908494B7 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		FFF6DABF2A0C41709FC04E2E /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -261,6 +278,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33E2D04173AC02261B86D528 /* libPods-BungeeTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +315,14 @@
 				8B7B75400EEE4BE4B812DBCA /* libRCTActionSheet.a in Frameworks */,
 				CBBE499CE43E4B718CCB4AFE /* libRNVectorIcons.a in Frameworks */,
 				5061F534614D4F33B735CA6B /* libRNMail.a in Frameworks */,
-				C7BE1E1E49E3017D9B5E58D0 /* libPods-Bungee.a in Frameworks */,
+				D054A57F456D54BDF7A9C97E /* libPods-Bungee.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49EF98231D7396AD00BE3CC3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +496,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		49EF98271D7396AD00BE3CC3 /* BungeeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				49EF98651D739AD800BE3CC3 /* SnapshotHelper.swift */,
+				49EF98281D7396AD00BE3CC3 /* BungeeUITests.swift */,
+				49EF982A1D7396AD00BE3CC3 /* Info.plist */,
+			);
+			path = BungeeUITests;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -532,10 +567,11 @@
 				13B07FAE1A68108700A75B9A /* FlipTrip */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* FlipTripTests */,
+				49EF98271D7396AD00BE3CC3 /* BungeeUITests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				44DDD5AC42E24B82A1439CC4 /* Resources */,
-				A58F98E0549FA1EDCD8A5FD3 /* Pods */,
-				FEB6C7549F4116BFE1659958 /* Frameworks */,
+				DED2141412064A085AA5CD90 /* Pods */,
+				BE1C32355C8DA4E7A3635985 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -546,25 +582,29 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* Bungee.app */,
 				00E356EE1AD99517003FC87E /* Bungee.xctest */,
+				49EF98261D7396AD00BE3CC3 /* BungeeUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A58F98E0549FA1EDCD8A5FD3 /* Pods */ = {
+		BE1C32355C8DA4E7A3635985 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BB6255D398411831290BD171 /* Pods-Bungee.debug.xcconfig */,
-				C4EA201E5C9D13DE61F567B2 /* Pods-Bungee.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		FEB6C7549F4116BFE1659958 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				10E01A312CCC08D1FDD4E594 /* libPods-Bungee.a */,
+				871088164441662B633125C0 /* libPods-Bungee.a */,
+				EE4891A9F0E783192A68C2F5 /* libPods-BungeeTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DED2141412064A085AA5CD90 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C7DB1B5A330692F1E9D85CB6 /* Pods-Bungee.debug.xcconfig */,
+				7FE869036506E43D3689BB53 /* Pods-Bungee.release.xcconfig */,
+				992E3CBD2AE8777ABFA7CDDA /* Pods-BungeeTests.debug.xcconfig */,
+				8BF69ACDF4BCE9E148782618 /* Pods-BungeeTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -574,9 +614,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BungeeTests" */;
 			buildPhases = (
+				2833E0E2B78C0F25B1D63624 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				E27C9500E77661A46381441D /* [CP] Embed Pods Frameworks */,
+				72EAF381A47C60222C3622FE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -592,13 +635,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Bungee" */;
 			buildPhases = (
-				5702D2A746255806537B8C29 /* Check Pods Manifest.lock */,
+				F6CB822879EC2F6286AA5DBC /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				6B8713D0EBD934681F7C30AD /* Embed Pods Frameworks */,
-				8578915AFF070B9DAF7352A8 /* Copy Pods Resources */,
+				3B29D69447F8E8C67A33C94C /* [CP] Embed Pods Frameworks */,
+				D7B05C1B94F850E01C17925E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -609,12 +652,31 @@
 			productReference = 13B07F961A680F5B00A75B9A /* Bungee.app */;
 			productType = "com.apple.product-type.application";
 		};
+		49EF98251D7396AD00BE3CC3 /* BungeeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49EF98411D7396AD00BE3CC3 /* Build configuration list for PBXNativeTarget "BungeeUITests" */;
+			buildPhases = (
+				49EF98221D7396AD00BE3CC3 /* Sources */,
+				49EF98231D7396AD00BE3CC3 /* Frameworks */,
+				49EF98241D7396AD00BE3CC3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49EF982C1D7396AD00BE3CC3 /* PBXTargetDependency */,
+			);
+			name = BungeeUITests;
+			productName = BungeeUITests;
+			productReference = 49EF98261D7396AD00BE3CC3 /* BungeeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
@@ -623,7 +685,11 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 8D8XL7U468;
+						DevelopmentTeam = D7VR5Q6S6Z;
+					};
+					49EF98251D7396AD00BE3CC3 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 				};
 			};
@@ -712,6 +778,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* Bungee */,
 				00E356ED1AD99517003FC87E /* BungeeTests */,
+				49EF98251D7396AD00BE3CC3 /* BungeeUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -872,6 +939,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49EF98241D7396AD00BE3CC3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -889,14 +963,14 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
-		5702D2A746255806537B8C29 /* Check Pods Manifest.lock */ = {
+		2833E0E2B78C0F25B1D63624 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -904,14 +978,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		6B8713D0EBD934681F7C30AD /* Embed Pods Frameworks */ = {
+		3B29D69447F8E8C67A33C94C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -919,19 +993,64 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bungee/Pods-Bungee-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8578915AFF070B9DAF7352A8 /* Copy Pods Resources */ = {
+		72EAF381A47C60222C3622FE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BungeeTests/Pods-BungeeTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D7B05C1B94F850E01C17925E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bungee/Pods-Bungee-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E27C9500E77661A46381441D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BungeeTests/Pods-BungeeTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6CB822879EC2F6286AA5DBC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -956,6 +1075,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49EF98221D7396AD00BE3CC3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49EF98291D7396AD00BE3CC3 /* BungeeUITests.swift in Sources */,
+				49EF98661D739AD800BE3CC3 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -963,6 +1091,11 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* Bungee */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+		49EF982C1D7396AD00BE3CC3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* Bungee */;
+			targetProxy = 49EF982B1D7396AD00BE3CC3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -981,6 +1114,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 992E3CBD2AE8777ABFA7CDDA /* Pods-BungeeTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1012,6 +1146,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8BF69ACDF4BCE9E148782618 /* Pods-BungeeTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -1040,10 +1175,11 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BB6255D398411831290BD171 /* Pods-Bungee.debug.xcconfig */;
+			baseConfigurationReference = C7DB1B5A330692F1E9D85CB6 /* Pods-Bungee.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK",
@@ -1084,18 +1220,20 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gigster.fliptrip;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bungeegirl.app;
 				PRODUCT_NAME = Bungee;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4EA201E5C9D13DE61F567B2 /* Pods-Bungee.release.xcconfig */;
+			baseConfigurationReference = 7FE869036506E43D3689BB53 /* Pods-Bungee.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK",
@@ -1135,9 +1273,43 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gigster.fliptrip;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bungeegirl.app;
 				PRODUCT_NAME = Bungee;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		49EF982D1D7396AD00BE3CC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = BungeeUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bungeegirl.app.BungeeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_TARGET_NAME = Bungee;
+			};
+			name = Debug;
+		};
+		49EF982E1D7396AD00BE3CC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = BungeeUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bungeegirl.app.BungeeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Bungee;
 			};
 			name = Release;
 		};
@@ -1262,6 +1434,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49EF98411D7396AD00BE3CC3 /* Build configuration list for PBXNativeTarget "BungeeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49EF982D1D7396AD00BE3CC3 /* Debug */,
+				49EF982E1D7396AD00BE3CC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
