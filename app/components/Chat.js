@@ -85,7 +85,6 @@ class ChatContainer extends Component {
   }
 
   render() {
-    console.log('renderChat')
     let content =
     <View >
     <GiftedMessenger

@@ -98,7 +98,6 @@ class CityBrowserScreen extends Component {
 
   _renderRow(rowData, sectionID, rowID) {
     let travelingTo = false
-    console.log(rowData)
     if (this.props.homeCity && rowData.travelingTo) {
       travelingTo = rowData.travelingTo
     }

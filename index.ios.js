@@ -52,7 +52,6 @@ class FlipTrip extends Component {
 
     AsyncStorage.multiGet(['authMethod','onBoardingScreen'], (error, data) => {
       this.setState({sawOnBoardingScreen: data[1][1]})
-      console.log(data[1])
       if(data[0][1] == 'email') {
         AsyncStorage.multiGet(['uid', 'email', 'password'], (err, stores) => {
           this.firebaseRef.authWithPassword({
@@ -67,7 +66,6 @@ class FlipTrip extends Component {
         })
       } else if (data[0][1] == 'facebook') {
         AsyncStorage.multiGet(['uid', 'OAuthToken'], (err, stores) => {
-          console.log(stores)
           if(stores[1][1]) {
             this.firebaseRef.authWithOAuthToken('facebook',stores[1][1], (error, authData) => {
               if(error) {
@@ -336,7 +334,6 @@ class FlipTrip extends Component {
   _browsedCity(selectedCity, successCallBack) {
     var timestamp = new Date().getTime()
     var timeVisited = {selectedCity: timestamp}
-    console.log(selectedCity, timestamp)
     successCallBack()
   }
 

@@ -32,8 +32,6 @@ var styles = StyleSheet.create({
 
 var swiper = React.createClass({
   _onMomentumScrollEnd: function (e, state, context) {
-    // you can get `state` and `this`(ref to swiper's context) from params
-    console.log(state, context.state)
   },
   render: function() {
     return (
@@ -49,7 +47,7 @@ var swiper = React.createClass({
           <Text style={styles.text}>Choose which city you want to travel to.</Text>
         </View>
         <View style={styles.slide}>
-          <Text style={styles.text}> Start connecting with like-minded solo female travelers from locations you want to visit. Your connection will be based on the fact that you each have an equal interest in visiting each other's city for a future solo trip. You can help each other out to enhance your trip experience. You can also connect in your own home city, you may find a travel buddy for your next trip</Text>
+          <Text style={styles.text}> Connect with like-minded solo female travelers from locations you want to visit. Your connection will be based on the fact that you each have an equal interest in visiting each other's city for a future solo trip. You can also connect in your own home city, you may find a travel buddy for your next trip</Text>
         </View>
         <View
           style={styles.slide}>

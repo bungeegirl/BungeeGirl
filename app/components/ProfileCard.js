@@ -74,7 +74,6 @@ class ProfileCard extends Component {
       button = <View />
     }
     let { userData } = this.state
-    console.log(this.props.travelingTo)
     content =
     <View style={styles.cardContainer}>
       <Image

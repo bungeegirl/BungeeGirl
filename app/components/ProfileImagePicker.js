@@ -97,7 +97,7 @@ class ProfileImagePicker extends Component {
     super(props)
     var arr = [];
 
-    for (var i=0;i<100;i++) {
+    for (var i=0;i<1000;i++) {
      arr[i] = [];
     }
     this.imageRefs = arr
