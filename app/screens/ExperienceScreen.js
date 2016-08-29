@@ -19,15 +19,25 @@ import cityData from '../local_data/cityData'
 import _ from 'underscore'
 
 var deviceWidth = Dimensions.get('window').width
+let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 class ExperienceScreen extends Component {
   constructor(props) {
     super(props)
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       dataSource: ds.cloneWithRows(_.reject(cityData, (city) => {
         return city.ident == props.userData.city
       }))
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.userData.city !== this.props.userData.city) {
+      this.setState({
+        dataSource: ds.cloneWithRows(_.reject(cityData, (city) => {
+          return city.ident == nextProps.userData.city
+        }))
+      })
     }
   }
 
