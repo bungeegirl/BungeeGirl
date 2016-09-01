@@ -43,6 +43,7 @@ class UserProfile extends Component {
       profileTitle = ""
     }
     var city = _.findWhere(cityData, {ident: this.props.userDisplayData.city})
+    var verifiedLocation = this.props.userDisplayData.facebookLocation
     var age = moment().diff(moment({years: this.props.userDisplayData.year, months: this.props.userDisplayData.month, days: this.props.userDisplayData.days}), 'years')
     var content =
     <View style={{flex: 1}}>
@@ -72,6 +73,9 @@ class UserProfile extends Component {
         </View>
         <View style={[styles.inputContainer, {marginTop: -10}]}>
           { city && ( <Text style={styles.formPretext}>from {city.name}</Text> ) }
+        </View>
+        <View style={[styles.inputContainer]}>
+          { verifiedLocation && ( <Text style={styles.formPretext}>verified from {verifiedLocation}</Text> ) }
         </View>
         <Lightbox
           underlayColor={Colors.beige}

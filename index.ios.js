@@ -205,7 +205,7 @@ class FlipTrip extends Component {
   _createUserFromFacebook(successCallBack, errorCallBack) {
     var firebaseRef = this.firebaseRef
     var renderContext = this
-    FBLoginManager.loginWithPermissions(["email", "public_profile", "user_hometown"],function(error, data) {
+    FBLoginManager.loginWithPermissions(["email", "public_profile", "user_location"],function(error, data) {
       if (!error) {
         console.log("Login data: ", data);
         firebaseRef.authWithOAuthToken('facebook', data.credentials.token, (error, authData) => {
@@ -218,19 +218,27 @@ class FlipTrip extends Component {
             var email, gender
             authData.facebook.email ? email = authData.facebook.email : email = ""
             authData.facebook.cachedUserProfile.gender ? gender = authData.facebook.cachedUserProfile.gender : gender = ''
-            firebaseRef.child('users').child(authData.uid).once('value', (theData) => {
-              var onBoardingStep
-              _.has(theData.val(), 'onBoardingStep') ? onBoardingStep = theData.val().onBoardingStep : onBoardingStep = 'profile'
-              firebaseRef.child('users').child(authData.uid).update({
-                provider: authData.provider,
-                email: email,
-                gender: gender,
-                onBoardingStep: onBoardingStep,
-                uid: authData.uid
+            if(gender === 'male') {
+              errorCallBack('Bungee girl is for girls only!')
+              FBLoginManager.logout(() => {})
+            } else {
+              firebaseRef.child('users').child(authData.uid).once('value', (theData) => {
+                var onBoardingStep
+                var location = authData.cachedUserProfile.location && authData.cachedUserProfile.location.name
+                _.has(theData.val(), 'onBoardingStep') ? onBoardingStep = theData.val().onBoardingStep : onBoardingStep = 'profile'
+                firebaseRef.child('users').child(authData.uid).update({
+                  provider: authData.provider,
+                  email: email,
+                  gender: gender,
+                  onBoardingStep: onBoardingStep,
+                  uid: authData.uid,
+                  facebookLocation: location
+                })
+                firebaseRef.child('users').child(authData.uid).on('value', (theData) => { renderContext._syncUserData(theData.val(),authData.uid) })
+                successCallBack(renderContext._routeForStep(onBoardingStep))
               })
-              firebaseRef.child('users').child(authData.uid).on('value', (theData) => { renderContext._syncUserData(theData.val(),authData.uid) })
-              successCallBack(renderContext._routeForStep(onBoardingStep))
-            })
+            }
+
           }
         })
       } else {
@@ -333,7 +341,9 @@ class FlipTrip extends Component {
 
   _browsedCity(selectedCity, successCallBack) {
     var timestamp = new Date().getTime()
-    var timeVisited = {selectedCity: timestamp}
+    var timeVisited = {}
+    timeVisited[`${selectedCity}`] = timestamp
+    this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update(timeVisited)
     successCallBack()
   }
 

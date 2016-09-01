@@ -45,19 +45,6 @@ class LoginScreen extends Component {
               onPress={() => this._facebookAuth()}>
               <Text style={styles.buttonText}>Connect with Facebook</Text>
             </TouchableOpacity>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.loginButton}
-                onPress={() => this._login()}>
-                <Text style={styles.buttonText}>Log In</Text>
-              </TouchableOpacity>
-              <View style={{width: 10, height: 10}} />
-              <TouchableOpacity
-                style={[styles.loginButton, {backgroundColor: Colors.red}]}
-                onPress={() => this._signUp()}>
-                <Text style={styles.buttonText}>Sign Up</Text>
-              </TouchableOpacity>
-            </View>
           </View>
         </View>
         { this.state.isLoading && (
