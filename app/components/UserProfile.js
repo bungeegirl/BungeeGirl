@@ -20,6 +20,8 @@ import travelData from '../local_data/questions'
 import cityData from '../local_data/cityData'
 import Lightbox from 'react-native-lightbox'
 import Icon from 'react-native-vector-icons/Ionicons'
+import MIcon from 'react-native-vector-icons/MaterialIcons'
+
 
 var deviceWidth = Dimensions.get('window').width
 
@@ -73,10 +75,15 @@ class UserProfile extends Component {
         </View>
         <View style={[styles.inputContainer, {marginTop: -10}]}>
           { city && ( <Text style={styles.formPretext}>from {city.name}</Text> ) }
+          <TouchableOpacity
+            onPress={() => Alert.alert(`Verified from ${verifiedLocation}`)}>
+          <MIcon
+            size={32}
+            color='white'
+            name='location-on'/>
+        </TouchableOpacity>
         </View>
-        <View style={[styles.inputContainer]}>
-          { verifiedLocation && ( <Text style={styles.formPretext}>verified from {verifiedLocation}</Text> ) }
-        </View>
+
         <Lightbox
           underlayColor={Colors.beige}
           backgroundColor={Colors.beige}

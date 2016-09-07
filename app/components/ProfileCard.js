@@ -6,6 +6,7 @@ import React, {
   Text,
   Alert,
   TouchableOpacity,
+  TouchableHighlight,
   Image,
   Dimensions,
   View,
@@ -127,6 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   button: {
+    opacity: 0.5,
     position: 'absolute',
     flexDirection: 'row',
     width: 200,

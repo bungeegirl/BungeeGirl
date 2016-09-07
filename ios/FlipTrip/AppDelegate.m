@@ -43,9 +43,9 @@
    * running the project on an actual device or running the project on the
    * simulator in the "Release" build configuration.
    */
-  
+
   #ifdef DEBUG
-    jsCodeLocation = [NSURL URLWithString:@"http://10.0.0.6:8081/index.ios.bundle?platform=ios&dev=true"];
+    jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
   #else
     jsCodeLocation = [CodePush bundleURL];
   #endif
@@ -55,11 +55,11 @@
                                                       moduleName:@"FlipTrip"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-  
+
   //instabug
-  
-  [Instabug startWithToken:@"e75127e113ff6d8db4e9feea60aea3c3" invocationEvent:IBGInvocationEventShake];
-  
+
+  [Instabug startWithToken:@"2b24356f56a8bc6e24ef2895bf7f3ea5" invocationEvent:IBGInvocationEventShake];
+
   // Start Batch
 //  [Batch startWithAPIKey:@"DEV578EC1727F9EEACE8AA2F865374"];
   [Batch startWithAPIKey:@"578EC1727C200A73BE71A173171ECF"];

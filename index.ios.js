@@ -224,7 +224,7 @@ class FlipTrip extends Component {
             } else {
               firebaseRef.child('users').child(authData.uid).once('value', (theData) => {
                 var onBoardingStep
-                var location = authData.cachedUserProfile.location && authData.cachedUserProfile.location.name
+                var location = authData.facebook.cachedUserProfile.location && authData.facebook.cachedUserProfile.location.name
                 _.has(theData.val(), 'onBoardingStep') ? onBoardingStep = theData.val().onBoardingStep : onBoardingStep = 'profile'
                 firebaseRef.child('users').child(authData.uid).update({
                   provider: authData.provider,
