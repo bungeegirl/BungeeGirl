@@ -40,7 +40,7 @@ class LoginScreen extends Component {
               source={require('../assets/bungee.png')}/>
           </View>
           <TouchableOpacity
-            onPress={() => Alert.alert('Facebook verification', "This is a girls-only zone and we want to keep it taht way so we require sign up through Facebook for your security. Using Facebook, we'll be able to verify gender and other key information")}>
+            onPress={() => Alert.alert('Facebook verification', "This is a girls-only zone and we want to keep it that way so we require sign up through Facebook for your security. Using Facebook, we'll be able to verify gender and other key information")}>
             <Text style={styles.whyText}>Why do I have to sign in through facebook?</Text>
           </TouchableOpacity>
           <View style={{flex: 1, alignSelf: 'stretch'}}>

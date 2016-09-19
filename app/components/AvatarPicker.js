@@ -4,6 +4,7 @@ import React, {
   Text,
   Image,
   TextInput,
+  Alert,
   View,
   NativeModules,
   TouchableOpacity,
@@ -19,6 +20,10 @@ import CameraRollView from '../components/CameraRollView'
 
 
 class AvatarPicker extends Component {
+  componentDidMount() {
+    Alert.alert("To make an awesome profile, we'll need to access your camera roll")
+  }
+
   _renderImage(asset) {
     let imageSize = deviceWidth / 4
     return (

@@ -17,13 +17,13 @@ import Colors from '../styles/Colors'
 class BirthdatePicker extends Component {
 
   shouldComponentUpdate(props) {
-    if(props.month.length == 2 && props.day.length == 0 && props.year.length == 0) {
-      this.refs.DaysTextInput.focus()
-    }
-    if(props.day.length == 2 && props.month.length == 2 && props.year.length == 0) {
-      this.refs.YearsTextInput.focus()
-    }
-    return true
+    // if(props.month.length == 2 && props.day.length == 0 && props.year.length == 0) {
+    //   this.refs.DaysTextInput.focus()
+    // }
+    // if(props.day.length == 2 && props.month.length == 2 && props.year.length == 0) {
+    //   this.refs.YearsTextInput.focus()
+    // }
+    // return true
   }
   render() {
     var content =

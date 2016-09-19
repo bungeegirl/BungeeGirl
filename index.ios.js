@@ -25,6 +25,12 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import _ from 'underscore'
 import RNGeocoder from 'react-native-geocoder'
 import Spinner from 'react-native-loading-spinner-overlay';
+var Raven = require('raven-js');
+require('raven-js/plugins/react-native')(Raven);
+
+Raven
+  .config('https://428836d3216248a69f1dcb85c8ba9d72@sentry.io/98471', { release: "1.1" })
+  .install();
 
 const Native = NativeModules.Native;
 
@@ -207,12 +213,15 @@ class FlipTrip extends Component {
     var renderContext = this
     FBLoginManager.loginWithPermissions(["email", "public_profile", "user_location"],function(error, data) {
       if (!error) {
+        Raven.captureMessage('Facebook login data:', {extra: data});
         console.log("Login data: ", data);
         firebaseRef.authWithOAuthToken('facebook', data.credentials.token, (error, authData) => {
           if(error) {
+            Raven.captureMessage('Facebook login error', {extra: error});
             errorCallBack(error)
           } else {
-            console.log("Authenticated successfully with payload:", authData)
+            console.log("Authenticated successfully with payload:", { extra: authData})
+            Raven.captureMessage('Facebook successfull authentication', { extra: authData});
             Native.setBatchId(authData.uid)
             AsyncStorage.multiSet([['uid', authData.uid],['authMethod', 'facebook']])
             var email, gender
@@ -224,7 +233,7 @@ class FlipTrip extends Component {
             } else {
               firebaseRef.child('users').child(authData.uid).once('value', (theData) => {
                 var onBoardingStep
-                var location = authData.facebook.cachedUserProfile.location && authData.facebook.cachedUserProfile.location.name
+                var location = authData.facebook.cachedUserProfile.location ? authData.facebook.cachedUserProfile.location.name : 'No location verified'
                 _.has(theData.val(), 'onBoardingStep') ? onBoardingStep = theData.val().onBoardingStep : onBoardingStep = 'profile'
                 firebaseRef.child('users').child(authData.uid).update({
                   provider: authData.provider,
@@ -242,6 +251,7 @@ class FlipTrip extends Component {
           }
         })
       } else {
+        Raven.captureMessage('Facebook complete login error:', { extra: data});
         console.log("Error: ", data);
         errorCallBack(data)
       }
@@ -417,13 +427,6 @@ class FlipTrip extends Component {
     var initialRoute
     if(this.state.loadingData) {
       mainContent = <Spinner visible={true}/>
-    } else if(!this.state.sawOnBoardingScreen){
-      mainContent =
-      <OnBoardingScreen
-        onComplete={() => {
-          AsyncStorage.setItem('onBoardingScreen', JSON.stringify(true))
-          this.setState({sawOnBoardingScreen: true})
-        }}/>
     } else {
       var onBoardingStep
       _.has(this.state.userData, 'onBoardingStep') ? onBoardingStep = this.state.userData.onBoardingStep : onBoardingStep = ""

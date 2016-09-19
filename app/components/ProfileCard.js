@@ -75,6 +75,7 @@ class ProfileCard extends Component {
       button = <View />
     }
     let { userData } = this.state
+    let travelDispay = this.props.travelType.toLowerCase() === 'danger' ? 'danger junkie' : this.props.travelType
     content =
     <View style={styles.cardContainer}>
       <Image
@@ -82,7 +83,7 @@ class ProfileCard extends Component {
         style={styles.imageBackground}
         source={this.props.city.backgroundAsset}>
         {image}
-        <Text style={styles.nameText}>I'm {this.props.name}, a {this.props.travelType}</Text>
+        <Text style={styles.nameText}>I'm {this.props.name}, a {travelDispay}</Text>
         { this.props.travelingTo &&  <Text style={[styles.bioText, {color: 'white'}]}>Traveling to: {this.props.travelingTo}</Text> }
         <Text style={styles.bioText}>{this.props.bio}</Text>
         {button}
@@ -125,16 +126,16 @@ const styles = StyleSheet.create({
   bioText: {
     color: Colors.darkGrey,
     fontFamily: 'ArchitectsDaughter',
-    fontSize: 18,
+    fontSize: 14,
   },
   button: {
     opacity: 0.5,
     position: 'absolute',
     flexDirection: 'row',
-    width: 200,
-    height: 50,
+    width: 150,
+    height: 32,
     left: 0,
-    bottom: 30,
+    bottom: 15,
     alignItems: 'center',
     borderRadius: 4,
     backgroundColor: Colors.darkGrey,
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     marginLeft: 28,
-    fontSize: 24,
+    fontSize: 14,
     fontFamily: "ArchitectsDaughter",
   },
 })
