@@ -247,7 +247,6 @@ class FlipTrip extends Component {
                 successCallBack(renderContext._routeForStep(onBoardingStep))
               })
             }
-
           }
         })
       } else {

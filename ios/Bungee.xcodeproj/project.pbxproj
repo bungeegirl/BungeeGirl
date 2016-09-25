@@ -642,6 +642,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				3B29D69447F8E8C67A33C94C /* [CP] Embed Pods Frameworks */,
 				D7B05C1B94F850E01C17925E /* [CP] Copy Pods Resources */,
+				4991E0C51D92EAFB007A052A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -992,6 +993,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bungee/Pods-Bungee-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		4991E0C51D92EAFB007A052A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#--- SCRIPT BEGIN ---\n# SKIP_SIMULATOR_BUILDS=1\nSCRIPT_SRC=$(find \"$PROJECT_DIR\" -name 'Instabug_dsym_upload.sh' | head -1)\nif [ ! \"${SCRIPT_SRC}\" ]; then\necho \"Instabug: err: script not found. Make sure that you're including Instabug.bundle in your project directory\"\nexit 1\nfi\nAPP_TOKEN=\"2b24356f56a8bc6e24ef2895bf7f3ea5\"\nsource \"${SCRIPT_SRC}\"\n#--- SCRIPT END ---";
 		};
 		72EAF381A47C60222C3622FE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

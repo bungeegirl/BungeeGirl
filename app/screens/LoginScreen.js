@@ -33,23 +33,21 @@ class LoginScreen extends Component {
     return (
       <ViewContainer backgroundColor='transparent'>
         <View style={styles.container}>
-          <View style={{flex: 3}}>
-            <Image
-              style={styles.logo}
-              resizeMode='contain'
-              source={require('../assets/bungee.png')}/>
-          </View>
+          <Image
+            style={styles.logo}
+            resizeMode='contain'
+            source={require('../assets/bungee.png')}/>
+          <Text style={[styles.whyText, { color: Colors.red, fontSize: 18, fontWeight: '700'}]}>Bringing together girls who wander!</Text>
+          <View style={{flex: 1}} />
+          <TouchableOpacity
+            style={styles.facebookButton}
+            onPress={() => this._facebookAuth()}>
+            <Text style={styles.buttonText}>Connect with Facebook</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => Alert.alert('Facebook verification', "This is a girls-only zone and we want to keep it that way so we require sign up through Facebook for your security. Using Facebook, we'll be able to verify gender and other key information")}>
-            <Text style={styles.whyText}>Why do I have to sign in through facebook?</Text>
+            <Text style={[styles.whyText, {marginTop: 10}]}>Why do I have to sign in through facebook?</Text>
           </TouchableOpacity>
-          <View style={{flex: 1, alignSelf: 'stretch'}}>
-            <TouchableOpacity
-              style={styles.facebookButton}
-              onPress={() => this._facebookAuth()}>
-              <Text style={styles.buttonText}>Connect with Facebook</Text>
-            </TouchableOpacity>
-          </View>
         </View>
         { this.state.isLoading && (
           <View style={styles.loadingContainer}>
@@ -157,9 +155,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   whyText: {
-    fontSize: 24,
-    fontWeight: '500',
-    padding: 24,
+    fontSize: 12,
+    fontWeight: '600',
+    padding: 12,
     color: Colors.blue,
     textAlign: 'center',
     fontFamily: 'ArchitectsDaughter'
