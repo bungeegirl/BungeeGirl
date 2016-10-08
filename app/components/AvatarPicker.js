@@ -16,7 +16,7 @@ var deviceHeight = Dimensions.get('window').height
 import Colors from '../styles/Colors'
 import moment from 'moment'
 import CameraRollView from '../components/CameraRollView'
-
+var ImagePickerManager = require('NativeModules').ImagePickerManager
 
 
 class AvatarPicker extends Component {
@@ -49,7 +49,7 @@ class AvatarPicker extends Component {
     }
     var content =
     <TouchableOpacity
-      onPress={() =>   ImagePickerManager.launchCamera(options, (response)  => {
+      onPress={() => ImagePickerManager.launchCamera(options, (response)  => {
         this.props.onImagePress(response.data)
     })}>
       <Image
