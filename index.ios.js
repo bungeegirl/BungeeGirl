@@ -52,7 +52,7 @@ class FlipTrip extends Component {
   componentDidMount() {
     var firebaseRef = this.firebaseRef
     var renderContext = this
-    codePush.sync()
+    codePush.sync({updateDialog: true})
     // AsyncStorage.clear()
     //   FBLoginManager.logout(() => {})
 
