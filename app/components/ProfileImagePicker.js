@@ -50,6 +50,7 @@ class ImageRow extends Component {
 
   unselectImage() {
     var profileImageClone = _.clone(this.props.profileImages)
+    var { asset } = this.props
     var newImages = _.reject(profileImageClone, (imageObject) => {
       return imageObject.uri == asset.node.image.uri
     })
