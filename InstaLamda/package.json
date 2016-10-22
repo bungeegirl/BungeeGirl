@@ -1,0 +1,14 @@
+{
+  "name": "insta-lamda",
+  "version": "1.0.0",
+  "description": "Lamda function to write instagram access token to firebase",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "claudia-api-builder": "^2.0.0"
+  }
+}

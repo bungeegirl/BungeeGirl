@@ -18,6 +18,7 @@ import ViewContainer from '../components/ViewContainer'
 import EditListView from '../components/EditListView'
 import ProfileImagePicker from '../components/ProfileImagePicker'
 import NamePicker from '../components/NamePicker'
+import FacebookPictures from '../components/FacebookPictures'
 import BirthdatePicker from '../components/BirthdatePicker'
 import AvatarPicker from '../components/AvatarPicker'
 import BioEditor from '../components/BioEditor'
@@ -124,7 +125,8 @@ class HomeScreen extends Component {
            editProfilePicture={() => this.setState({render: 'editProfilePicture'})}
            editName={() => this.setState({render: 'editName'})}
            validateFacebookInfo={() => this._validateFacebookInfo()}
-           editProfileBackgroundPictures={() => this.setState({render: 'editProfileBackgroundPictures'})}/>
+           editProfileBackgroundPictures={() => this.setState({render: 'editProfileBackgroundPictures'})}
+           facebookPictures={() => this.setState({render: 'facebookPictures'})}/>
          break;
       case 'editName':
         title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>Edit Name</Text>
@@ -267,6 +269,18 @@ class HomeScreen extends Component {
             this.props.eventEmitter.emit('editProfileImages', profileImages, successCallBack, errorCallBack)
           }}/>
          break;
+      case 'facebookPictures':
+        title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>Facebook Images</Text>
+        leftButton =
+        <TouchableOpacity
+          onPress={() => this.setState({render: 'editProfile'})}
+          style={styles.backButton}>
+          <Image
+            source={require('../assets/Nav-Back.png')}/>
+        </TouchableOpacity>
+        content =
+        <FacebookPictures />
+        break;
       default:
         content = <View />
     }

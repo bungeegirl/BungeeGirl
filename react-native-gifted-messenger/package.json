@@ -1,0 +1,44 @@
+{
+  "name": "react-native-gifted-messenger",
+  "version": "0.1.4",
+  "description": "Chat UI for iOS and Android React-Native apps",
+  "main": "GiftedMessenger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FaridSafi/react-native-gifted-messenger.git"
+  },
+  "author": {
+    "name": "Farid from Safi"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FaridSafi/react-native-gifted-messenger/issues"
+  },
+  "keywords": [
+    "chat",
+    "message",
+    "messenger",
+    "react-component",
+    "react",
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "homepage": "https://github.com/FaridSafi/react-native-gifted-messenger#readme",
+  "dependencies": {
+    "deep-equal": "^1.0.1",
+    "moment": "^2.10.6",
+    "react-native-button": "^1.5.0",
+    "react-native-gifted-spinner": "^0.0.4",
+    "react-native-parsed-text": "0.0.12"
+  },
+  "devDependencies": {
+    "eslint": "^2.7.0",
+    "eslint-config-airbnb": "^7.0.0",
+    "eslint-plugin-react": "^4.3.0",
+    "eslint-plugin-jsx-a11y": "^0.6.2"
+  }
+}

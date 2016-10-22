@@ -13,8 +13,9 @@ import React, {
 } from 'react-native'
 
 import Colors from '../styles/Colors'
-import GiftedMessenger from 'react-native-gifted-messenger'
+import GiftedMessenger from '../../react-native-gifted-messenger'
 import _ from 'underscore'
+var ImagePickerManager = require('NativeModules').ImagePickerManager
 
 var deviceWidth = Dimensions.get('window').width
 

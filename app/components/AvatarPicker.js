@@ -50,7 +50,7 @@ class AvatarPicker extends Component {
     var content =
     <TouchableOpacity
       onPress={() => ImagePickerManager.launchCamera(options, (response)  => {
-        this.props.onImagePress(response.data)
+        response && this.props.onImagePress(response.data)
     })}>
       <Image
         style={{height: imageSize, width: imageSize}}

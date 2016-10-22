@@ -6,24 +6,30 @@
     "start": "node_modules/react-native/packager/packager.sh"
   },
   "dependencies": {
-    "firebase": "^2.4.2",
+    "firebase": "2.4.2",
     "moment": "^2.13.0",
     "raven-js": "^3.7.0",
-    "react": "^0.14.8",
-    "react-native": "^0.24.1",
+    "react": "0.14.5",
+    "react-native": "0.24.1",
     "react-native-asset-library-to-base64": "^1.0.1",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-code-push": "^1.10.5-beta",
     "react-native-dropdown": "0.0.6",
     "react-native-facebook-login": "^1.0.3",
+    "react-native-fbsdk": "^0.3.0",
     "react-native-gifted-messenger": "^0.1.4",
     "react-native-image-picker": "^0.18.15",
+    "react-native-instagram-oauth": "0.0.7",
     "react-native-lightbox": "^0.6.0",
     "react-native-loading-spinner-overlay": "^0.1.0",
     "react-native-mail": "^1.0.0",
     "react-native-navbar": "^1.4.2",
     "react-native-swiper": "^1.4.5",
+    "react-native-tab-navigator": "^0.3.3",
     "react-native-vector-icons": "^2.0.3",
     "underscore": "^1.8.3"
-  }
+  },
+  "main": "index.js",
+  "author": "Ari Litan <arilitan@gmail.com>",
+  "license": "MIT"
 }

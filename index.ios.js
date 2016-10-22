@@ -11,7 +11,7 @@ import React, {
   Text,
   Alert,
   View,
-  AsyncStorage
+  AsyncStorage,
 } from 'react-native'
 
 import codePush from "react-native-code-push"
@@ -19,11 +19,10 @@ import AppNavigator from './app/navigation/AppNavigator'
 import { NativeModules } from 'react-native';
 import RootTabs from './app/navigation/RootTabs'
 import OnBoardingScreen from './app/screens/OnBoardingScreen'
-import firebase from 'firebase'
+import firebase from './firebase'
 import EventEmitter from 'EventEmitter'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import _ from 'underscore'
-import RNGeocoder from 'react-native-geocoder'
 import Spinner from 'react-native-loading-spinner-overlay';
 var Raven = require('raven-js');
 require('raven-js/plugins/react-native')(Raven);
@@ -34,7 +33,7 @@ Raven
 
 const Native = NativeModules.Native;
 
-var FBLoginManager = require('NativeModules').FBLoginManager
+var FBLoginManager = NativeModules.FBLoginManager
 class FlipTrip extends Component {
   constructor(props) {
     super(props)

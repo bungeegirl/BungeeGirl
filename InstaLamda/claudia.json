@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "insta-lamda-executor",
+    "name": "insta-lamda",
+    "region": "us-east-1"
+  },
+  "api": {
+    "id": "ntx9weq7zf",
+    "module": "index"
+  }
+}
