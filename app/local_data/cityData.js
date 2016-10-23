@@ -34,7 +34,37 @@ var cityData = [
     name: 'Sydney',
     asset: require('../assets/sydney.png'),
     backgroundAsset: require('../assets/sydney-background.png')
-  }
+  },
+  {
+    ident: 'reykjavik',
+    name: 'Reykjavik',
+    asset: require('../assets/reykjavik.png'),
+    backgroundAsset: require('../assets/reykjavik-background.png')
+  },
+  {
+    ident: 'rome',
+    name: 'Rome',
+    asset: require('../assets/rome.png'),
+    backgroundAsset: require('../assets/rome-background.png')
+  },
+  {
+    ident: 'greece',
+    name: 'Greek Islands',
+    asset: require('../assets/greece.png'),
+    backgroundAsset: require('../assets/greece-background.png')
+  },
+  {
+    ident: 'bangkok',
+    name: 'Bangkok',
+    asset: require('../assets/bangkok.png'),
+    backgroundAsset: require('../assets/bangkok-background.png')
+  },
+  {
+    ident: 'marrakech',
+    name: 'Marrakech',
+    asset: require('../assets/marrakech.png'),
+    backgroundAsset: require('../assets/marrakech-background.png')
+  },
 ]
 
 module.exports = cityData
