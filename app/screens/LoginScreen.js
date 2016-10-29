@@ -98,9 +98,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logo: {
-    width: 300,
-    height: 300,
-    marginTop: 100,
+    width: deviceWidth * .7,
+    height: deviceWidth * .7,
+    marginTop: deviceWidth * .2,
     marginBottom: 8,
   },
   introText: {

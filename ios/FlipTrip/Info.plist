@@ -30,9 +30,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>4</string>
 	<key>CodePushDeploymentKey</key>
 	<string>1ZgSUbgc-8BqNkgYpM1-eVsRVcDnEkeB4ZrAl</string>
+	<key>EnableViewportScale</key>
+	<false/>
 	<key>FacebookAppID</key>
 	<string>920085248120493</string>
 	<key>FacebookDisplayName</key>
