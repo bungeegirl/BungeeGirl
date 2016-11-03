@@ -20,6 +20,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import Colors from '../styles/Colors'
 import _ from 'underscore'
 import CameraImagePicker from './CameraImagePicker'
+import FacebookAlbumList from './FacebookAlbumList'
 var ImagePickerManager = require('NativeModules').ImagePickerManager
 
 class ProfileImagePicker extends Component {
@@ -38,6 +39,21 @@ class ProfileImagePicker extends Component {
 
   render() {
     var {year, month, days, name, profileImages } = this.props
+    var modalView
+    if(this.state.selection === 'camera') {
+      modalView =
+      <CameraImagePicker
+        {...this.props}
+        imageIndex={this.state.imageIndex}
+        profileImages={this.props.profileImages}
+        onClose={() => this.setState({modalVisible: false})}/>
+    } else if (this.state.selection === 'facebook') {
+      modalView =
+      <FacebookAlbumList
+        {...this.props}
+        onClose={() => this.setState({modalVisible: false})}
+        imageIndex={this.state.imageIndex}/>
+    }
     var content =
     <View style={{flex: 1, alignItems: 'stretch'}}>
       <View style={styles.container}>
@@ -51,11 +67,7 @@ class ProfileImagePicker extends Component {
          transparent={true}
          visible={this.state.modalVisible}
          onRequestClose={() => {alert("Modal has been closed.")}}>
-         <CameraImagePicker
-           {...this.props}
-           imageIndex={this.state.imageIndex}
-           profileImages={this.props.profileImages}
-           onClose={() => this.setState({modalVisible: false})}/>
+         {modalView}
       </Modal>
     </View>
     return content
@@ -207,9 +219,11 @@ class ProfileImagePicker extends Component {
     },
     (buttonIndex) => {
       if(buttonIndex != 2) {
+        const selection = buttonIndex === 0 ? 'camera' : 'facebook'
         this.setState({
           modalVisible: true,
-          imageIndex: index
+          imageIndex: index,
+          selection
         })
       }
       console.log(buttonIndex)
@@ -257,8 +271,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   }
-
-
 })
 
 module.exports = ProfileImagePicker
