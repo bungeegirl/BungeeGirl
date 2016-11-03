@@ -157,7 +157,7 @@ class InfoScreen extends Component {
   }
 
   _validateProfileImages() {
-    return this.state.profileImages.length == 5
+    return this.state.profileImages.length == 5 && _.every(this.state.profileImages, (image) => image ? true : false)
   }
 
   _validateBio() {

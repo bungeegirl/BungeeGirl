@@ -8,142 +8,212 @@ import React, {
   NativeModules,
   ScrollView,
   View,
+  Modal,
   TouchableWithoutFeedback,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  ActivityIndicatorIOS,
+  ActionSheetIOS
 } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import Colors from '../styles/Colors'
-import CameraRollView from '../components/CameraRollView'
-import moment from 'moment'
 import _ from 'underscore'
-import Spinner from 'react-native-loading-spinner-overlay';
+import CameraImagePicker from './CameraImagePicker'
 var ImagePickerManager = require('NativeModules').ImagePickerManager
-
-var deviceWidth = Dimensions.get('window').width
-var deviceHeight = Dimensions.get('window').height
-
-class ImageRow extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selected: false
-    }
-  }
-
-  addImage() {
-    this.props.onDataLoad()
-    var { asset } = this.props
-    var profileImages = this.props.getProfileImages()
-    NativeModules.ReadImageData.readImage(asset.node.image.uri, (image) => {
-      var profileImageClone = _.clone(profileImages)
-      profileImageClone.push({uri: asset.node.image.uri, imageData: image})
-      if(profileImageClone.length == 5) {
-        this.props.onFinishPicking(profileImageClone)
-      } else {
-        this.props.onFinishLoad(profileImageClone)
-        this.setState({selected: true})
-      }
-    })
-  }
-
-  unselectImage() {
-    var profileImageClone = _.clone(this.props.profileImages)
-    var { asset } = this.props
-    var newImages = _.reject(profileImageClone, (imageObject) => {
-      return imageObject.uri == asset.node.image.uri
-    })
-    this.props.deSelectImage(newImages)
-    this.setState({selected: false})
-  }
-  render() {
-
-    var {rowID, asset, index, profileImages } = this.props
-    let imageSize = deviceWidth / 4
-    var selectionFuction
-    var checkMark
-    if(this.state.selected) {
-      selectionFuction = () => this.unselectImage()
-      checkMark =
-      <View style={[styles.checkMarkContainer, {width: imageSize, height: imageSize}]}>
-        <Icon
-          size={48}
-          name="md-checkbox"
-          color='white'/>
-      </View>
-    } else {
-      selectionFuction = () => this.addImage()
-      checkMark = <View />
-    }
-
-    return (
-      <TouchableOpacity
-        onPress={() => selectionFuction()}>
-        <Image
-          key={`asset.node.image.uri`}
-          source={asset.node.image}
-          style={{width: imageSize, height: imageSize}}/>
-        {checkMark}
-      </TouchableOpacity>
-    )
-  }
-
-}
 
 class ProfileImagePicker extends Component {
   constructor(props) {
     super(props)
-    var arr = [];
-
-    for (var i=0;i<1000;i++) {
-     arr[i] = [];
+    this.state = {
+      imageIndex: 0,
+      image1layout: {height: 50, width: 50},
+      image2layout: {height: 50, width: 50},
+      image3layout: {height: 50, width: 50},
+      image4layout: {height: 50, width: 50},
+      image5layout: {height: 50, width: 50},
+      modalVisible: false
     }
-    this.imageRefs = arr
   }
 
   render() {
     var {year, month, days, name, profileImages } = this.props
-    var age = moment().diff(moment({years: year, months: month, days: days}), 'years')
-    var intro
     var content =
     <View style={{flex: 1, alignItems: 'stretch'}}>
       <View style={styles.container}>
-        { !this.props.excludeIntro &&
-          <View>
-            <View style={[styles.inputContainer, {marginTop: -10}]}>
-              <Text style={styles.formPretext}>{`I'm`}</Text>
-              <Text style={styles.formPretext}>{name}</Text>
-            </View>
-            <View style={[styles.inputContainer, {marginTop: -24}]}>
-              <Text style={styles.formPretext}>{age} years old</Text>
-            </View>
-          </View>
-        }
         <Text style={[styles.formLabel, {marginTop: 8, marginBottom: 8}]}>Share five of your best travel pics</Text>
       </View>
       <View style={{flex: 1}}>
-        <CameraRollView
-          ref="CameraRoll"
-          imagesPerRow={4}
-          renderImage={(asset, isFirst, rowID, index) => { return this._renderProfileImagePicker(asset, rowID, index)}} />
+        {this._renderImageBoxes()}
       </View>
+      <Modal
+         animationType={"slide"}
+         transparent={true}
+         visible={this.state.modalVisible}
+         onRequestClose={() => {alert("Modal has been closed.")}}>
+         <CameraImagePicker
+           {...this.props}
+           imageIndex={this.state.imageIndex}
+           profileImages={this.props.profileImages}
+           onClose={() => this.setState({modalVisible: false})}/>
+      </Modal>
     </View>
     return content
   }
 
-  _renderProfileImagePicker(asset, rowID, index) {
-    var renderContext = this
+  _renderImageBoxes(){
+    var profileImages = this.props.profileImages
+    var uris = ["","","","",""]
+    const addIcon =
+    <Icon
+      size={48}
+      name="md-add"
+      color='black'/>
+    const deleteIcon =
+    <Icon
+      size={20}
+      name='md-close'
+      color='red'/>
     return (
-    <ImageRow
-      {...renderContext.props}
-      key={`image${rowID}${index}`}
-      getProfileImages={() => { return renderContext.props.profileImages}}
-      ref={(component) => this.imageRefs[rowID][index] = component}
-      asset={asset}
-      rowID={rowID}
-      index={index}/>
+      <View style={{backgroundColor: Colors.beige, flex: 1}}>
+        <View
+          onLayout={(event) => this.setState({image1layout: event.nativeEvent.layout})}
+          style={{flex: 1}}>
+          <TouchableOpacity
+            onPress={() => this._pickImageSource(0)}
+            style={[styles.activityBackground, {height: this.state.image1layout.height, width: this.state.image1layout.width}]}>
+            {addIcon}
+          </TouchableOpacity>
+          {profileImages[0] && (
+            <Image
+              resizeMode='cover'
+              style={[styles.imageBorder, {height: this.state.image1layout.height, width: this.state.image1layout.width}]}
+              source={{uri: profileImages[0].uri}}>
+              <TouchableOpacity
+                onPress={() => this._deselectImage(0)}
+                style={styles.deselect}>
+                <View style={styles.deselectContainer}>
+                  {deleteIcon}
+                </View>
+              </TouchableOpacity>
+            </Image>)}
+        </View>
+        <View style={{flex: 1, flexDirection: 'row'}}>
+          <View
+            onLayout={(event) => this.setState({image2layout: event.nativeEvent.layout})}
+            style={{flex: 3}}>
+            <TouchableOpacity
+              onPress={() => this._pickImageSource(1)}
+              style={[styles.activityBackground, {height: this.state.image2layout.height, width: this.state.image2layout.width}]}>
+              {addIcon}
+            </TouchableOpacity>
+            {profileImages[1] && (
+              <Image
+              resizeMode='cover'
+              style={[styles.imageBorder, {height: this.state.image2layout.height, width: this.state.image2layout.width}]}
+              source={{uri: profileImages[1].uri}}>
+              <TouchableOpacity
+                onPress={() => this._deselectImage(1)}
+                style={styles.deselect}>
+                <View style={styles.deselectContainer}>
+                  {deleteIcon}
+                </View>
+              </TouchableOpacity>
+              </Image>)}
+          </View>
+          <View
+            onLayout={(event) => this.setState({image3layout: event.nativeEvent.layout})}
+            style={{flex: 4}}>
+            <TouchableOpacity
+              onPress={() => this._pickImageSource(2)}
+              style={[styles.activityBackground, {height: this.state.image3layout.height, width: this.state.image3layout.width}]}>
+              {addIcon}
+            </TouchableOpacity>
+            {profileImages[2] && (
+              <Image
+                resizeMode='cover'
+                style={[styles.imageBorder, {height: this.state.image3layout.height, width: this.state.image3layout.width}]}
+                source={{uri: profileImages[2].uri}}>
+                <TouchableOpacity
+                  onPress={() => this._deselectImage(2)}
+                  style={styles.deselect}>
+                  <View style={styles.deselectContainer}>
+                    {deleteIcon}
+                  </View>
+                </TouchableOpacity>
+              </Image>)}
+          </View>
+        </View>
+        <View style={{flex: 1, flexDirection: 'row'}}>
+          <View
+            onLayout={(event) => this.setState({image4layout: event.nativeEvent.layout})}
+            style={{flex: 4}}>
+            <TouchableOpacity
+              onPress={() => this._pickImageSource(3)}
+              style={[styles.activityBackground, {height: this.state.image4layout.height, width: this.state.image4layout.width}]}>
+              {addIcon}
+            </TouchableOpacity>
+            {profileImages[3] && (
+              <Image
+                resizeMode='cover'
+                style={[styles.imageBorder, {height: this.state.image4layout.height, width: this.state.image4layout.width}]}
+                source={{uri: profileImages[3].uri}}>
+                <TouchableOpacity
+                  onPress={() => this._deselectImage(3)}
+                  style={styles.deselect}>
+                  <View style={styles.deselectContainer}>
+                    {deleteIcon}
+                  </View>
+                </TouchableOpacity>
+              </Image>)}
+          </View>
+          <View
+            onLayout={(event) => this.setState({image5layout: event.nativeEvent.layout})}
+            style={{flex: 3}}>
+            <TouchableOpacity
+              onPress={() => this._pickImageSource(4)}
+              style={[styles.activityBackground, {height: this.state.image5layout.height, width: this.state.image5layout.width}]}>
+              {addIcon}
+            </TouchableOpacity>
+            {profileImages[4] && (
+              <Image
+                resizeMode='cover'
+                style={[styles.imageBorder, {height: this.state.image5layout.height, width: this.state.image5layout.width}]}
+                source={{uri: profileImages[4].uri}}>
+                <TouchableOpacity
+                  onPress={() => this._deselectImage(4)}
+                  style={styles.deselect}>
+                  <View style={styles.deselectContainer}>
+                    {deleteIcon}
+                  </View>
+                </TouchableOpacity>
+              </Image>)}
+          </View>
+        </View>
+      </View>
     )
+  }
+
+  _deselectImage(index) {
+    var profileImageClone = _.clone(this.props.profileImages)
+    profileImageClone[index] = undefined
+    this.props.deSelectImage(profileImageClone)
+  }
+
+  _pickImageSource(index){
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: ['Camera Roll', 'Facebook', 'Cancel'],
+      cancelButtonIndex: 2,
+    },
+    (buttonIndex) => {
+      if(buttonIndex != 2) {
+        this.setState({
+          modalVisible: true,
+          imageIndex: index
+        })
+      }
+      console.log(buttonIndex)
+    });
   }
 }
 
@@ -153,28 +223,41 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: 'transparent',
   },
-  checkMarkContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  formPretext: {
-    fontSize: 32,
-    fontFamily: "ArchitectsDaughter",
-    marginRight: 8,
-  },
-  inputContainer: {
-    height: 72,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
   formLabel: {
     color: Colors.fadedGrey,
     fontFamily: "ArchitectsDaughter",
     fontSize: 18,
   },
+  activityBackground: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'grey'
+  },
+  imageBorder: {
+    borderWidth: 1,
+    borderColor: 'grey',
+    overflow: 'hidden'
+  },
+  deselect: {
+    position: 'absolute',
+    height: 32,
+    width: 32,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'transparent'
+  },
+  deselectContainer: {
+    height: 32,
+    width: 32,
+    backgroundColor: Colors.beige,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+
 
 })
 
