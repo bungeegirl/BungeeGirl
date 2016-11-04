@@ -164,7 +164,7 @@ class FlipTrip extends Component {
   _validateFacebookInfo(successCallBack, errorCallBack) {
     var firebaseRef = this.firebaseRef
     var renderContext = this
-    FBLoginManager.loginWithPermissions(["email", "public_profile", "user_hometown"],function(error, data) {
+    FBLoginManager.loginWithPermissions(["email", "public_profile", "user_hometown", "user_photos"],function(error, data) {
       if (!error) {
         console.log("Login data: ", data);
         firebaseRef.authWithOAuthToken('facebook', data.credentials.token, (error, authData) => {
@@ -210,7 +210,7 @@ class FlipTrip extends Component {
   _createUserFromFacebook(successCallBack, errorCallBack) {
     var firebaseRef = this.firebaseRef
     var renderContext = this
-    FBLoginManager.loginWithPermissions(["email", "public_profile", "user_location"],function(error, data) {
+    FBLoginManager.loginWithPermissions(["email", "public_profile", "user_location", "user_photos"],function(error, data) {
       if (!error) {
         Raven.captureMessage('Facebook login data:', {extra: data});
         console.log("Login data: ", data);
@@ -226,7 +226,7 @@ class FlipTrip extends Component {
             var email, gender
             authData.facebook.email ? email = authData.facebook.email : email = ""
             authData.facebook.cachedUserProfile.gender ? gender = authData.facebook.cachedUserProfile.gender : gender = ''
-            if(gender === 'male') {
+            if(gender !== 'female') {
               errorCallBack('Bungee girl is for girls only!')
               FBLoginManager.logout(() => {})
             } else {

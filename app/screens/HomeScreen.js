@@ -125,8 +125,7 @@ class HomeScreen extends Component {
            editProfilePicture={() => this.setState({render: 'editProfilePicture'})}
            editName={() => this.setState({render: 'editName'})}
            validateFacebookInfo={() => this._validateFacebookInfo()}
-           editProfileBackgroundPictures={() => this.setState({render: 'editProfileBackgroundPictures'})}
-           facebookPictures={() => this.setState({render: 'facebookPictures'})}/>
+           editProfileBackgroundPictures={() => this.setState({render: 'editProfileBackgroundPictures'})}/>
          break;
       case 'editName':
         title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>Edit Name</Text>

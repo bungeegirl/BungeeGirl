@@ -17,76 +17,47 @@ import React, {
 import Icon from 'react-native-vector-icons/Ionicons'
 import Colors from '../styles/Colors'
 import CameraRollView from '../components/CameraRollView'
+import FacebookRollView from './FacebookRollView'
 import moment from 'moment'
 import _ from 'underscore'
-import Spinner from 'react-native-loading-spinner-overlay';
 var ImagePickerManager = require('NativeModules').ImagePickerManager
 
 var deviceWidth = Dimensions.get('window').width
 var deviceHeight = Dimensions.get('window').height
 
 class ImageRow extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selected: false
+  addImage() {
+    var { asset, imageIndex, source } = this.props
+    var profileImages = this.props.getProfileImages()
+    if(this.props.pickerType !== 'facebook') {
+      NativeModules.ReadImageData.readImage(asset.node.image.uri, (image) => {
+        var profileImageClone = _.clone(profileImages)
+        profileImageClone[imageIndex] = {uri: asset.node.image.uri, imageData: image}
+        this.props.onFinishLoad(profileImageClone)
+        this.props.onClose()
+      })
+    } else {
+      NativeModules.Native.getBase64String(source, (err, base64) => {
+        var profileImageClone = _.clone(profileImages)
+        profileImageClone[imageIndex] = {uri: source, imageData: base64}
+        this.props.onFinishLoad(profileImageClone)
+        this.props.onClose()
+      })
     }
   }
 
-  addImage() {
-    var { asset, imageIndex } = this.props
-    var profileImages = this.props.getProfileImages()
-    NativeModules.ReadImageData.readImage(asset.node.image.uri, (image) => {
-      var profileImageClone = _.clone(profileImages)
-      profileImageClone[imageIndex] = {uri: asset.node.image.uri, imageData: image}
-      this.props.onFinishLoad(profileImageClone)
-      this.props.onClose()
-      // if(profileImageClone.length == 5) {
-      //   this.props.onFinishPicking(profileImageClone)
-      // } else {
-      //   this.props.onFinishLoad(profileImageClone)
-      //   this.setState({selected: true})
-      // }
-    })
-  }
-
-  unselectImage() {
-    var profileImageClone = _.clone(this.props.profileImages)
-    var { asset } = this.props
-    var newImages = _.reject(profileImageClone, (imageObject) => {
-      return imageObject.uri == asset.node.image.uri
-    })
-    this.props.deSelectImage(newImages)
-    this.setState({selected: false})
-  }
   render() {
 
-    var {rowID, asset, index, profileImages, imageIndex } = this.props
+    var {rowID, asset, index, profileImages, imageIndex, source, pickerType } = this.props
     let imageSize = deviceWidth / 4
-    var selectionFuction
-    var checkMark
-    if(this.state.selected) {
-      selectionFuction = () => this.unselectImage()
-      checkMark =
-      <View style={[styles.checkMarkContainer, {width: imageSize, height: imageSize}]}>
-        <Icon
-          size={48}
-          name="md-checkbox"
-          color='white'/>
-      </View>
-    } else {
-      selectionFuction = () => this.addImage(this.props.imageIndex)
-      checkMark = <View />
-    }
-
+    const imageSource = pickerType === 'facebook' ? {uri: source} : asset.node.image
     return (
       <TouchableOpacity
-        onPress={() => selectionFuction()}>
+        onPress={() => this.addImage(this.props.imageIndex)}>
         <Image
           key={`asset.node.image.uri`}
-          source={asset.node.image}
+          source={imageSource}
           style={{width: imageSize, height: imageSize}}/>
-        {checkMark}
       </TouchableOpacity>
     )
   }
@@ -102,7 +73,22 @@ class CameraImagePicker extends Component {
     }
     this.imageRefs = arr
   }
+
   render() {
+    let imagePicker
+    if(this.props.pickerType === 'facebook') {
+      imagePicker =
+      <FacebookRollView
+        pickerType={this.props.pickerType}
+        imagesPerRow={4}
+        renderImage={(source, isFirst, rowID, index) => { return this._renderFacebookProfileImagePicker(source, rowID, index)}}
+        albumId={this.props.albumId}/>
+    } else {
+      imagePicker =
+      <CameraRollView
+        imagesPerRow={4}
+        renderImage={(asset, isFirst, rowID, index) => { return this._renderProfileImagePicker(asset, rowID, index)}} />
+    }
     return (
       <View style={{flex: 1, backgroundColor:Colors.beige, marginTop: 20, paddingTop: 48, alignItems: 'stretch'}}>
         <TouchableOpacity
@@ -114,10 +100,7 @@ class CameraImagePicker extends Component {
             color='black'/>
         </TouchableOpacity>
         <View style={{flex: 1, backgroundColor: Colors.beige}}>
-          <CameraRollView
-            ref="CameraRoll"
-            imagesPerRow={4}
-            renderImage={(asset, isFirst, rowID, index) => { return this._renderProfileImagePicker(asset, rowID, index)}} />
+          {imagePicker}
         </View>
       </View>
     )
@@ -134,6 +117,20 @@ class CameraImagePicker extends Component {
       asset={asset}
       rowID={rowID}
       index={index}/>
+    )
+  }
+
+  _renderFacebookProfileImagePicker(source, rowID, index) {
+    var renderContext = this
+    return (
+      <ImageRow
+        {...renderContext.props}
+        key={`image${rowID}${index}`}
+        getProfileImages={() => { return renderContext.props.profileImages}}
+        ref={(component) => this.imageRefs[rowID][index] = component}
+        source={source}
+        rowID={rowID}
+        index={index}/>
     )
   }
 }

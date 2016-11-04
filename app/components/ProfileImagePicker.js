@@ -51,8 +51,18 @@ class ProfileImagePicker extends Component {
       modalView =
       <FacebookAlbumList
         {...this.props}
+        onSelectAlbum={(id) => this.setState({selection: 'facebookAlbum', albumId: id})}
         onClose={() => this.setState({modalVisible: false})}
         imageIndex={this.state.imageIndex}/>
+    } else if (this.state.selection === 'facebookAlbum') {
+      modalView =
+      <CameraImagePicker
+        {...this.props}
+        imageIndex={this.state.imageIndex}
+        profileImages={this.props.profileImages}
+        pickerType='facebook'
+        albumId={this.state.albumId}
+        onClose={() => this.setState({modalVisible: false})}/>
     }
     var content =
     <View style={{flex: 1, alignItems: 'stretch'}}>

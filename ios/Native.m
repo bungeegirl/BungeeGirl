@@ -56,4 +56,26 @@ RCT_EXPORT_METHOD(setBatchId:(NSString*) batchId)
   [editor save];
 }
 
+RCT_EXPORT_METHOD(getBase64String:(NSString *)url callback:(RCTResponseSenderBlock)callback)
+{
+  UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+  CGImageRef imageRef = [image CGImage];
+  NSData *imageData = UIImagePNGRepresentation([UIImage imageWithCGImage:imageRef]);
+  NSString *base64Encoded = [imageData base64EncodedStringWithOptions:0];
+  callback(@[[NSNull null], base64Encoded]);
+
+//  NSURL *url = [[NSURL alloc] initWithString:input];
+//  ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//  [library assetForURL:url resultBlock:^(ALAsset *asset) {
+//    ALAssetRepresentation *rep = [asset defaultRepresentation];
+//    CGImageRef imageRef = [rep fullScreenImage];
+//    NSData *imageData = UIImagePNGRepresentation([UIImage imageWithCGImage:imageRef]);
+//    NSString *base64Encoded = [imageData base64EncodedStringWithOptions:0];
+//    callback(@[[NSNull null], base64Encoded]);
+//  } failureBlock:^(NSError *error) {
+//    NSLog(@"that didn't work %@", error);
+//    callback(@[error]);
+//  }];
+}
+
 @end

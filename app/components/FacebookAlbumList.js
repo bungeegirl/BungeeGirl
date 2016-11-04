@@ -23,6 +23,7 @@ const {
   GraphRequestManager,
 } = FBSDK;
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+var FBLoginManager = NativeModules.FBLoginManager
 
 class FacebookAlbumList extends Component {
   constructor() {
@@ -36,6 +37,17 @@ class FacebookAlbumList extends Component {
     }
   }
   componentDidMount() {
+    FBLoginManager.loginWithPermissions(['user_photos'], function(error, result) {
+        if(error) {
+          alert('Login fail with error: ' + error);
+        } else {
+          if (result.isCancelled) {
+            alert('Login cancelled');
+          } else {
+            alert('Login success with permissions: ')
+          }
+        }
+      })
     const infoRequest = new GraphRequest(
       '/me/albums?fields=cover_photo,photo_count,name&limit=40',
       null,
@@ -114,7 +126,7 @@ class FacebookAlbumList extends Component {
   renderRow(rowData) {
     return (
       <TouchableOpacity
-        onPress={() => console.log(rowData.id)}
+        onPress={() => this.props.onSelectAlbum(rowData.id)}
         style={styles.rowContainer}>
         {rowData.photoUri !== '' && (
           <Image
