@@ -105,7 +105,7 @@ var FacebookRollView = React.createClass({
   },
 
   componentDidMount() {
-    const fetchPhotos = this.props.albumId + '/photos?fields=images&limit=200'
+    const fetchPhotos = this.props.albumId + '/photos?fields=images&limit=1000'
     const infoRequest = new GraphRequest(
       fetchPhotos,
       null,
@@ -119,7 +119,7 @@ var FacebookRollView = React.createClass({
       alert('Error fetching data: ' + error.toString());
     } else {
       const results = _.map(result.data, (image) => {
-        return _.last(image.images).source
+        return _.first(image.images).source
       })
       this._appendAssets(results)
     }

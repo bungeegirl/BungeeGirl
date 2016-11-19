@@ -46,13 +46,14 @@ class ProfileImagePicker extends Component {
         {...this.props}
         imageIndex={this.state.imageIndex}
         profileImages={this.props.profileImages}
+        onBack={() => this.setState({modalVisible: false})}
         onClose={() => this.setState({modalVisible: false})}/>
     } else if (this.state.selection === 'facebook') {
       modalView =
       <FacebookAlbumList
         {...this.props}
         onSelectAlbum={(id) => this.setState({selection: 'facebookAlbum', albumId: id})}
-        onClose={() => this.setState({modalVisible: false})}
+        onClose={() => this.setState({selection: false})}
         imageIndex={this.state.imageIndex}/>
     } else if (this.state.selection === 'facebookAlbum') {
       modalView =
@@ -62,6 +63,7 @@ class ProfileImagePicker extends Component {
         profileImages={this.props.profileImages}
         pickerType='facebook'
         albumId={this.state.albumId}
+        onBack={() => this.setState({selection: 'facebook'})}
         onClose={() => this.setState({modalVisible: false})}/>
     }
     var content =
@@ -89,7 +91,7 @@ class ProfileImagePicker extends Component {
     const addIcon =
     <Icon
       size={48}
-      name="md-add"
+      name="md-camera"
       color='black'/>
     const deleteIcon =
     <Icon
@@ -236,7 +238,6 @@ class ProfileImagePicker extends Component {
           selection
         })
       }
-      console.log(buttonIndex)
     });
   }
 }

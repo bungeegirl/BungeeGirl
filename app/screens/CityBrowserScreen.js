@@ -40,7 +40,12 @@ class CityBrowserScreen extends Component {
     this.props.firebaseRef.child(`cities/${this.state.city.ident}`).once('value', (users) => {
       let userData
       if(this.props.homeCity) {
-        userData = _.reject(users.val(), (user) => { return user.uid == this.props.uid})
+        userData = _.chain(users.val())
+          .reject((user) => { return user.uid == this.props.uid})
+          .sortBy((user) => { return user[`${this.props.userData.city}`]})
+          .sortBy((user) => { return _.has(user, this.props.userData.city)})
+          .value()
+        userData.reverse()
       } else {
         userData =
         _.chain(users.val())

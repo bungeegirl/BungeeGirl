@@ -250,6 +250,21 @@ class HomeScreen extends Component {
           <Image
             source={require('../assets/Nav-Back.png')}/>
         </TouchableOpacity>
+        if(_.filter(this.state.profileImages, (image) => !_.isUndefined(image)).length === 5) {
+          rightButton = () => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  var successCallBack = () => { this.setState({loadingData: false, render: 'profile', profileImages: []})}
+                  var errorCallBack = () => {}
+                  this.props.eventEmitter.emit('editProfileImages', this.state.profileImages, successCallBack, errorCallBack)
+                }}
+                style={styles.backButton}>
+                <Text style={{color: Colors.blue}}>OK</Text>
+              </TouchableOpacity>)
+          }
+        }
+
         content =
         <ProfileImagePicker
           excludeIntro={true}

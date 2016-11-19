@@ -92,7 +92,7 @@ class CameraImagePicker extends Component {
     return (
       <View style={{flex: 1, backgroundColor:Colors.beige, marginTop: 20, paddingTop: 48, alignItems: 'stretch'}}>
         <TouchableOpacity
-          onPress={() => this.props.onClose()}
+          onPress={() => this.props.onBack()}
           style={styles.closeButton}>
           <Icon
             size={48}

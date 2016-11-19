@@ -92,11 +92,12 @@ class ExperienceScreen extends Component {
         <TouchableOpacity
           style={styles.rowContainer}
           onPress={() => {
-            this.props.navigator.push({
+            var successCallBack = () => this.props.navigator.push({
               ident: 'CityBrowserScreen',
               cityIdent: cityIdent,
               homeCity: true
             })
+            this.props.eventEmitter.emit('browsedCity',cityIdent,successCallBack)
           }}>
             <Image
               source={homeCity.asset}

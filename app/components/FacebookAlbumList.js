@@ -44,7 +44,7 @@ class FacebookAlbumList extends Component {
           if (result.isCancelled) {
             alert('Login cancelled');
           } else {
-            alert('Login success with permissions: ')
+            // alert('Login success with permissions: ')
           }
         }
       })
