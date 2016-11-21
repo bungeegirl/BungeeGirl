@@ -201,10 +201,14 @@ class ChatContainer extends Component {
     let mySelfie = <View />
     let herSelfie = <View />
     let displayMessages = []
-    if(this.state.herVerificationState !== STATUS.accepted) {
+    if(this.state.herVerificationState !== STATUS.accepted && this.state.myVerificationState !== STATUS.accepted) {
       if(this.state.mySelfie) {
         mySelfie = this.renderMySelfie()
         mySelfieHeight = mySelfieContainerHeight + 44
+      }
+      if(this.state.herSelfie) {
+        herSelfie = this.renderHerSelfie()
+        herSelfieHeight = mySelfieContainerHeight + 44
       }
     }
     if(this.state.myVerificationState !== STATUS.accepted) {
@@ -227,6 +231,7 @@ class ChatContainer extends Component {
             backgroundColor: Colors.blue,
           },
         }}
+        autoFocus={false}
         onImagePress={(rowData) => { this._navigateToProfile(rowData) }}
         messages={displayMessages}
         handleSend={this.handleSend.bind(this)}
@@ -265,6 +270,9 @@ class ChatContainer extends Component {
     switch (this.state.myVerificationState) {
       case STATUS.declined:
         text = 'You declined her chat request'
+        break;
+      case STATUS.accepted:
+        text = "You approved " + this.props.userName + "\'s" + " chat request"
         break;
       default:
         text = this.state.messages[0] && this.state.messages[0].text
@@ -311,7 +319,7 @@ class ChatContainer extends Component {
         ]
       )
     } else {
-      this.approveRequest()
+      this.sendApproveRequest()
     }
   }
 
@@ -327,12 +335,12 @@ class ChatContainer extends Component {
         this.props.firebaseRef.child('chats').child(this.props.uid).child(this.props.userUid).update({
           selfie: response.data
         })
-        renderContext.approveRequest()
+        renderContext.sendApproveRequest()
       }
     })
   }
 
-  approveRequest() {
+  sendApproveRequest() {
     const requestText = this.props.userData.name + ' has approved your chat request!'
     this.props.firebaseRef.child('chats').child(this.props.userUid).child(this.props.uid).update({
       lastMessage: requestText,
