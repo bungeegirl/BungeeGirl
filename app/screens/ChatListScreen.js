@@ -45,6 +45,7 @@ class ChatRow extends Component {
     <TouchableOpacity
       onPress={() => this.props.navigator.push({
         ident: "ChatScreen",
+        userPushToken: this.state.userData.pushToken,
         userName: this.state.userData.name,
         otherUserImage: this.state.userData.imageData,
         userUid: this.props.rowData[0]

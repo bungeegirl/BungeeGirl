@@ -26,6 +26,7 @@ import _ from 'underscore'
 import Spinner from 'react-native-loading-spinner-overlay';
 var Raven = require('raven-js');
 require('raven-js/plugins/react-native')(Raven);
+import OneSignal from 'react-native-onesignal';
 
 Raven
   .config('https://428836d3216248a69f1dcb85c8ba9d72@sentry.io/98471', { release: "1.1" })
@@ -65,6 +66,7 @@ class FlipTrip extends Component {
           }, (error, authData) => {
             var uid = stores[0][1]
             Native.setBatchId(authData.uid)
+            let renderContext = this
             this.firebaseRef.child('users').child(uid).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
             console.log(authData)
           })
@@ -77,7 +79,18 @@ class FlipTrip extends Component {
                 Alert.alert('Error', JSON.stringify(error.code))
                 this.setState({loadingData: false})
               } else {
+                let renderContext = this
                 Native.setBatchId(authData.uid)
+                OneSignal.configure({
+                  onIdsAvailable: function(device) {
+                      console.log('UserId = ', device.userId);
+                      console.log('PushToken = ', device.pushToken);
+                  renderContext.firebaseRef.child('users').child(stores[0][1]).update({pushToken: device.userId})
+                  let userDataClone = _.clone(renderContext.state.userData)
+                  userDataClone['pushToken'] = device.pushToken
+                  renderContext.setState({userData: userDataClone})
+                  }
+                })
                 var uid = stores[0][1]
                 this.firebaseRef.child('users').child(stores[0][1]).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
               }
@@ -230,6 +243,16 @@ class FlipTrip extends Component {
               errorCallBack('Bungee girl is for girls only!')
               FBLoginManager.logout(() => {})
             } else {
+              OneSignal.configure({
+                onIdsAvailable: function(device) {
+                    console.log('UserId = ', device.userId);
+                    console.log('PushToken = ', device.pushToken);
+                firebaseRef.child('users').child(authData.uid).update({pushToken: device.userId})
+                let userDataClone = _.clone(renderContext.state.userData)
+                userDataClone['pushToken'] = device.pushToken
+                renderContext.setState({userData: userDataClone})
+                }
+              })
               firebaseRef.child('users').child(authData.uid).once('value', (theData) => {
                 var onBoardingStep
                 var location = authData.facebook.cachedUserProfile.location ? authData.facebook.cachedUserProfile.location.name : 'No location verified'
@@ -249,8 +272,8 @@ class FlipTrip extends Component {
           }
         })
       } else {
-        Raven.captureMessage('Facebook complete login error:', { extra: data});
         console.log("Error: ", data);
+        Raven.captureMessage('Facebook complete login error:', { extra: data});
         errorCallBack(data)
       }
     })
@@ -337,6 +360,9 @@ class FlipTrip extends Component {
         travelType: this.state.userData.travelType,
         bio: this.state.userData.bio,
       }
+      if(this.state.userData.pushToken) {
+        input.pushToken = this.state.userData.pushToken
+      }
       this.firebaseRef.child('cities').child(selectedCity).child(this.state.uid).update(input)
       this.firebaseRef.child('users').child(this.state.uid).update({
         city: selectedCity,
@@ -378,6 +404,8 @@ class FlipTrip extends Component {
   }
   _syncUserData(userData, uid) {
     this.setState({userData: userData, loadingData: false, uid: uid})
+    this.state.userData.city && this.state.userData.pushToken && this.firebaseRef.child(`cities/${this.state.userData.city}`).child(uid).update({pushToken: this.state.userData.pushToken})
+
   }
 
   _initiateMessage(uid) {
@@ -388,36 +416,11 @@ class FlipTrip extends Component {
   }
 
   _sendPushWithMessage(messageData) {
-    const {uid, name, text } = messageData
-    const uri = 'https://api.batch.com/1.0/578EC1727C200A73BE71A173171ECF/transactional/send'
-    const body = {
-      'group_id': `${this.state.uid}-${uid}`,
-      'recipients': {
-        'custom_ids': [uid]
-      },
-      'message': {
-        'title': name,
-        'body': `${name}: ${text}`
-      }
+    const {uid, name, text, pushToken } = messageData
+    const contents = {
+        'en': `${name}: ${text}`
     }
-
-    const apiData = {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-Authorization': '38d2666af1f34348af2e5876bc4198ce'
-      },
-      body: JSON.stringify(body)
-    }
-
-    fetch(uri, apiData)
-    .then((response) => {
-      console.log('success', response)
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+    pushToken && OneSignal.postNotification(contents, {}, pushToken)
   }
 
   render() {

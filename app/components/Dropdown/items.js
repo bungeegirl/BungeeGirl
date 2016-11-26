@@ -51,7 +51,7 @@ class Items extends Component {
     return (
       <View style={[styles.container, { top: positionY, left: positionX }]}>
         <ScrollView
-          style={{ width: width - 2, height: height * 8.4 }}
+          style={{ width: width - 2, height: height * 12.4 }}
           automaticallyAdjustContentInsets={false}
           bounces={false}>
           {renderedItems}

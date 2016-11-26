@@ -151,13 +151,7 @@ class ChatContainer extends Component {
           userData: this.props.userData,
           date: new Date().getTime()
         })
-        this.props.eventEmitter.emit('sendPushWithMessage', {uid: this.props.userUid, name: this.props.userData.name, text: requestText})
-        // this.
-        // send selfie to other userName
-        // send message to other user/
-        // send push to other user
-        // send status to other user
-        // send status to self
+        this.props.eventEmitter.emit('sendPushWithMessage', {uid: this.props.userUid, name: this.props.userData.name, text: requestText, pushToken: this.props.userPushToken})
       }
     })
   }
@@ -180,7 +174,7 @@ class ChatContainer extends Component {
       userData: this.props.userData,
       date: new Date().getTime()
     })
-    this.props.eventEmitter.emit('sendPushWithMessage', {uid: this.props.userUid, name: this.props.userData.name, text: message.text})
+    this.props.eventEmitter.emit('sendPushWithMessage', {uid: this.props.userUid, name: this.props.userData.name, text: message.text, pushToken: this.props.userPushToken})
   }
 
   handleReceive(message = {}) {
@@ -348,7 +342,7 @@ class ChatContainer extends Component {
     this.props.firebaseRef.child('chats').child(this.props.uid).child(this.props.userUid).update({
       verified: STATUS.accepted,
     })
-    this.props.eventEmitter.emit('sendPushWithMessage', {uid: this.props.userUid, name: this.props.userData.name, text: requestText})
+    this.props.eventEmitter.emit('sendPushWithMessage', {uid: this.props.userUid, name: this.props.userData.name, text: requestText, pushToken: this.props.userPushToken})
   }
 
   denyRequest() {
@@ -371,7 +365,7 @@ class ChatContainer extends Component {
     this.props.firebaseRef.child('chats').child(this.props.uid).child(this.props.userUid).update({
       verified: STATUS.declined,
     })
-    this.props.eventEmitter.emit('sendPushWithMessage', {uid: this.props.userUid, name: this.props.userData.name, text: denyText})
+    this.props.eventEmitter.emit('sendPushWithMessage', {uid: this.props.userUid, name: this.props.userData.name, text: denyText, pushToken: this.props.userPushToken})
   }
 
   _navigateToProfile(rowData) {

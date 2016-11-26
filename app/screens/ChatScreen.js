@@ -44,6 +44,7 @@ class ChatScreen extends Component {
         style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
       <Chat
         {...this.props}
+        userPushToken={this.props.userPushToken}
         userName={this.props.userName}
         userUid={this.props.userUid}/>
     </ViewContainer>

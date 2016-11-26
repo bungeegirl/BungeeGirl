@@ -83,7 +83,7 @@ class CityPickerScreen extends Component {
         title={title}
         rightButton={rightButton}
         style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
-      <View style={{ flex: 1, marginTop: 100, alignItems: 'center' }}>
+      <View style={{ flex: 1, marginTop: 20, alignItems: 'center' }}>
         <Select
           width={deviceWidth - 100}
           ref="SELECT1"

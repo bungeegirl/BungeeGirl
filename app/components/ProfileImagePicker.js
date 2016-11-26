@@ -112,7 +112,7 @@ class ProfileImagePicker extends Component {
             <Image
               resizeMode='cover'
               style={[styles.imageBorder, {height: this.state.image1layout.height, width: this.state.image1layout.width}]}
-              source={{uri: profileImages[0].uri}}>
+              source={{uri: `data:image/jpeg;base64, ${profileImages[0].imageData}`}}>
               <TouchableOpacity
                 onPress={() => this._deselectImage(0)}
                 style={styles.deselect}>

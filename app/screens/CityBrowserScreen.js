@@ -115,7 +115,8 @@ class CityBrowserScreen extends Component {
       bio={rowData.bio}
       travelingTo={travelingTo}
       travelType={rowData.travelType}
-      userUid={rowData.uid} />
+      userUid={rowData.uid}
+      userPushToken={rowData.pushToken} />
     return rowContent
   }
 }

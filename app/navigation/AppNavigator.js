@@ -90,6 +90,7 @@ class AppNavigator extends Component {
         return (
           <ChatScreen
             {...globalScreenProps}
+            userPushToken={route.userPushToken}
             userName={route.userName}
             otherUserImage={route.otherUserImage}
             userUid={route.userUid}/>
@@ -121,6 +122,7 @@ class AppNavigator extends Component {
           <UserProfileScreen
             userDisplayData={route.userDisplayData}
             uidToRender={route.uidToRender}
+            userPushToken={route.userPushToken}
             {...globalScreenProps}/>
         )
     }

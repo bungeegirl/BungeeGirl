@@ -6,6 +6,8 @@ import React, {
   TextInput,
   Alert,
   View,
+  Modal,
+  ActionSheetIOS,
   NativeModules,
   TouchableOpacity,
   Dimensions
@@ -16,12 +18,36 @@ var deviceHeight = Dimensions.get('window').height
 import Colors from '../styles/Colors'
 import moment from 'moment'
 import CameraRollView from '../components/CameraRollView'
+import CameraImagePicker from '../components/CameraImagePicker'
+import FacebookAlbumList from '../components/FacebookAlbumList'
 var ImagePickerManager = require('NativeModules').ImagePickerManager
 
 
 class AvatarPicker extends Component {
+  constructor() {
+    super()
+    this.state = {
+      modalVisible: false,
+      selection: null
+    }
+  }
+
   componentDidMount() {
-    Alert.alert("To make an awesome profile, we'll need to access your camera roll")
+    // this.askSelection()
+  }
+
+  askSelection() {
+    ActionSheetIOS.showActionSheetWithOptions({
+      message: 'Where should we grab your profile pic?',
+      options: ['Camera Roll', 'Facebook'],
+    },
+    (buttonIndex) => {
+      const selection = buttonIndex === 0 ? 'camera' : 'facebook'
+      this.setState({
+        modalVisible: true,
+        selection
+      })
+    });
   }
 
   _renderImage(asset) {
@@ -66,6 +92,43 @@ class AvatarPicker extends Component {
 
   render() {
     var age = moment().diff(moment({years: this.props.year, months: this.props.month, days: this.props.days}), 'years')
+    var modalView
+    if(this.state.selection === 'camera') {
+      modalView =
+      <View style={{flex: 1, marginTop:170}}>
+      <CameraRollView
+        imagesPerRow={4}
+        renderImage={(asset, isFirst) => {
+          if(!isFirst) {
+            return this._renderImage(asset)
+          } else {
+            return this._renderPictureIcon()
+          }}} />
+      </View>
+      } else if (this.state.selection === 'facebook') {
+        modalView =
+        <FacebookAlbumList
+          {...this.props}
+          onSelectAlbum={(id) => this.setState({selection: 'facebookAlbum', albumId: id})}
+          onClose={() => this.setState({selection: false})}/>
+      } else if (this.state.selection === 'facebookAlbum') {
+        modalView =
+        <CameraImagePicker
+          profileImages={[""]}
+          imageIndex={0}
+          pickerType='facebook'
+          onFinishLoad={(images) => {
+            this.props.onImageLoad()
+            this.props.onImagePress(images[0].imageData)
+          }}
+          albumId={this.state.albumId}
+          onBack={() => this.setState({selection: 'facebook'})}
+          onClose={() => {
+            this.setState({modalVisible: false, selection: false})
+          }}/>
+      } else {
+        this.askSelection()
+      }
     var content =
     <View style={{flex: 1, alignItems: 'stretch'}}>
       <View style={styles.container}>
@@ -83,14 +146,13 @@ class AvatarPicker extends Component {
         <Text style={[styles.formLabel, {marginTop: 8, marginBottom: 8}]}>Let's put a face to the name</Text>
       </View>
       <View style={{flex: 1}}>
-        <CameraRollView
-          imagesPerRow={4}
-          renderImage={(asset, isFirst) => {
-            if(!isFirst) {
-              return this._renderImage(asset)
-            } else {
-              return this._renderPictureIcon()
-            }}} />
+        <Modal
+           animationType={"slide"}
+           transparent={true}
+           visible={this.state.modalVisible}
+           onRequestClose={() => {alert("Modal has been closed.")}}>
+           {modalView}
+        </Modal>
       </View>
     </View>
     return content

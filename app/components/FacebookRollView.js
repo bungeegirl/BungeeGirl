@@ -95,6 +95,7 @@ var FacebookRollView = React.createClass({
 
     return {
       assets: ([]: Array<Image>),
+      allImages: [],
       groupTypes: this.props.groupTypes,
       lastCursor: (null : ?string),
       assetType: this.props.assetType,
@@ -105,7 +106,7 @@ var FacebookRollView = React.createClass({
   },
 
   componentDidMount() {
-    const fetchPhotos = this.props.albumId + '/photos?fields=images&limit=1000'
+    const fetchPhotos = this.props.albumId + '/photos?fields=images&limit=100'
     const infoRequest = new GraphRequest(
       fetchPhotos,
       null,
@@ -122,15 +123,26 @@ var FacebookRollView = React.createClass({
         return _.first(image.images).source
       })
       this._appendAssets(results)
+      if(result.paging && result.paging.next) {
+        this.setState({loadingMore: true})
+        const fetchPhotos = this.props.albumId + '/photos?fields=images&limit=10&after=' + result.paging.cursors.after
+        const infoRequest = new GraphRequest(
+          fetchPhotos,
+          null,
+          this._responseInfoCallback,
+        );
+        new GraphRequestManager().addRequest(infoRequest).start()
+      }
     }
   },
 
   _appendAssets: function(images) {
-    var newState: Object = { loadingMore: false };
+    const allImages = _.union(this.state.allImages, images)
+    var newState: Object = { loadingMore: false, allImages};
 
     if (images.length > 0) {
       newState.dataSource = this.state.dataSource.cloneWithRows(
-        groupByEveryN(images, this.props.imagesPerRow)
+        groupByEveryN(allImages, this.props.imagesPerRow)
       );
     }
 
@@ -163,7 +175,7 @@ var FacebookRollView = React.createClass({
   },
 
   _renderFooterSpinner: function() {
-    if (!this.state.noMore) {
+    if (this.state.loadingMore) {
       return <ActivityIndicatorIOS style={styles.spinner} />;
     }
     return null;

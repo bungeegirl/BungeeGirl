@@ -45,6 +45,7 @@
 		49C2B4BE1CD08A2C00DA3BAF /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C2B4BD1CD08A2500DA3BAF /* libRCTCameraRoll.a */; };
 		49C2B4C01CD08C3200DA3BAF /* AssetLibraryToBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C2B4BF1CD08C3200DA3BAF /* AssetLibraryToBase64.m */; };
 		49F6B9731CED17F60034F299 /* Native.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F6B9721CED17F60034F299 /* Native.m */; };
+		49F93B101DE635D9001A8CB1 /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F93B0F1DE6358E001A8CB1 /* libRCTOneSignal.a */; };
 		4A8651506EA748BABCD4BBFF /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30FCA2512AF74BBB9DB1182F /* Ionicons.ttf */; };
 		5061F534614D4F33B735CA6B /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1639727FFC846F49BE28803 /* libRNMail.a */; };
 		5347D99B27A949B19603A070 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97F606085718472FAD79F154 /* FontAwesome.ttf */; };
@@ -186,6 +187,13 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = Bungee;
 		};
+		49F93B0E1DE6358E001A8CB1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49F93B0A1DE6358E001A8CB1 /* RCTOneSignal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3245CDED1BFEE35C00EABF68;
+			remoteInfo = RCTOneSignal;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -247,6 +255,7 @@
 		49C2B4BF1CD08C3200DA3BAF /* AssetLibraryToBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AssetLibraryToBase64.m; path = "../node_modules/react-native-asset-library-to-base64/ios/AssetLibraryToBase64.m"; sourceTree = "<group>"; };
 		49EF98261D7396AD00BE3CC3 /* BungeeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BungeeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F6B9721CED17F60034F299 /* Native.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Native.m; sourceTree = "<group>"; };
+		49F93B0A1DE6358E001A8CB1 /* RCTOneSignal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTOneSignal.xcodeproj; path = "../node_modules/react-native-onesignal/ios/RCTOneSignal.xcodeproj"; sourceTree = "<group>"; };
 		5879D55D36354DF6BBBF6B0E /* libRCTActionSheet.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTActionSheet.a; sourceTree = "<group>"; };
 		5957706F9CC5445A8911A46D /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
 		67A84A097C3746F5BE5AFC89 /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
@@ -287,6 +296,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49F93B101DE635D9001A8CB1 /* libRCTOneSignal.a in Frameworks */,
 				493A308A1CE3929600A419F2 /* UIKit.framework in Frameworks */,
 				493A30881CE3929200A419F2 /* SystemConfiguration.framework in Frameworks */,
 				493A30861CE3925600A419F2 /* CoreTelephony.framework in Frameworks */,
@@ -497,6 +507,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		49F93B0B1DE6358E001A8CB1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				49F93B0F1DE6358E001A8CB1 /* libRCTOneSignal.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -508,6 +526,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				49F93B0A1DE6358E001A8CB1 /* RCTOneSignal.xcodeproj */,
 				49C2B4B81CD08A2500DA3BAF /* RCTCameraRoll.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -681,6 +700,14 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = D7VR5Q6S6Z;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					49EF98251D7396AD00BE3CC3 = {
 						CreatedOnToolsVersion = 7.3;
@@ -735,6 +762,10 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
+				},
+				{
+					ProductGroup = 49F93B0B1DE6358E001A8CB1 /* Products */;
+					ProjectRef = 49F93B0A1DE6358E001A8CB1 /* RCTOneSignal.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -891,6 +922,13 @@
 			remoteRef = 49E063451CFF8D2B0033F1BF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		49F93B0F1DE6358E001A8CB1 /* libRCTOneSignal.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTOneSignal.a;
+			remoteRef = 49F93B0E1DE6358E001A8CB1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -999,7 +1037,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#--- SCRIPT BEGIN ---\n# SKIP_SIMULATOR_BUILDS=1\nSCRIPT_SRC=$(find \"$PROJECT_DIR\" -name 'Instabug_dsym_upload.sh' | head -1)\nif [ ! \"${SCRIPT_SRC}\" ]; then\necho \"Instabug: err: script not found. Make sure that you're including Instabug.bundle in your project directory\"\nexit 1\nfi\nAPP_TOKEN=\"2b24356f56a8bc6e24ef2895bf7f3ea5\"\nsource \"${SCRIPT_SRC}\"\n#--- SCRIPT END ---";
+			shellScript = "";
 		};
 		72EAF381A47C60222C3622FE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1352,6 +1390,7 @@
 					"$(SRCROOT)/../node_modules/react-native-geocoder/RNGeocoder/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1401,6 +1440,7 @@
 					"$(SRCROOT)/../node_modules/react-native-geocoder/RNGeocoder/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

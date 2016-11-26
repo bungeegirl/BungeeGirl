@@ -46,7 +46,7 @@ class UserProfile extends Component {
     }
     var city = _.findWhere(cityData, {ident: this.props.userDisplayData.city})
     var verifiedLocation = this.props.userDisplayData.facebookLocation
-    var age = moment().diff(moment({years: this.props.userDisplayData.year, months: this.props.userDisplayData.month, days: this.props.userDisplayData.days}), 'years')
+    var age = moment().diff(moment({years: this.props.userDisplayData.year, months: this.props.userDisplayData.month - 1, days: this.props.userDisplayData.day}), 'years')
     var content =
     <View style={{flex: 1}}>
       <ProfileBackground

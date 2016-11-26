@@ -57,7 +57,8 @@ class UserProfileScreen extends Component {
       ident: "ChatScreen",
       userName: this.props.userDisplayData.name,
       otherUserImage: this.props.userDisplayData.imageData,
-      userUid: this.props.uidToRender
+      userUid: this.props.uidToRender,
+      userPushToken: this.props.userDisplayData.pushToken
     })
   }
 }

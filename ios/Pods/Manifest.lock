@@ -1,12 +1,15 @@
 PODS:
   - Batch (1.5.4)
+  - OneSignal (1.13.3)
 
 DEPENDENCIES:
   - Batch (~> 1.5)
+  - OneSignal (~> 1.13.3)
 
 SPEC CHECKSUMS:
   Batch: 13083f81837fe1da9ea84b0533a2965c73ff74c6
+  OneSignal: 434facae3389cb0d4d3fc57b9a6cf66db685205e
 
-PODFILE CHECKSUM: ad7c3ea458e912df2b9ff096dce36fe4c73df32e
+PODFILE CHECKSUM: 778a312dda10f86884b01925d2c2a90afcccdeda
 
 COCOAPODS: 1.0.1

@@ -6,6 +6,7 @@
 target 'Bungee' do
 
 pod 'Batch', '~> 1.5'
+pod 'OneSignal', '~> 1.13.3'
 
 end
 
