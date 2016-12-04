@@ -111,7 +111,7 @@ class CityPickerScreen extends Component {
     Mailer.mail({
       subject: 'Suggest a city for Bungee Girl',
       recipients: ['support@bungeegirl.com'],
-      body: 'I would love it if you added .... to Bungee Girl next!',
+      body: 'I would love it if you added [ENTER CITY HERE] to Bungee Girl next!',
     }, (error) => {
       if(error) {
         Alert.alert('Error', 'Could not send mail.')
