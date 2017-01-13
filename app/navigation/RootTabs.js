@@ -86,6 +86,19 @@ class RootTabs extends Component {
       size={32}
       color={Colors.darkGrey}/>
 
+    var postcardIcon =
+    <Icon
+      style={{height: 32, width: 32}}
+      name='ios-postcard-outline'
+      size={32}
+      color={Colors.darkGrey}/>
+
+    var postcardIconSelected =
+    <Icon
+      style={{height: 32, width: 32}}
+      name='ios-postcard'
+      size={32}
+      color={Colors.darkGrey}/>
 
     var tabNavigator =
     <TabNavigator
@@ -117,6 +130,15 @@ class RootTabs extends Component {
         <AppNavigator
           {...globalScreenProps}
           initialRoute='ChatListScreen' />
+      </TabNavigator.Item>
+      <TabNavigator.Item
+        selected={this.state.selectedTab === 'postcard'}
+        renderIcon={() => postcardIcon}
+        renderSelectedIcon={() => postcardIconSelected}
+        onPress={() => this.setState({ selectedTab: 'postcard' })}>
+        <AppNavigator
+          {...globalScreenProps}
+          initialRoute='PostcardScreen' />
       </TabNavigator.Item>
     </TabNavigator>
 

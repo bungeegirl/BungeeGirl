@@ -17,7 +17,7 @@ import Colors from '../styles/Colors'
 
 var deviceWidth = Dimensions.get('window').width
 var deviceHeight = Dimensions.get('window').height
-var FBLoginManager = require('NativeModules').FBLoginManager
+var { FBLoginManager } = require('react-native-facebook-login')
 
 
 class LoginScreen extends Component {

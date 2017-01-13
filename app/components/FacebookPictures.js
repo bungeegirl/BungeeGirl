@@ -27,7 +27,7 @@ const {
 } = FBSDK;
 var ImagePickerManager = require('NativeModules').ImagePickerManager
 
-var FBLoginManager = require('NativeModules').FBLoginManager
+var { FBLoginManager } = require('react-native-facebook-login')
 
 var deviceWidth = Dimensions.get('window').width
 var deviceHeight = Dimensions.get('window').height

@@ -30,7 +30,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import _ from 'underscore'
 import moment from 'moment'
 
-var FBLoginManager = require('NativeModules').FBLoginManager
+var { FBLoginManager } = require('react-native-facebook-login')
 
 class HomeScreen extends Component {
 

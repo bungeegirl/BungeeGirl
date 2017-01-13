@@ -28,13 +28,14 @@ var Raven = require('raven-js');
 require('raven-js/plugins/react-native')(Raven);
 import OneSignal from 'react-native-onesignal';
 
+var { FBLoginManager } = require('react-native-facebook-login')
+
 Raven
   .config('https://428836d3216248a69f1dcb85c8ba9d72@sentry.io/98471', { release: "1.1" })
   .install();
 
 const Native = NativeModules.Native;
 
-var FBLoginManager = NativeModules.FBLoginManager
 class FlipTrip extends Component {
   constructor(props) {
     super(props)

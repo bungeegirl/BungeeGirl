@@ -23,7 +23,7 @@ const {
   GraphRequestManager,
 } = FBSDK;
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-var FBLoginManager = NativeModules.FBLoginManager
+var { FBLoginManager } = require('react-native-facebook-login')
 
 class FacebookAlbumList extends Component {
   constructor() {
