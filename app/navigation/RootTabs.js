@@ -9,7 +9,7 @@ import React, {
 
 import TabNavigator from '../../react-native-tab-navigator'
 import AppNavigator from './AppNavigator'
-import Icon from '../../react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons'
 import Colors from '../styles/Colors'
 import _ from 'underscore'
 

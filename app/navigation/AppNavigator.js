@@ -22,6 +22,7 @@ import ChatListScreen from '../screens/ChatListScreen'
 import ChatScreen from '../screens/ChatScreen'
 import CityBrowserScreen from '../screens/CityBrowserScreen'
 import UserProfileScreen from '../screens/UserProfileScreen'
+import PostcardScreen from '../screens/PostcardScreen'
 
 class AppNavigator extends Component {
 
@@ -123,6 +124,11 @@ class AppNavigator extends Component {
             userDisplayData={route.userDisplayData}
             uidToRender={route.uidToRender}
             userPushToken={route.userPushToken}
+            {...globalScreenProps}/>
+        )
+      case "PostcardScreen":
+        return (
+          <PostcardScreen
             {...globalScreenProps}/>
         )
     }
