@@ -52,6 +52,9 @@
 
   #else
     jsCodeLocation = [CodePush bundleURL];
+
+    //instabug
+    [Instabug startWithToken:@"2b24356f56a8bc6e24ef2895bf7f3ea5" invocationEvent:IBGInvocationEventShake];
   #endif
 //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
@@ -60,9 +63,6 @@
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
 
-  //instabug
-
-  [Instabug startWithToken:@"2b24356f56a8bc6e24ef2895bf7f3ea5" invocationEvent:IBGInvocationEventShake];
 
   // Start Batch
 //  [Batch startWithAPIKey:@"DEV578EC1727F9EEACE8AA2F865374"];
