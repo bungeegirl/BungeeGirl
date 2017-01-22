@@ -9,7 +9,9 @@ var Colors = {
   green: "#2DE0C5",
   blue: "#31A8F7",
   beige: "#FAF8F3",
-  mediumBlue: "#7CC6F7"
+  mediumBlue: "#7CC6F7",
+  fadedOrange: "#ffe2b5",
+  darkOrange: "#ea9b1c"
 }
 
 module.exports = Colors

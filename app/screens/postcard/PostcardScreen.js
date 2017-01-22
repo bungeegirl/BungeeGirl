@@ -14,16 +14,14 @@ import React, {
   ListView,
 } from 'react-native'
 
-import ViewContainer from '../components/ViewContainer'
-import Postcard from '../components/Postcard'
+import ViewContainer from '../../components/ViewContainer'
+import Postcard from '../../components/Postcard'
 import NavigationBar from 'react-native-navbar'
-import Colors from '../styles/Colors'
+import Colors from '../../styles/Colors'
 import Spinner from 'react-native-loading-spinner-overlay';
 import Icon from 'react-native-vector-icons/Ionicons'
 import _ from 'underscore'
 import moment from 'moment'
-
-var { FBLoginManager } = require('react-native-facebook-login')
 
 class PostcardScreen extends Component {
 
@@ -59,7 +57,11 @@ class PostcardScreen extends Component {
           <Text style={styles.headerText}>{`(109)\nFollowers`}</Text>
           <TouchableOpacity
             style={[styles.headerText,{position: 'absolute', right: 10, alignItems: 'center'}]}
-            onPress={() => this}>
+            onPress={() => {
+              this.props.navigator.push({
+                ident: 'NewPostcardScreen'
+              })
+            }}>
             <Text style={{fontSize: 14}}>Create Postcard</Text>
             <Icon
               style={{height: 36, width: 36}}

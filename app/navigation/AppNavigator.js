@@ -22,7 +22,8 @@ import ChatListScreen from '../screens/ChatListScreen'
 import ChatScreen from '../screens/ChatScreen'
 import CityBrowserScreen from '../screens/CityBrowserScreen'
 import UserProfileScreen from '../screens/UserProfileScreen'
-import PostcardScreen from '../screens/PostcardScreen'
+import PostcardScreen from '../screens/postcard/PostcardScreen'
+import NewPostcardScreen from '../screens/postcard/NewPostcardScreen'
 
 class AppNavigator extends Component {
 
@@ -45,48 +46,57 @@ class AppNavigator extends Component {
           <LoginScreen
             {...globalScreenProps} />
         )
+
       case "InfoScreen":
         return (
           <InfoScreen
             {...globalScreenProps}/>
         )
+
       case "SignupScreen":
         return (
           <SignupScreen
             isFacebookAuthenticated={route.isFacebookAuthenticated}
             {...globalScreenProps} />
         )
+
       case "SignInScreen":
         return (
           <SignInScreen
             {...globalScreenProps} />
         )
+
       case "QuestionScreen":
         return (
           <QuestionScreen
             {...globalScreenProps}
             resetProfile={route.resetProfile}/>
         )
+
       case "CityPickerScreen":
         return (
           <CityPickerScreen
             {...globalScreenProps}/>
         )
+
       case "HomeScreen":
         return (
           <HomeScreen
             {...globalScreenProps}/>
         )
+
       case "ExperienceScreen":
         return (
           <ExperienceScreen
             {...globalScreenProps}/>
         )
+
       case "ChatListScreen":
         return (
           <ChatListScreen
             {...globalScreenProps}/>
         )
+
       case "ChatScreen":
         return (
           <ChatScreen
@@ -96,6 +106,7 @@ class AppNavigator extends Component {
             otherUserImage={route.otherUserImage}
             userUid={route.userUid}/>
         )
+
       case "CityBrowserScreen":
         return (
           <CityBrowserScreen
@@ -118,6 +129,7 @@ class AppNavigator extends Component {
             travelerType={route.travelerType}
             profileInfo={route.profileInfo}/>
         )
+
       case "UserProfileScreen":
         return (
           <UserProfileScreen
@@ -126,9 +138,16 @@ class AppNavigator extends Component {
             userPushToken={route.userPushToken}
             {...globalScreenProps}/>
         )
+
       case "PostcardScreen":
         return (
           <PostcardScreen
+            {...globalScreenProps}/>
+        )
+
+      case "NewPostcardScreen":
+        return (
+          <NewPostcardScreen
             {...globalScreenProps}/>
         )
     }

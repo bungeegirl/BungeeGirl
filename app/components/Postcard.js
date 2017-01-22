@@ -9,6 +9,7 @@ import React, {
   Dimensions
 } from 'react-native'
 
+import Colors from '../styles/Colors'
 import _ from 'underscore'
 
 class Postcard extends Component {
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     padding: cushion,
     position: 'absolute',
     right: cushion,
-    backgroundColor: '#ffe2b5',
+    backgroundColor: Colors.fadedOrange,
     borderWidth: 1,
     borderColor: '#000'
   },
