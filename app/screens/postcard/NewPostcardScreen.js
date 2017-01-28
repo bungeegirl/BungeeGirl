@@ -27,7 +27,8 @@ class PostcardScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      userUid: props.uid
+      uid: props.uid,
+      name: props.userData.name
     }
   }
 
@@ -195,8 +196,11 @@ class PostcardScreen extends Component {
 
   _submit() {
     let state = this.state
+    let props = this.props
     if(state.location && state.date && state.description && state.stayedAt && state.food && state.activities && state.events && state.dos && state.donts) {
-      this.props.firebaseRef.child('postcards').push(state)
+      props.firebaseRef.child('postcards').push(state).then( _ => {
+        props.navigator.pop()
+      })
     } else {
       Alert.alert(
         'Incomplete Postcard',

@@ -16,9 +16,12 @@ class Postcard extends Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
       profileImages: ["","","","",""]
     }
+
+    this.model = props.model
   }
 
   componentDidMount() {
@@ -40,10 +43,10 @@ class Postcard extends Component {
       <View style={styles.postcardContainer}>
         <View>
           <View style={styles.headerContainer}>
-            <Text>{this.props.model.user.name} was in: {this.props.model.location}</Text>
+            <Text>{this.model.name} was in: {this.model.location}</Text>
           </View>
           <View>
-            <Text>{this.props.model.description}</Text>
+            <Text>{this.model.description}</Text>
           </View>
           <View style={styles.imageContainer}>
             <Image
@@ -65,7 +68,7 @@ class Postcard extends Component {
           </View>
         </View>
         <View style={styles.dateContainer}>
-          <Text style={{fontSize: 15, fontWeight: 'bold'}}>{this.props.model.date}</Text>
+          <Text style={{fontSize: 15, fontWeight: 'bold'}}>{this.model.date}</Text>
         </View>
         <TouchableOpacity
           style={styles.detailsButton}
@@ -75,7 +78,7 @@ class Postcard extends Component {
         <TouchableOpacity
           style={styles.askButton}
           onPress={() => this}>
-          <Text style={{textDecorationLine: 'underline', fontSize: 14}}>Ask {this.props.model.user.name} about her trip</Text>
+          <Text style={{textDecorationLine: 'underline', fontSize: 14}}>Ask {this.model.name} about her trip</Text>
         </TouchableOpacity>
       </View>
     )
@@ -98,7 +101,7 @@ const styles = StyleSheet.create({
     height: 200,
     width: width,
     padding: cushion,
-    position: 'absolute',
+    margin: cushion/2,
     right: cushion,
     backgroundColor: Colors.fadedOrange,
     borderWidth: 1,

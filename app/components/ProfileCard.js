@@ -75,6 +75,7 @@ class ProfileCard extends Component {
       button = <View />
     }
     let { userData } = this.state
+    console.log(this.props)
     let travelDispay = this.props.travelType.toLowerCase() === 'danger' ? 'danger junkie' : this.props.travelType
     content =
     <View style={styles.cardContainer}>

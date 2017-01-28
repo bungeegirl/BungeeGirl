@@ -87,18 +87,14 @@ class RootTabs extends Component {
       color={Colors.darkGrey}/>
 
     var postcardIcon =
-    <Icon
-      style={{height: 32, width: 32}}
-      name='ios-postcard-outline'
-      size={32}
-      color={Colors.darkGrey}/>
+    <Image
+      source={require('../assets/postcard-icon.png')}
+      style={{height: 28}} />
 
     var postcardIconSelected =
-    <Icon
-      style={{height: 32, width: 32}}
-      name='ios-postcard'
-      size={32}
-      color={Colors.darkGrey}/>
+    <Image
+      source={require('../assets/postcard-outline-icon.png')}
+      style={{height: 28}} />
 
     var tabNavigator =
     <TabNavigator

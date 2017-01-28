@@ -27,9 +27,17 @@ class PostcardScreen extends Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
-      loadingData: false
+      loadingData: false,
+      dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     }
+  }
+
+  componentDidMount() {
+    this.props.firebaseRef.child('postcards').orderByChild('uid').equalTo(this.props.uid).on('value', data => {
+      this.setState({dataSource: this.state.dataSource.cloneWithRows(_.values(data.val()))})
+    })
   }
 
   render() {
@@ -46,59 +54,57 @@ class PostcardScreen extends Component {
         onPress={() => this}>
         <Text style={[styles.buttonText, {color: Colors.red, fontSize: 14}]}></Text>
       </TouchableOpacity>
-    var content =
-      <View>
-        <View
-          style={styles.header}>
-          <Image
-            source={{uri: `data:image/jpeg;base64, ${this.props.userData.imageData}`}}
-            style={styles.avatarImage}/>
-          <Text style={styles.headerText}>{`(8)\nTrips`}</Text>
-          <Text style={styles.headerText}>{`(109)\nFollowers`}</Text>
-          <TouchableOpacity
-            style={[styles.headerText,{position: 'absolute', right: 10, alignItems: 'center'}]}
-            onPress={() => {
-              this.props.navigator.push({
-                ident: 'NewPostcardScreen'
-              })
-            }}>
-            <Text style={{fontSize: 14}}>Create Postcard</Text>
-            <Icon
-              style={{height: 36, width: 36}}
-              name='ios-person-outline'
-              size={40}
-              color={Colors.darkGrey}/>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <Postcard
-            {...this.props}
-            model={{
-              date: 'Jul 15 - Aug 9',
-              user: {
-                name: 'Max'
-              },
-              description: 'Second time traveling to Italy. The culture and food there is amazing!!',
-              location: 'Italy'
-            }}/>
-        </View>
-      </View>
 
     return (
-      <ViewContainer backgroundColor='transparent'>
+      <ViewContainer backgroundColor={Colors.beige}>
         <NavigationBar
           title={title}
           leftButton={leftButton}
-          rightButton={rightButton}
           style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
-        {content}
-        <Spinner visible={this.state.loadingData}/>
+        <View style={{flex: 0}}>
+          <View style={styles.header}>
+            <Image
+              source={{uri: `data:image/jpeg;base64, ${this.props.userData.imageData}`}}
+              style={styles.avatarImage}/>
+            <Text style={styles.headerText}>{`(8)\nTrips`}</Text>
+            <Text style={styles.headerText}>{`(109)\nFollowers`}</Text>
+            <TouchableOpacity
+              style={[styles.headerText,{position: 'absolute', right: 10, alignItems: 'center'}]}
+              onPress={() => {
+                this.props.navigator.push({
+                  ident: 'NewPostcardScreen'
+                })
+              }}>
+              <Text style={{fontSize: 14}}>Create Postcard</Text>
+              <Icon
+                style={{height: 36, width: 36}}
+                name='ios-person-outline'
+                size={40}
+                color={Colors.darkGrey}/>
+            </TouchableOpacity>
+          </View>
+          <ListView
+            initialListSize={3}
+            style={{height: 450, marginTop: 10}}
+            enableEmptySections={true}
+            dataSource={this.state.dataSource}
+            renderRow={(rowData, sectionID, rowID) => this._renderRow(rowData, sectionID, rowID)}/>
+        </View>
       </ViewContainer>
     )
   }
 
   _follow() {
   }
+
+  _renderRow(data) {
+    return (
+      <Postcard
+        {...this.props}
+        model={data}/>
+    )
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -108,9 +114,6 @@ const styles = StyleSheet.create({
     fontFamily: "ArchitectsDaughter"
   },
   container: {
-    padding: 20,
-    alignItems: 'stretch',
-    backgroundColor: 'transparent',
   },
   avatarImage: {
     width: 60,
@@ -126,6 +129,12 @@ const styles = StyleSheet.create({
   headerText: {
     margin: 10,
     textAlign: 'center'
+  },
+  list: {
+    // flex: 1,
+    // flexDirection: 'column',
+    // height: Dimensions.get('window').height - 200,
+    // backgroundColor: '#000'
   }
 })
 
