@@ -39,33 +39,49 @@ class Postcard extends Component {
     var uris = _.map(this.state.profileImages, (imageData) => {
       return `data:image/jpeg;base64, ${imageData}`
     })
+
+    let stampImage = null
+
     return (
-      <View style={styles.postcardContainer}>
-        <View>
-          <View style={styles.headerContainer}>
-            <Text>{this.model.name} was in: {this.model.location}</Text>
-          </View>
+      <View style={styles.container}>
+        <Image
+          style={styles.postcardBgImage}
+          source={require('../assets/postcard-background.png')} />
+        <View style={styles.content}>
           <View>
-            <Text>{this.model.description}</Text>
+            <View style={styles.headerContainer}>
+              <Text>{this.model.name} was in: {this.model.location}</Text>
+            </View>
+            <View>
+              <Text>{this.model.description}</Text>
+            </View>
+            <View style={styles.imageContainer}>
+              <Image
+                resizeMode='cover'
+                style={styles.imageThumb}
+                source={{uri: uris[0]}}/>
+              <Image
+                resizeMode='cover'
+                style={styles.imageThumb}
+                source={{uri: uris[1]}}/>
+              <Image
+                resizeMode='cover'
+                style={styles.imageThumb}
+                source={{uri: uris[2]}}/>
+              <Image
+                resizeMode='cover'
+                style={styles.imageThumb}
+                source={{uri: uris[3]}}/>
+            </View>
           </View>
-          <View style={styles.imageContainer}>
-            <Image
-              resizeMode='cover'
-              style={styles.imageThumb}
-              source={{uri: uris[0]}}/>
-            <Image
-              resizeMode='cover'
-              style={styles.imageThumb}
-              source={{uri: uris[1]}}/>
-            <Image
-              resizeMode='cover'
-              style={styles.imageThumb}
-              source={{uri: uris[2]}}/>
-            <Image
-              resizeMode='cover'
-              style={styles.imageThumb}
-              source={{uri: uris[3]}}/>
-          </View>
+        </View>
+        <View style={styles.stampContainer}>
+          <Image
+            stlye={styles.stampImage}
+            source={require('../assets/stamp-background.png')} />
+          <Image
+            stlye={styles.stampImage}
+            source={stampImage} />
         </View>
         <View style={styles.dateContainer}>
           <Text style={{fontSize: 15, fontWeight: 'bold'}}>{this.model.date}</Text>
@@ -74,11 +90,6 @@ class Postcard extends Component {
           style={styles.detailsButton}
           onPress={() => this}>
           <Text style={{textDecorationLine: 'underline', fontSize: 14}}>Trip Details</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.askButton}
-          onPress={() => this}>
-          <Text style={{textDecorationLine: 'underline', fontSize: 14}}>Ask {this.model.name} about her trip</Text>
         </TouchableOpacity>
       </View>
     )
@@ -95,17 +106,22 @@ let cushion = 10,
   headerHeight = 45
 
 const styles = StyleSheet.create({
-  postcardContainer: {
-    flex: 1,
-    flexDirection: 'column',
+  container: {
     height: 200,
     width: width,
-    padding: cushion,
     margin: cushion/2,
     right: cushion,
     backgroundColor: Colors.fadedOrange,
     borderWidth: 1,
     borderColor: '#000'
+  },
+  postcardBgImage: {
+    flex: 1,
+    width: null,
+    height: null
+  },
+  content: {
+    padding: cushion
   },
   headerContainer: {
     width: headerWidth,
@@ -123,12 +139,19 @@ const styles = StyleSheet.create({
     marginRight: cushion,
     borderWidth: 1
   },
-  dateContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  stampContainer: {
     position: 'absolute',
     top: 0,
     right: 0,
+    padding: 5
+  },
+  stampImage: {
+    width: null,
+    height: null,
+  },
+  dateContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
     width: dateWidth,
     height: headerHeight,
     backgroundColor: '#88adcc',
@@ -137,14 +160,9 @@ const styles = StyleSheet.create({
   },
   detailsButton: {
     position: 'absolute',
-    left: cushion,
+    right: cushion,
     bottom: cushion,
     backgroundColor: '#88adcc',
     padding: 5
-  },
-  askButton: {
-    position: 'absolute',
-    right: cushion,
-    bottom: cushion
   }
 })
