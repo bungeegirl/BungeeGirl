@@ -80,7 +80,8 @@ class Postcard extends Component {
 
   _viewTripDetails() {
     this.props.navigator.push({
-      ident: 'TripDetailsScreen'
+      ident: 'TripDetailsScreen',
+      model: this.model
     })
   }
 

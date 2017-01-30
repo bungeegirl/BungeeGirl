@@ -26,10 +26,12 @@ class PostcardScreen extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      uid: props.uid,
+
+    this.state = {}
+    _.extend(this.state, {
+      userId: props.uid,
       name: props.userData.name
-    }
+    }, props.model)
   }
 
   render() {
@@ -57,7 +59,8 @@ class PostcardScreen extends Component {
           <View style={styles.col2}>
             <TextInput
               style={styles.textInput}
-              onChangeText={location => this.setState({location})} />
+              onChangeText={location => this.setState({location})}
+              value={this.state.location} />
           </View>
         </View>
 
@@ -70,7 +73,8 @@ class PostcardScreen extends Component {
           <View style={styles.col2}>
             <TextInput
               style={styles.textInput}
-              onChangeText={date => this.setState({date})} />
+              onChangeText={date => this.setState({date})}
+              value={this.state.date} />
           </View>
         </View>
 
@@ -95,7 +99,8 @@ class PostcardScreen extends Component {
           <View style={styles.col2}>
             <TextInput
               style={styles.textInput}
-              onChangeText={description => this.setState({description})} />
+              onChangeText={description => this.setState({description})}
+              value={this.state.description} />
           </View>
         </View>
 
@@ -108,7 +113,8 @@ class PostcardScreen extends Component {
           <View style={styles.col2}>
             <TextInput
               style={styles.textInput}
-              onChangeText={stayedAt => this.setState({stayedAt})} />
+              onChangeText={stayedAt => this.setState({stayedAt})}
+              value={this.state.stayedAt} />
           </View>
         </View>
 
@@ -121,7 +127,8 @@ class PostcardScreen extends Component {
           <View style={styles.col2}>
             <TextInput
               style={styles.textInput}
-              onChangeText={food => this.setState({food})} />
+              onChangeText={food => this.setState({food})}
+              value={this.state.food} />
           </View>
         </View>
 
@@ -134,7 +141,8 @@ class PostcardScreen extends Component {
           <View style={styles.col2}>
             <TextInput
               style={styles.textInput}
-              onChangeText={activities => this.setState({activities})} />
+              onChangeText={activities => this.setState({activities})}
+              value={this.state.activities} />
           </View>
         </View>
 
@@ -147,7 +155,8 @@ class PostcardScreen extends Component {
           <View style={styles.col2}>
             <TextInput
               style={styles.textInput}
-              onChangeText={events => this.setState({events})} />
+              onChangeText={events => this.setState({events})}
+              value={this.state.events} />
           </View>
         </View>
 
@@ -198,9 +207,16 @@ class PostcardScreen extends Component {
     let state = this.state
     let props = this.props
     if(state.location && state.date && state.description && state.stayedAt && state.food && state.activities && state.events && state.dos && state.donts) {
-      props.firebaseRef.child('trips').push(state).then( _ => {
-        props.navigator.pop()
-      })
+      if(props.model) {
+        props.firebaseRef.child(`trips/${props.model.uid}`).set(state).then( _ => {
+          props.onSubmit(state)
+          props.navigator.pop()
+        })
+      } else {
+        props.firebaseRef.child('trips').push(state).then( _ => {
+          props.navigator.pop()
+        })
+      }
     } else {
       Alert.alert(
         'Incomplete Postcard',

@@ -35,7 +35,7 @@ class PostcardScreen extends Component {
   }
 
   componentDidMount() {
-    this.props.firebaseRef.child('trips').orderByChild('uid').equalTo(this.props.uid).on('value', data => {
+    this.props.firebaseRef.child('trips').orderByChild('userId').equalTo(this.props.uid).on('value', data => {
       let values = _.values(data.val())
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(values),
