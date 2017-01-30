@@ -198,7 +198,7 @@ class PostcardScreen extends Component {
     let state = this.state
     let props = this.props
     if(state.location && state.date && state.description && state.stayedAt && state.food && state.activities && state.events && state.dos && state.donts) {
-      props.firebaseRef.child('postcards').push(state).then( _ => {
+      props.firebaseRef.child('trips').push(state).then( _ => {
         props.navigator.pop()
       })
     } else {

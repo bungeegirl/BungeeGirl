@@ -48,40 +48,22 @@ class Postcard extends Component {
           style={styles.postcardBgImage}
           source={require('../assets/postcard-background.png')} />
         <View style={styles.content}>
-          <View>
-            <View style={styles.headerContainer}>
-              <Text>{this.model.name} was in: {this.model.location}</Text>
-            </View>
-            <View>
-              <Text>{this.model.description}</Text>
-            </View>
-            <View style={styles.imageContainer}>
-              <Image
-                resizeMode='cover'
-                style={styles.imageThumb}
-                source={{uri: uris[0]}}/>
-              <Image
-                resizeMode='cover'
-                style={styles.imageThumb}
-                source={{uri: uris[1]}}/>
-              <Image
-                resizeMode='cover'
-                style={styles.imageThumb}
-                source={{uri: uris[2]}}/>
-              <Image
-                resizeMode='cover'
-                style={styles.imageThumb}
-                source={{uri: uris[3]}}/>
-            </View>
+          <View style={styles.locationContainer}>
+            <Text style={{fontSize: 30}}>{this.model.location}</Text>
           </View>
+        </View>
+        <View style={styles.descriptionWrapper}>
+          <Text
+            style={styles.descriptionText}
+            numberOfLines={4}>{this.model.description}sthasoehtu sanhtu uoeanuthasonu hnah eunath ousnatho usnatoh usnae thousanoeu htsnou htesano uthsanu thaso h</Text>
         </View>
         <View style={styles.stampContainer}>
           <Image
-            stlye={styles.stampImage}
+            style={styles.stampBackground}
             source={require('../assets/stamp-background.png')} />
           <Image
-            stlye={styles.stampImage}
-            source={stampImage} />
+            style={styles.stampImage}
+            source={require('../assets/san-francisco.png')} />
         </View>
         <View style={styles.dateContainer}>
           <Text style={{fontSize: 15, fontWeight: 'bold'}}>{this.model.date}</Text>
@@ -100,69 +82,81 @@ class Postcard extends Component {
 module.exports = Postcard
 
 let cushion = 10,
-  width = Dimensions.get('window').width - 50,
-  dateWidth = 125,
-  headerWidth = width - (cushion*2) - dateWidth,
-  headerHeight = 45
+  postcardHeight = 225
+  width = Dimensions.get('window').width - 50
 
 const styles = StyleSheet.create({
   container: {
-    height: 200,
+    height: postcardHeight,
     width: width,
     margin: cushion/2,
     right: cushion,
-    backgroundColor: Colors.fadedOrange,
-    borderWidth: 1,
-    borderColor: '#000'
   },
   postcardBgImage: {
-    flex: 1,
-    width: null,
-    height: null
+    position: 'absolute',
+    height: postcardHeight,
+    width: width,
+    resizeMode: 'stretch',
+    borderRadius: 10
   },
   content: {
-    padding: cushion
+    padding: cushion*2
   },
-  headerContainer: {
-    width: headerWidth,
-    height: headerHeight
-  },
-  imageContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    margin: cushion,
-    marginLeft: 0
-  },
-  imageThumb: {
-    height: 50,
-    width: 50,
-    marginRight: cushion,
-    borderWidth: 1
+  locationContainer: {
+    width: 190,
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   stampContainer: {
     position: 'absolute',
+    top: 15,
+    right: 15
+  },
+  stampBackground: {
+    position: 'absolute',
     top: 0,
     right: 0,
-    padding: 5
+    height: 90,
+    resizeMode: 'stretch'
   },
   stampImage: {
-    width: null,
-    height: null,
+    position: 'absolute',
+    top: 7,
+    right: 8,
+    width: 76,
+    height: 77,
+    resizeMode: 'stretch'
   },
   dateContainer: {
+    position: 'absolute',
+    bottom: 60,
+    right: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    width: dateWidth,
-    height: headerHeight,
-    backgroundColor: '#88adcc',
-    borderWidth: 1,
-    borderColor: '#000'
+    width: 100,
+    height: 40
   },
   detailsButton: {
     position: 'absolute',
-    right: cushion,
-    bottom: cushion,
+    right: 20,
+    bottom: 20,
     backgroundColor: '#88adcc',
-    padding: 5
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  descriptionWrapper: {
+    position: 'absolute',
+    left: 20,
+    bottom: 20,
+    height: 100,
+    width: 175
+  },
+  descriptionText: {
+    height: 100,
+    lineHeight: 25,
+    fontSize: 15
   }
 })

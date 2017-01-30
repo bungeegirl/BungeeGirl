@@ -35,8 +35,12 @@ class PostcardScreen extends Component {
   }
 
   componentDidMount() {
-    this.props.firebaseRef.child('postcards').orderByChild('uid').equalTo(this.props.uid).on('value', data => {
-      this.setState({dataSource: this.state.dataSource.cloneWithRows(_.values(data.val()))})
+    this.props.firebaseRef.child('trips').orderByChild('uid').equalTo(this.props.uid).on('value', data => {
+      let values = _.values(data.val())
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(values),
+        tripLength: values.length
+      })
     })
   }
 
@@ -50,8 +54,8 @@ class PostcardScreen extends Component {
           <Image
             source={{uri: `data:image/jpeg;base64, ${this.props.userData.imageData}`}}
             style={styles.avatarImage}/>
-          <Text style={[styles.text, {margin: 10}]}>{`(8)\nTrips`}</Text>
-          <Text style={[styles.text, {margin: 10}]}>{`(109)\nFollowers`}</Text>
+          <Text style={[styles.text, {margin: 10}]}>{`(${this.state.tripLength})\nTrips`}</Text>
+          <Text style={[styles.text, {margin: 10}]}>{`(0)\nFollowers`}</Text>
           <TouchableOpacity
             style={[styles.text,{position: 'absolute', right: 10, alignItems: 'center'}]}
             onPress={() => {
@@ -60,11 +64,7 @@ class PostcardScreen extends Component {
               })
             }}>
             <Text style={styles.text}>Create Postcard</Text>
-            <Icon
-              style={{height: 36, width: 36}}
-              name='ios-person-outline'
-              size={40}
-              color={Colors.darkGrey}/>
+            <Image source={require('../../assets/postcard-icon.png')} />
           </TouchableOpacity>
         </View>
         <ListView
