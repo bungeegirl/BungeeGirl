@@ -29,7 +29,7 @@ export default class TripDetailsScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={[styles.text, styles.headerText]}>
+          <Text style={[styles.text, styles.headerText]}></Text>
         </View>
         <View style={styles.content}>
         </View>

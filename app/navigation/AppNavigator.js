@@ -23,6 +23,7 @@ import ChatScreen from '../screens/ChatScreen'
 import CityBrowserScreen from '../screens/CityBrowserScreen'
 import UserProfileScreen from '../screens/UserProfileScreen'
 import PostcardScreen from '../screens/postcard/PostcardScreen'
+import TripDetailsScreen from '../screens/postcard/TripDetailsScreen'
 import NewPostcardScreen from '../screens/postcard/NewPostcardScreen'
 
 class AppNavigator extends Component {
@@ -143,6 +144,12 @@ class AppNavigator extends Component {
         return (
           <PostcardScreen
             {...globalScreenProps}/>
+        )
+
+      case "TripDetailsScreen":
+        return (
+          <TripDetailsScreen
+            {...globalScreenProps} />
         )
 
       case "NewPostcardScreen":

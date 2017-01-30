@@ -49,7 +49,8 @@ class Postcard extends Component {
           source={require('../assets/postcard-background.png')} />
         <View style={styles.content}>
           <View style={styles.locationContainer}>
-            <Text style={{fontSize: 30}}>{this.model.location}</Text>
+            <Text style={{fontSize: 15}}>{this.model.name} was in:</Text>
+            <Text style={styles.locationText}>{this.model.location}</Text>
           </View>
         </View>
         <View style={styles.descriptionWrapper}>
@@ -70,11 +71,17 @@ class Postcard extends Component {
         </View>
         <TouchableOpacity
           style={styles.detailsButton}
-          onPress={() => this}>
+          onPress={_ => this._viewTripDetails()}>
           <Text style={{textDecorationLine: 'underline', fontSize: 14}}>Trip Details</Text>
         </TouchableOpacity>
       </View>
     )
+  }
+
+  _viewTripDetails() {
+    this.props.navigator.push({
+      ident: 'TripDetailsScreen'
+    })
   }
 
 }
@@ -107,6 +114,10 @@ const styles = StyleSheet.create({
     height: 80,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  locationText: {
+    fontSize: 30,
+    textAlign: 'center'
   },
   stampContainer: {
     position: 'absolute',
