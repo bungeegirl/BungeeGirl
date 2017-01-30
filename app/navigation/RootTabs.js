@@ -31,18 +31,14 @@ class RootTabs extends Component {
     }
 
     var profileIcon =
-    <Icon
+    <Image
       style={{height: 36, width: 36}}
-      name='ios-person-outline'
-      size={40}
-      color={Colors.darkGrey}/>
+      source={require('../assets/woman-outline-icon.png')} />
 
     var profileIconSelected =
-    <Icon
+    <Image
       style={{height: 36, width: 36}}
-      name='ios-person'
-      size={40}
-      color={Colors.darkGrey}/>
+      source={require('../assets/woman-icon.png')} />
 
     var chatIcon =
     <Icon
