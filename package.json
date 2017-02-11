@@ -29,6 +29,7 @@
     "react-native-onesignal": "^1.2.3",
     "react-native-swiper": "^1.4.5",
     "react-native-tab-navigator": "^0.3.3",
+    "react-native-textinput-effects": "^0.3.0",
     "react-native-vector-icons": "^2.0.3",
     "underscore": "^1.8.3"
   },
