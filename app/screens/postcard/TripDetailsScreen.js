@@ -29,9 +29,20 @@ export default class TripDetailsScreen extends Component {
   constructor(props) {
     super(props)
 
-    this.model = props.model.val()
+    this.model = props.model
     this.state = {}
-    _.extend(this.state, this.model)
+    _.extend(this.state, this.model.val())
+  }
+
+  componentDidMount() {
+    this.props.firebaseRef.child(`trips/${this.props.model.key()}`).on('value', snap => {
+      this.model = snap
+      this.setState(snap.val())
+    })
+  }
+
+  componentWillUnmount() {
+    this.props.firebaseRef.child(`trips/${this.props.model.key()}`).off('value')
   }
 
   render() {
@@ -108,15 +119,11 @@ export default class TripDetailsScreen extends Component {
   }
 
   _edit() {
-    if(this.props.uid !== this.model.userId) return false
+    if(this.props.uid !== this.state.userId) return false
 
     this.props.navigator.push({
       ident: 'NewPostcardScreen',
-      model: this.props.model,
-      onSubmit: val => {
-        this.setState({...val})
-        this.props.onSubmit(val)
-      }
+      model: this.model,
     })
   }
 

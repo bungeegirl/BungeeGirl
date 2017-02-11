@@ -31,10 +31,16 @@ class ImageRow extends Component {
     var profileImages = this.props.getProfileImages()
     if(this.props.pickerType !== 'facebook') {
       NativeModules.ReadImageData.readImage(asset.node.image.uri, (image) => {
-        var profileImageClone = _.clone(profileImages)
-        profileImageClone[imageIndex] = {uri: asset.node.image.uri, imageData: image}
-        this.props.onFinishLoad(profileImageClone)
-        this.props.onClose()
+        if(profileImages) {
+          var profileImageClone = _.clone(profileImages)
+          profileImageClone[imageIndex] = {uri: asset.node.image.uri, imageData: image}
+          this.props.onFinishLoad(profileImageClone)
+        } else {
+          this.props.onFinishLoad(image)
+        }
+        if(this.props.onClose)
+          this.props.onClose()
+        this.props.navigator.pop()
       })
     } else {
       NativeModules.Native.getBase64String(source, (err, base64) => {

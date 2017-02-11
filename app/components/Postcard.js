@@ -20,47 +20,39 @@ class Postcard extends Component {
   constructor(props) {
     super(props)
 
-    this.model = props.model.val()
-
+    this.model = props.model
     this.state = {
       profileImages: ["","","","",""],
-      ...this.model
+      ...props.model.val()
     }
   }
 
   componentDidMount() {
-    this.props.firebaseRef.child('userImages').once('value', (imageData) => {
-      var profileImages = _.values(imageData.val())
-      this.setState({
-        profileImages: profileImages
-      })
-    }, (error) => {
-      console.log(error)
+    this.props.firebaseRef.child(`trips/${this.props.model.key()}`).on('value', snap => {
+      this.model = snap
+      this.setState(snap.val())
     })
   }
 
-  render() {
-    var uris = _.map(this.state.profileImages, (imageData) => {
-      return `data:image/jpeg;base64, ${imageData}`
-    })
+  componentWillUnmount() {
+    this.props.firebaseRef.child(`trips/${this.props.model.key()}`).off('value')
+  }
 
+  render() {
     let stampImage = null
 
     return (
       <View style={styles.container}>
         <Image
           style={styles.postcardBgImage}
-          source={require('../assets/postcard-background.png')} />
-        <View style={styles.content}>
-          <View style={styles.locationContainer}>
-            <Text style={{fontSize: 15}}>{this.state.name} was in:</Text>
-            <Text style={styles.locationText}>{this.state.location}</Text>
-          </View>
+          source={require('../assets/postcard-background.jpg')} />
+        <View style={styles.locationContainer}>
+          <Text style={[styles.text, styles.locationText]}>{this.state.location}</Text>
         </View>
         <View style={styles.descriptionWrapper}>
           <Text
-            style={styles.descriptionText}
-            numberOfLines={4}>{this.state.description}sthasoehtu sanhtu uoeanuthasonu hnah eunath ousnatho usnatoh usnae thousanoeu htsnou htesano uthsanu thaso h</Text>
+            style={[styles.text, styles.descriptionText]}
+            numberOfLines={4}>{this.state.description}</Text>
         </View>
         <View style={styles.stampContainer}>
           <Image
@@ -68,15 +60,15 @@ class Postcard extends Component {
             source={require('../assets/stamp-background.png')} />
           <Image
             style={styles.stampImage}
-            source={require('../assets/san-francisco.png')} />
+            source={{uri: `data:image/jpeg;base64, ${this.state.image0}`}} />
         </View>
         <View style={styles.dateContainer}>
-          <Text style={{fontSize: 15, fontWeight: 'bold'}}>{this.state.date}</Text>
+          <Text style={[styles.text,{fontSize: 20}]}>{this.state.date}</Text>
         </View>
         <TouchableOpacity
           style={styles.detailsButton}
           onPress={_ => this._viewTripDetails()}>
-          <Text style={{textDecorationLine: 'underline', fontSize: 14}}>Trip Details</Text>
+          <Text style={[styles.text, {textDecorationLine: 'underline', fontSize: 14}]}>Trip Details</Text>
         </TouchableOpacity>
       </View>
     )
@@ -85,10 +77,7 @@ class Postcard extends Component {
   _viewTripDetails() {
     this.props.navigator.push({
       ident: 'TripDetailsScreen',
-      model: this.props.model,
-      onSubmit: val => {
-        this.setState({...val})
-      }
+      model: this.model,
     })
   }
 
@@ -114,18 +103,22 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
     borderRadius: 10
   },
-  content: {
-    padding: cushion*2
+  text: {
+    fontFamily: 'ArchitectsDaughter',
   },
   locationContainer: {
-    width: 190,
+    position: 'absolute',
+    top: 20,
+    left: 6,
+    width: 180,
     height: 80,
     alignItems: 'center',
     justifyContent: 'center'
   },
   locationText: {
-    fontSize: 30,
-    textAlign: 'center'
+    fontSize: 40,
+    textAlign: 'center',
+    lineHeight: 45
   },
   stampContainer: {
     position: 'absolute',
@@ -141,10 +134,10 @@ const styles = StyleSheet.create({
   },
   stampImage: {
     position: 'absolute',
-    top: 7,
-    right: 8,
-    width: 76,
-    height: 77,
+    top: 10,
+    right: 10,
+    width: 73,
+    height: 70,
     resizeMode: 'stretch'
   },
   dateContainer: {
@@ -167,14 +160,14 @@ const styles = StyleSheet.create({
   },
   descriptionWrapper: {
     position: 'absolute',
-    left: 20,
-    bottom: 20,
+    left: 14,
+    bottom: 11,
     height: 100,
-    width: 175
+    width: 170
   },
   descriptionText: {
     height: 100,
-    lineHeight: 25,
+    lineHeight: 20,
     fontSize: 15
   }
 })

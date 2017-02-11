@@ -152,7 +152,6 @@ class AppNavigator extends Component {
         return (
           <TripDetailsScreen
             model={route.model}
-            onSubmit={route.onSubmit}
             {...globalScreenProps} />
         )
 
@@ -160,7 +159,6 @@ class AppNavigator extends Component {
         return (
           <NewPostcardScreen
             model={route.model}
-            onSubmit={route.onSubmit}
             {...globalScreenProps}/>
         )
 
