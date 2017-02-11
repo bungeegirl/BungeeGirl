@@ -29,9 +29,9 @@ export default class TripDetailsScreen extends Component {
   constructor(props) {
     super(props)
 
-    this.model = props.model
+    this.model = props.model.val()
     this.state = {}
-    _.extend(this.state, props.model)
+    _.extend(this.state, this.model)
   }
 
   render() {
@@ -63,24 +63,24 @@ export default class TripDetailsScreen extends Component {
             </View>
             <View style={styles.row}>
               <Icon
-                name=''
+                name='food'
                 size={20}
                 style={styles.icon} />
-              <Text style={[styles.text]}>Ate at: {this.state.food}</Text>
+              <Text style={[styles.text]}>Ate at: {[this.state.food1,this.state.food2,this.state.food3].filter(Boolean).join(', ')}</Text>
             </View>
             <View style={styles.row}>
               <Icon
                 name=''
                 size={20}
                 style={styles.icon} />
-              <Text style={[styles.text]}>Visited: {this.state.activities}</Text>
+              <Text style={[styles.text]}>Visited: {[this.state.activity1,this.state.activity2,this.state.activity3].filter(Boolean).join(', ')}</Text>
             </View>
             <View style={styles.row}>
               <Icon
                 name=''
                 size={20}
                 style={styles.icon} />
-              <Text style={[styles.text]}>Events attended: {this.state.events}</Text>
+              <Text style={[styles.text]}>Events attended: {[this.state.event1,this.state.event2,this.state.event3].filter(Boolean).join(', ')}</Text>
             </View>
           </View>
           <View>
@@ -90,9 +90,15 @@ export default class TripDetailsScreen extends Component {
             <View style={styles.topWrapper}>
               <View style={styles.topContainer}>
                 <Text style={styles.topHeaderText}>Top Dos</Text>
+                <Text>• {this.state.do1}</Text>
+                <Text>• {this.state.do2}</Text>
+                <Text>• {this.state.do3}</Text>
               </View>
               <View style={styles.topContainer}>
                 <Text style={styles.topHeaderText}>Top Donts</Text>
+                <Text>• {this.state.dont1}</Text>
+                <Text>• {this.state.dont2}</Text>
+                <Text>• {this.state.dont3}</Text>
               </View>
             </View>
           </View>
@@ -106,8 +112,11 @@ export default class TripDetailsScreen extends Component {
 
     this.props.navigator.push({
       ident: 'NewPostcardScreen',
-      model: this.model,
-      onSubmit: this.setState.bind(this)
+      model: this.props.model,
+      onSubmit: val => {
+        this.setState({...val})
+        this.props.onSubmit(val)
+      }
     })
   }
 
@@ -115,10 +124,11 @@ export default class TripDetailsScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20
+    flex: 1,
+    paddingTop: 20,
+    backgroundColor: '#fff'
   },
   header: {
-    flex: 1,
     flexDirection: 'row',
     padding: 10,
     alignItems: 'center',
@@ -152,6 +162,9 @@ const styles = StyleSheet.create({
     margin: 10
   },
   topHeaderText: {
-    textAlign: 'center'
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textDecorationLine: 'underline'
   }
 })

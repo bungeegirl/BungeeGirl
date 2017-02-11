@@ -36,10 +36,13 @@ class PostcardScreen extends Component {
 
   componentDidMount() {
     this.props.firebaseRef.child('trips').orderByChild('userId').equalTo(this.props.uid).on('value', data => {
-      let values = _.values(data.val())
+      let trips = []
+      data.forEach( trip => {
+        trips.push(trip)
+      })
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(values),
-        tripLength: values.length
+        dataSource: this.state.dataSource.cloneWithRows(trips),
+        tripLength: trips.length
       })
     })
   }
@@ -48,6 +51,13 @@ class PostcardScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.titleWrapper}>
+          <TouchableOpacity
+            style={styles.followButton}
+            onPress={this._follow.bind(this)}>
+            <Image
+              style={styles.followButtonImage}
+              source={require('../../assets/follow-icon.png')} />
+          </TouchableOpacity>
           <Text style={[styles.text, styles.titleText]}>My Postcards</Text>
         </View>
         <View style={styles.header}>
@@ -79,9 +89,16 @@ class PostcardScreen extends Component {
   }
 
   _follow() {
+    this.firebaseRef.child('user-follows').push({
+      uid: this.props.model.uid,
+      follerUid: this.props.uid
+    }).then( _ => {
+      // successfull follow
+    })
   }
 
   _renderRow(data) {
+    console.log(data)
     return (
       <Postcard
         {...this.props}
@@ -112,6 +129,14 @@ const styles = StyleSheet.create({
     height: headerHeight,
     width: fullWidth,
     padding: 10
+  },
+  followButton: {
+    position: 'absolute',
+    left: 10
+  },
+  followButtonImage: {
+    width: 50,
+    height: 32
   },
   avatarImage: {
     width: 60,

@@ -22,10 +22,17 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import _ from 'underscore'
 import moment from 'moment'
 
+import {
+  Hoshi
+} from 'react-native-textinput-effects'
+
 class PostcardScreen extends Component {
 
   constructor(props) {
     super(props)
+
+    if(props.model)
+      this.model = props.model.val()
 
     this.state = {}
     _.extend(this.state, {
@@ -50,33 +57,15 @@ class PostcardScreen extends Component {
       </TouchableOpacity>
     var content =
       <ScrollView style={styles.mainContent}>
-        <View style={styles.row}>
-          <View style={styles.col0}>
-          </View>
-          <View style={styles.col1}>
-            <Text>Where did you travel to:</Text>
-          </View>
-          <View style={styles.col2}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={location => this.setState({location})}
-              value={this.state.location} />
-          </View>
-        </View>
+        <Hoshi
+          label='Where did you travel to?'
+          onChangeText={location => this.setState({location})}
+          value={this.state.location} />
 
-        <View style={styles.row}>
-          <View style={styles.col0}>
-          </View>
-          <View style={styles.col1}>
-            <Text>When did you go:</Text>
-          </View>
-          <View style={styles.col2}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={date => this.setState({date})}
-              value={this.state.date} />
-          </View>
-        </View>
+        <Hoshi
+          label='When did you go?'
+          onChangeText={date => this.setState({date})}
+          value={this.state.date} />
 
         <View style={styles.row}>
           <View style={styles.col0}>
@@ -86,103 +75,197 @@ class PostcardScreen extends Component {
               <Text>Share up to 4 of your best pics from this trip:</Text>
             </View>
             <View style={{flex: 1}}>
+              <TouchableOpacity
+                onPress={ _ => this._selectImage('image0') }>
+                <Image
+                  style={{
+                    height: 50,
+                    width: 50,
+                    backgroundColor: '#000'
+                  }}
+                  source={this.state.image0} />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
 
-        <View style={styles.row}>
-          <View style={styles.col0}>
+        <Hoshi
+          label='Say a few words about your trip'
+          onChangeText={description => this.setState({description})}
+          value={this.state.description} />
+
+        <Hoshi
+          label='Where did you stay?'
+          onChangeText={stayedAt => this.setState({stayedAt})}
+          value={this.state.stayedAt} />
+
+        <View style={{marginTop: 20}}>
+          <Text style={{
+            fontSize: 15,
+            fontWeight: 'bold'
+          }}>What did you eat?</Text>
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label='Resturant #1'
+                onChangeText={food1 => this.setState({food1})}
+                value={this.state.food1} />
+            </View>
           </View>
-          <View style={styles.col1}>
-            <Text>Say a few words about your trip:</Text>
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label='Resturant #2'
+                onChangeText={food2 => this.setState({food2})}
+                value={this.state.food2} />
+            </View>
           </View>
-          <View style={styles.col2}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={description => this.setState({description})}
-              value={this.state.description} />
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label='Resturant #3'
+                onChangeText={food3 => this.setState({food3})}
+                value={this.state.food3} />
+            </View>
           </View>
         </View>
 
-        <View style={styles.row}>
-          <View style={styles.col0}>
+        <View style={{marginTop: 20}}>
+          <Text style={{
+            fontSize: 15,
+            fontWeight: 'bold'
+          }}>What activities did you participate in?</Text>
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label='Activity #1'
+                onChangeText={activity1 => this.setState({activity1})}
+                value={this.state.activity1} />
+            </View>
           </View>
-          <View style={styles.col1}>
-            <Text>Where did you stay:</Text>
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label='Activity #2'
+                onChangeText={activity2 => this.setState({activity2})}
+                value={this.state.activity2} />
+            </View>
           </View>
-          <View style={styles.col2}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={stayedAt => this.setState({stayedAt})}
-              value={this.state.stayedAt} />
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.col0}>
-          </View>
-          <View style={styles.col1}>
-            <Text>What did you eat:</Text>
-          </View>
-          <View style={styles.col2}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={food => this.setState({food})}
-              value={this.state.food} />
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <View style={styles.col0}>
-          </View>
-          <View style={styles.col1}>
-            <Text>What did you do:</Text>
-          </View>
-          <View style={styles.col2}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={activities => this.setState({activities})}
-              value={this.state.activities} />
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label='Activity #3'
+                onChangeText={activity3 => this.setState({activity3})}
+                value={this.state.activity3} />
+            </View>
           </View>
         </View>
 
-        <View style={styles.row}>
-          <View style={styles.col0}>
+        <View style={{marginTop: 20}}>
+          <Text style={{
+            fontSize: 15,
+            fontWeight: 'bold'
+          }}>What events did you attend?</Text>
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label='Event #1'
+                onChangeText={event1 => this.setState({event1})}
+                value={this.state.event1} />
+            </View>
           </View>
-          <View style={styles.col1}>
-            <Text>What events did you attend:</Text>
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label='Event #2'
+                onChangeText={event2 => this.setState({event2})}
+                value={this.state.event2} />
+            </View>
           </View>
-          <View style={styles.col2}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={events => this.setState({events})}
-              value={this.state.events} />
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label='Event #3'
+                onChangeText={event3 => this.setState({event3})}
+                value={this.state.event3} />
+            </View>
           </View>
         </View>
 
-        <View style={styles.row}>
-          <View style={styles.col0}>
+        <View style={{marginTop: 20}}>
+          <Text style={{
+            fontSize: 15,
+            fontWeight: 'bold'
+          }}>Share your top Dos from this trip</Text>
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label='Do #1'
+                onChangeText={do1 => this.setState({do1})}
+                value={this.state.do1} />
+            </View>
           </View>
-          <View style={styles.col1}>
-            <Text>Share your top Dos from this trip:</Text>
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label='Do #2'
+                onChangeText={do2 => this.setState({do2})}
+                value={this.state.do2} />
+            </View>
           </View>
-          <View style={styles.col2}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={dos => this.setState({dos})} />
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label='Do #3'
+                onChangeText={do3 => this.setState({do3})}
+                value={this.state.do3} />
+            </View>
           </View>
         </View>
 
-        <View style={styles.row}>
-          <View style={styles.col0}>
+        <View style={{marginTop: 20}}>
+          <Text style={{
+            fontSize: 15,
+            fontWeight: 'bold'
+          }}>Share your top Don'ts from this trip</Text>
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label="Don't #1"
+                onChangeText={dont1 => this.setState({dont1})}
+                value={this.state.dont1} />
+            </View>
           </View>
-          <View style={styles.col1}>
-            <Text>Share you top Don'ts from this trip:</Text>
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label="Don't #2"
+                onChangeText={dont2 => this.setState({dont2})}
+                value={this.state.dont2} />
+            </View>
           </View>
-          <View style={styles.col2}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={donts => this.setState({donts})} />
+          <View style={styles.row}>
+            <View style={{flex: 1}}></View>
+            <View style={{flex: 10}}>
+              <Hoshi
+                label="Don't #3"
+                onChangeText={dont3 => this.setState({dont3})}
+                value={this.state.dont3} />
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -203,25 +286,26 @@ class PostcardScreen extends Component {
     )
   }
 
+  _selectImage(key) {
+    this.props.navigator.push({
+      ident: 'CameraImagePicker',
+      onBack: _ => this.props.navigator.pop(),
+      onFinishLoad:{ }
+    })
+  }
+
   _submit() {
     let state = this.state
     let props = this.props
-    if(state.location && state.date && state.description && state.stayedAt && state.food && state.activities && state.events && state.dos && state.donts) {
-      if(props.model) {
-        props.firebaseRef.child(`trips/${props.model.uid}`).set(state).then( _ => {
-          props.onSubmit(state)
-          props.navigator.pop()
-        })
-      } else {
-        props.firebaseRef.child('trips').push(state).then( _ => {
-          props.navigator.pop()
-        })
-      }
+    if(props.model) {
+      props.firebaseRef.child(`trips/${props.model.key()}`).set(state).then( _ => {
+        props.onSubmit(state)
+        props.navigator.pop()
+      })
     } else {
-      Alert.alert(
-        'Incomplete Postcard',
-        'Please make sure to fill out all the information to submit your postcard.'
-      )
+      props.firebaseRef.child('trips').push(state).then( _ => {
+        props.navigator.pop()
+      })
     }
   }
 }
@@ -240,23 +324,9 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: 'row',
-    height: 40,
-    margin: 5
   },
-  col0: {
-    width: 40
-  },
-  col1: {
-    width: 150,
-    marginRight: 2,
-    borderColor: Colors.darkOrange,
-    justifyContent: 'center',
-    borderWidth: 1
-  },
-  col2: {
-    flex: 1,
-    borderColor: Colors.darkOrange,
-    borderWidth: 1
+  column: {
+    flexDirection: 'column'
   },
   textInput: {
     flex: 1

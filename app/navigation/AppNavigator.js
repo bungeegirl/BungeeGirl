@@ -26,6 +26,8 @@ import PostcardScreen from '../screens/postcard/PostcardScreen'
 import TripDetailsScreen from '../screens/postcard/TripDetailsScreen'
 import NewPostcardScreen from '../screens/postcard/NewPostcardScreen'
 
+import CameraImagePicker from '../components/CameraImagePicker'
+
 class AppNavigator extends Component {
 
   constructor(props) {
@@ -150,6 +152,7 @@ class AppNavigator extends Component {
         return (
           <TripDetailsScreen
             model={route.model}
+            onSubmit={route.onSubmit}
             {...globalScreenProps} />
         )
 
@@ -159,6 +162,13 @@ class AppNavigator extends Component {
             model={route.model}
             onSubmit={route.onSubmit}
             {...globalScreenProps}/>
+        )
+
+      case "CameraImagePicker":
+        return (
+          <CameraImagePicker
+            {...route}
+            {...globalScreenProps} />
         )
     }
   }

@@ -10,18 +10,22 @@ import React, {
 } from 'react-native'
 
 import Colors from '../styles/Colors'
+import Lightbox from 'react-native-lightbox'
 import _ from 'underscore'
+
+var deviceWidth = Dimensions.get('window').width
 
 class Postcard extends Component {
 
   constructor(props) {
     super(props)
 
-    this.state = {
-      profileImages: ["","","","",""]
-    }
+    this.model = props.model.val()
 
-    this.model = props.model
+    this.state = {
+      profileImages: ["","","","",""],
+      ...this.model
+    }
   }
 
   componentDidMount() {
@@ -49,14 +53,14 @@ class Postcard extends Component {
           source={require('../assets/postcard-background.png')} />
         <View style={styles.content}>
           <View style={styles.locationContainer}>
-            <Text style={{fontSize: 15}}>{this.model.name} was in:</Text>
-            <Text style={styles.locationText}>{this.model.location}</Text>
+            <Text style={{fontSize: 15}}>{this.state.name} was in:</Text>
+            <Text style={styles.locationText}>{this.state.location}</Text>
           </View>
         </View>
         <View style={styles.descriptionWrapper}>
           <Text
             style={styles.descriptionText}
-            numberOfLines={4}>{this.model.description}sthasoehtu sanhtu uoeanuthasonu hnah eunath ousnatho usnatoh usnae thousanoeu htsnou htesano uthsanu thaso h</Text>
+            numberOfLines={4}>{this.state.description}sthasoehtu sanhtu uoeanuthasonu hnah eunath ousnatho usnatoh usnae thousanoeu htsnou htesano uthsanu thaso h</Text>
         </View>
         <View style={styles.stampContainer}>
           <Image
@@ -67,7 +71,7 @@ class Postcard extends Component {
             source={require('../assets/san-francisco.png')} />
         </View>
         <View style={styles.dateContainer}>
-          <Text style={{fontSize: 15, fontWeight: 'bold'}}>{this.model.date}</Text>
+          <Text style={{fontSize: 15, fontWeight: 'bold'}}>{this.state.date}</Text>
         </View>
         <TouchableOpacity
           style={styles.detailsButton}
@@ -81,7 +85,10 @@ class Postcard extends Component {
   _viewTripDetails() {
     this.props.navigator.push({
       ident: 'TripDetailsScreen',
-      model: this.model
+      model: this.props.model,
+      onSubmit: val => {
+        this.setState({...val})
+      }
     })
   }
 
@@ -153,7 +160,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 20,
     bottom: 20,
-    backgroundColor: '#88adcc',
     paddingTop: 5,
     paddingBottom: 5,
     paddingLeft: 10,
