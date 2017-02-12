@@ -23,49 +23,61 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import _ from 'underscore'
 import moment from 'moment'
 
-class PostcardScreen extends Component {
+export default class PostcardScreen extends Component {
 
   constructor(props) {
     super(props)
 
     this.state = {
-      loadingData: false,
+      loadingData: true,
+      trips: 0,
+      followers: 0,
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     }
   }
 
   componentDidMount() {
-    this.props.firebaseRef.child('trips').orderByChild('userId').equalTo(this.props.uid).on('value', data => {
+    this.props.firebaseRef.child('users-followers').startAt(this.props.uid).on('value', snap => {
+      this.setState({
+        followers: snap.numChildren()
+      })
+    })
+    this.props.firebaseRef.child('trips').orderByChild('userId').equalTo(this.props.uid).on('value', snap => {
       let trips = []
-      data.forEach( trip => {
+      snap.forEach( trip => {
         trips.push(trip)
       })
       this.setState({
+        loadingData: false,
         dataSource: this.state.dataSource.cloneWithRows(trips),
-        tripLength: trips.length
+        trips: trips.length
       })
     })
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.titleWrapper}>
-          <TouchableOpacity
-            style={styles.followButton}
-            onPress={this._follow.bind(this)}>
-            <Image
-              style={styles.followButtonImage}
-              source={require('../../assets/follow-icon.png')} />
-          </TouchableOpacity>
-          <Text style={[styles.text, styles.titleText]}>My Postcards</Text>
-        </View>
+      <ViewContainer
+        overlayColor='#0002'>
+        <Spinner visible={this.state.loadingData} textContent='Loading postcards...' />
+        <NavigationBar
+          title={<Text style={styles.titleText}>My Postcards</Text>}
+          leftButton={
+            <TouchableOpacity
+              onPress={this._follow.bind(this)}>
+              <Image
+                style={styles.followButtonImage}
+                source={require('../../assets/follow-icon.png')} />
+            </TouchableOpacity>
+          }
+          style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
+
         <View style={styles.header}>
           <Image
             source={{uri: `data:image/jpeg;base64, ${this.props.userData.imageData}`}}
             style={styles.avatarImage}/>
-          <Text style={[styles.text, {margin: 10}]}>{`(${this.state.tripLength})\nTrips`}</Text>
-          <Text style={[styles.text, {margin: 10}]}>{`(0)\nFollowers`}</Text>
+          <Text style={[styles.text, {margin: 10}]}>{`(${this.state.trips})\nTrips`}</Text>
+          <Text style={[styles.text, {margin: 10}]}>{`(${this.state.followers})\nFollowers`}</Text>
           <TouchableOpacity
             style={[styles.text,{position: 'absolute', right: 10, alignItems: 'center'}]}
             onPress={() => {
@@ -84,21 +96,17 @@ class PostcardScreen extends Component {
           enableEmptySections={true}
           dataSource={this.state.dataSource}
           renderRow={(rowData, sectionID, rowID) => this._renderRow(rowData, sectionID, rowID)}/>
-      </View>
+      </ViewContainer>
     )
   }
 
   _follow() {
-    this.firebaseRef.child('user-follows').push({
-      uid: this.props.model.uid,
-      follerUid: this.props.uid
-    }).then( _ => {
+    this.props.firebaseRef.child(`users-followers/${this.props.userData.uid}.${this.props.uid}`).set(null).then( _ => {
       // successfull follow
     })
   }
 
   _renderRow(data) {
-    console.log(data)
     return (
       <Postcard
         {...this.props}
@@ -112,23 +120,18 @@ const fullWidth = Dimensions.get('window').width
 const containerTopMargin = 20, titleHeight = 40, headerHeight = 80
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: containerTopMargin
-  },
-  titleWrapper: {
-    height: titleHeight,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   titleText: {
-    fontSize: 17
+    fontSize: 20,
+    fontFamily: "ArchitectsDaughter",
   },
   header: {
-    flex: 1,
     flexDirection: 'row',
     height: headerHeight,
     width: fullWidth,
-    padding: 10
+    padding: 10,
+    borderBottomWidth: .5,
+    borderColor: '#ccc',
+    backgroundColor: Colors.beige
   },
   followButton: {
     position: 'absolute',
@@ -136,7 +139,7 @@ const styles = StyleSheet.create({
   },
   followButtonImage: {
     width: 50,
-    height: 32
+    resizeMode: 'contain'
   },
   avatarImage: {
     width: 60,
@@ -148,6 +151,7 @@ const styles = StyleSheet.create({
     fontFamily: 'ArchitectsDaughter'
   },
   list: {
+    flex: 1,
     width: fullWidth,
     height: Dimensions.get('window').height - containerTopMargin - titleHeight - headerHeight - 48
   },
@@ -155,5 +159,3 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end'
   }
 })
-
-module.exports = PostcardScreen

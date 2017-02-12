@@ -300,7 +300,7 @@ class HomeScreen extends Component {
     }
 
     return (
-      <ViewContainer backgroundColor='transparent'>
+      <ViewContainer>
         <NavigationBar
           title={title}
           rightButton={rightButton()}

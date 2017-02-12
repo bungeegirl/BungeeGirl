@@ -1,17 +1,22 @@
-'use strict';
+import React, {
+  Component,
+  View,
+  StyleSheet,
+  Dimensions,
+  Image
+} from 'react-native'
 
-var React = require("react-native")
-var { View, Dimensions, Image } = React
+import Colors from '../styles/Colors'
 
 var deviceWidth = Dimensions.get('window').width
 var deviceHeight = Dimensions.get('window').height
 
-var ViewContainer = React.createClass({
+export default class ViewContainer extends Component {
 
-  componentDidMount: function() {
-  },
+  componentDidMount() {
+  }
 
-  render: function() {
+  render() {
     React.StatusBar.setBarStyle('default')
     if(this.props.statusBarOptions) {
       React.StatusBar.setHidden(true, 'none')
@@ -29,18 +34,18 @@ var ViewContainer = React.createClass({
           style={styles.backgroundImage}/>
         <View style={{
           height: (this.props.hidden ? 0 : 20),
-          backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : 'white'}} />
+          backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : Colors.beige}} />
         {this.props.children}
       </View>
     )
-  },
+  }
 
-  componentWillUnmount: function() {
-  },
+  componentWillUnmount() {
+  }
 
-})
+}
 
-var styles = React.StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
@@ -55,5 +60,3 @@ var styles = React.StyleSheet.create({
     left: 0
   }
 })
-
-module.exports = ViewContainer

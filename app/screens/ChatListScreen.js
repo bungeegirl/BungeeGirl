@@ -91,7 +91,7 @@ class ChatListScreen extends Component {
   render() {
     let title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>Connections</Text>
     let content =
-    <ViewContainer backgroundColor='transparent'>
+    <ViewContainer>
       <NavigationBar
         title={title}
         style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />

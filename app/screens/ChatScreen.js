@@ -37,7 +37,7 @@ class ChatScreen extends Component {
         source={require('../assets/Nav-Back.png')}/>
      </TouchableOpacity>
     let content =
-    <ViewContainer backgroundColor='transparent'>
+    <ViewContainer>
       <NavigationBar
         leftButton={leftButton}
         title={title}

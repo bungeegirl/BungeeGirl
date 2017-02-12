@@ -11,17 +11,19 @@ import React, {
   AsyncStorage,
   Dimensions,
   View,
+  ScrollView,
   ListView,
 } from 'react-native'
 
 import ViewContainer from '../../components/ViewContainer'
 import Postcard from '../../components/Postcard'
 import NavigationBar from 'react-native-navbar'
+import Lightbox from 'react-native-lightbox'
 import Colors from '../../styles/Colors'
 import Spinner from 'react-native-loading-spinner-overlay';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import MIcon from 'react-native-vector-icons/MaterialIcons'
-import _ from 'underscore'
+import _ from 'lodash'
 import moment from 'moment'
 
 export default class TripDetailsScreen extends Component {
@@ -30,92 +32,194 @@ export default class TripDetailsScreen extends Component {
     super(props)
 
     this.model = props.model
-    this.state = {}
-    _.extend(this.state, this.model.val())
+    this.state = {
+      foods: [],
+      activities: [],
+      events: [],
+      images: [],
+      dos: [],
+      donts: [],
+      ...this.model.val()
+    }
+    _.extend(this.state, )
   }
 
   componentDidMount() {
-    this.props.firebaseRef.child(`trips/${this.props.model.key()}`).on('value', snap => {
+    this.model.ref().on('value', snap => {
       this.model = snap
       this.setState(snap.val())
     })
   }
 
   componentWillUnmount() {
-    this.props.firebaseRef.child(`trips/${this.props.model.key()}`).off('value')
+    this.model.ref().off('value')
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <TouchableOpacity
-            onPress={ _ => this.props.navigator.pop() }>
-            <Icon
-              name='ios-arrow-back'
-              size={30}/>
-          </TouchableOpacity>
-          <Text style={[styles.text, styles.headerText]}>{this.state.location}</Text>
-          <TouchableOpacity
-            onPress={ _ => this._edit() }>
-            <MIcon
-              name='edit'
-              size={30}/>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.content}>
+      <ViewContainer
+        overlayColor='#0002'>
+        <NavigationBar
+          title={<Text style={[styles.text, styles.titleText]}>{this.state.location}</Text>}
+          leftButton={
+            <TouchableOpacity
+              style={{margin: 10}}
+              onPress={ _ => this.props.navigator.pop() }>
+              <Icon
+                name='angle-left'
+                size={30}/>
+            </TouchableOpacity>
+          }
+          rightButton={
+            <TouchableOpacity
+              style={{margin: 10}}
+              onPress={ _ => this._edit() }>
+              <Icon
+                name='pencil-square-o'
+                size={30}/>
+            </TouchableOpacity>
+          }
+          style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
+
+        <ScrollView style={styles.content}>
           <View>
             <View style={styles.row}>
-              <Icon
-                name=''
-                size={20}
-                style={styles.icon} />
-              <Text style={[styles.text]}>Stayed at: {this.state.stayedAt}</Text>
+              <View style={styles.rowHeader}>
+                <Icon
+                  style={[styles.icon, {left: 10}]}
+                  size={35}
+                  name='info' />
+                <Text style={[styles.text, styles.headerText]}>About</Text>
+              </View>
+              <View style={styles.rowContent}>
+                <Text style={[styles.text]}>{this.state.description}</Text>
+              </View>
             </View>
             <View style={styles.row}>
-              <Icon
-                name='food'
-                size={20}
-                style={styles.icon} />
-              <Text style={[styles.text]}>Ate at: {[this.state.food1,this.state.food2,this.state.food3].filter(Boolean).join(', ')}</Text>
+              <View style={styles.rowHeader}>
+                <Image
+                  style={styles.icon}
+                  resizeMode='contain'
+                  source={require('../../assets/location-pin.png')} />
+                <Text style={[styles.text, styles.headerText]}>Stayed at</Text>
+              </View>
+              <View style={styles.rowContent}>
+                <Text style={[styles.text, styles.contentText]}>{this.state.stayedAt}</Text>
+              </View>
             </View>
             <View style={styles.row}>
-              <Icon
-                name=''
-                size={20}
-                style={styles.icon} />
-              <Text style={[styles.text]}>Visited: {[this.state.activity1,this.state.activity2,this.state.activity3].filter(Boolean).join(', ')}</Text>
+              <View style={styles.rowHeader}>
+                <Image
+                  style={styles.icon}
+                  resizeMode='contain'
+                  source={require('../../assets/cutlery.png')} />
+                <Text style={[styles.text, styles.headerText]}>Ate at</Text>
+              </View>
+              <View style={styles.rowContent}>
+                <Text style={[styles.text, styles.contentText]}>{this.state.foods.join(', ')}</Text>
+              </View>
             </View>
             <View style={styles.row}>
-              <Icon
-                name=''
-                size={20}
-                style={styles.icon} />
-              <Text style={[styles.text]}>Events attended: {[this.state.event1,this.state.event2,this.state.event3].filter(Boolean).join(', ')}</Text>
+              <View style={styles.rowHeader}>
+                <MIcon
+                  name='directions-walk'
+                  size={30}
+                  style={styles.icon} />
+                <Text style={[styles.text, styles.headerText]}>Visited</Text>
+              </View>
+              <View style={styles.rowContent}>
+                <Text style={[styles.text, styles.contentText]}>{this.state.activities.join(', ')}</Text>
+              </View>
+            </View>
+            <View style={styles.row}>
+              <View style={styles.rowHeader}>
+                <Image
+                  style={styles.icon}
+                  resizeMode='contain'
+                  source={require('../../assets/ticket.png')} />
+                <Text style={[styles.text, styles.headerText]}>Events attended</Text>
+              </View>
+              <View style={styles.rowContent}>
+                <Text style={[styles.text, styles.contentText]}>{this.state.events.join(', ')}</Text>
+              </View>
             </View>
           </View>
+
+          <View style={{
+            flexDirection: 'column',
+            margin: 10
+          }}>
+            {this._buildImages()}
+          </View>
+
           <View>
             <View>
-              <Text>According to {this.state.name}...</Text>
+              <Text style={[styles.text]}>According to {this.state.name}...</Text>
             </View>
             <View style={styles.topWrapper}>
               <View style={styles.topContainer}>
-                <Text style={styles.topHeaderText}>Top Dos</Text>
-                <Text>• {this.state.do1}</Text>
-                <Text>• {this.state.do2}</Text>
-                <Text>• {this.state.do3}</Text>
+                <Text style={[styles.text, styles.topHeaderText]}>Top Dos</Text>
+                {this._buildTopList(this.state.dos)}
               </View>
               <View style={styles.topContainer}>
-                <Text style={styles.topHeaderText}>Top Donts</Text>
-                <Text>• {this.state.dont1}</Text>
-                <Text>• {this.state.dont2}</Text>
-                <Text>• {this.state.dont3}</Text>
+                <Text style={[styles.text, styles.topHeaderText]}>Top Donts</Text>
+                {this._buildTopList(this.state.donts)}
               </View>
             </View>
           </View>
-        </View>
-      </View>
+        </ScrollView>
+      </ViewContainer>
     )
+  }
+
+  _wrapInLightbox(image) {
+    return (
+      <Lightbox>
+        {image}
+      </Lightbox>
+    )
+  }
+  _buildImages() {
+    let images = []
+    for(let i = 0; i < this.state.images.length; i++) {
+      let imageData = this.state.images[i]
+      if(imageData)
+        images.push(
+          <Lightbox
+            key={`image-box-${i}`}
+            style={{
+              margin: 5
+            }}
+            renderContent={ _ => {
+              return (
+                <Image
+                  resizeMode='contain'
+                  style={{
+                    width: Dimensions.get('window').width,
+                    height: Dimensions.get('window').height
+                  }}
+                  source={{uri: `data:image/jpeg;base64, ${imageData}`}} />
+              )
+            }}>
+
+            <Image
+              style={styles.userImage}
+              resizeMode='contain'
+              source={{uri: `data:image/jpeg;base64, ${imageData}`}} />
+          </Lightbox>
+        )
+    }
+    return images
+  }
+
+  _buildTopList(top) {
+    let arr = []
+    for(let i = 0; i < top.length; i++) {
+      arr.push(
+        <Text>• <Text style={[styles.text]}>{top[i]}</Text></Text>
+      )
+    }
+    return arr
   }
 
   _edit() {
@@ -130,22 +234,18 @@ export default class TripDetailsScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  titleText: {
+    fontSize: 25,
+  },
   container: {
     flex: 1,
-    paddingTop: 20,
-    backgroundColor: '#fff'
-  },
-  header: {
-    flexDirection: 'row',
-    padding: 10,
-    alignItems: 'center',
-    borderBottomWidth: 2
+    backgroundColor: '#0002'
   },
   content: {
     padding: 10,
   },
   text: {
-    fontSize: 15
+    fontFamily: "ArchitectsDaughter",
   },
   headerText: {
     flex: 1,
@@ -153,12 +253,27 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   row: {
-    flex: 1,
+    marginTop: 5,
+    marginBottom: 10,
+  },
+  rowHeader: {
     flexDirection: 'row',
     alignItems: 'center'
   },
+  headerText: {
+    fontSize: 20,
+  },
+  rowContent: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  contentText: {
+    fontSize: 30
+  },
   icon: {
-    padding: 10
+    width: 35,
+    height: 35,
+    marginRight: 10
   },
   topWrapper: {
     flex: 1,
@@ -170,8 +285,10 @@ const styles = StyleSheet.create({
   },
   topHeaderText: {
     fontSize: 25,
-    fontWeight: 'bold',
     textAlign: 'center',
     textDecorationLine: 'underline'
+  },
+  userImage: {
+    height: 100
   }
 })
