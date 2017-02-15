@@ -475,7 +475,9 @@ class FlipTrip extends Component {
       default:
         route = 'LoginScreen'
     }
-    return route
+    return {
+      ident: route
+    }
   }
 }
 

@@ -193,6 +193,6 @@ class AppNavigator extends Component {
 AppNavigator.propTypes = {
   uid: PropTypes.string.isRequired,
   firebaseRef: PropTypes.object.isRequired,
-  initialRoute: PropTypes.string.isRequired}
+  initialRoute: PropTypes.object.isRequired}
 
 module.exports = AppNavigator
