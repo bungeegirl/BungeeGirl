@@ -145,6 +145,7 @@ class AppNavigator extends Component {
       case "PostcardScreen":
         return (
           <PostcardScreen
+            userDisplayData={route.userDisplayData}
             {...globalScreenProps}/>
         )
 
@@ -175,7 +176,7 @@ class AppNavigator extends Component {
     return (
       <Navigator
         ref="TheNavigator"
-        initialRoute={{ident: this.props.initialRoute}}
+        initialRoute={this.props.initialRoute}
         renderScene={(route, navigator) => this.renderScene(route, navigator)}
         configureScene={(route) => ({
           ...route.sceneConfig || Navigator.SceneConfigs.FloatFromRight,

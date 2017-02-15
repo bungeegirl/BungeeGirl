@@ -28,21 +28,27 @@ export default class PostcardScreen extends Component {
   constructor(props) {
     super(props)
 
+    this.isOwner = this.props.userData.uid === this.props.userDisplayData.uid
+
     this.state = {
       loadingData: true,
       trips: 0,
       followers: 0,
+      following: false,
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     }
   }
 
   componentDidMount() {
-    this.props.firebaseRef.child('users-followers').startAt(this.props.uid).on('value', snap => {
+    this.followersRef = this.props.firebaseRef.child(`users-followers/${this.props.userDisplayData.uid}`)
+    this.followersRef.on('value', snap => {
       this.setState({
-        followers: snap.numChildren()
+        followers: snap.numChildren(),
+        following: snap.child(this.props.uid).exists()
       })
     })
-    this.props.firebaseRef.child('trips').orderByChild('userId').equalTo(this.props.uid).on('value', snap => {
+    this.tripsRef = this.props.firebaseRef.child(`trips/${this.props.userDisplayData.uid}`)
+    this.tripsRef.on('value', snap => {
       let trips = []
       snap.forEach( trip => {
         trips.push(trip)
@@ -55,39 +61,64 @@ export default class PostcardScreen extends Component {
     })
   }
 
+  componentWillUnmount() {
+    this.followersRef.off('value')
+    this.tripsRef.off('value')
+  }
+
   render() {
+    let title, leftBtn, rightBtn, createPostcardBtn
+
+    title = (this.isOwner) ?
+      'My Postcards' : `${this.props.userDisplayData.name}'s Postcards`
+
+    if(this.isOwner) {
+      createPostcardBtn =
+        <TouchableOpacity
+          style={[styles.text,{position: 'absolute', right: 10, alignItems: 'center'}]}
+          onPress={() => {
+            this.props.navigator.push({
+              ident: 'NewPostcardScreen'
+            })
+          }}>
+          <Text style={styles.text}>Create Postcard</Text>
+          <Image source={require('../../assets/postcard-icon.png')} />
+        </TouchableOpacity>
+    } else {
+      leftBtn =
+        <TouchableOpacity
+          onPress={ _ => this.props.navigator.pop() }>
+          <Image
+            style={styles.followButtonImage}
+            source={require('../../assets/Nav-Back.png')} />
+        </TouchableOpacity>
+
+      rightBtn =
+        <TouchableOpacity
+          onPress={this._follow.bind(this)}>
+          <Image
+            style={styles.followButtonImage}
+            source={require('../../assets/follow-icon.png')} />
+        </TouchableOpacity>
+    }
+
     return (
       <ViewContainer
         overlayColor='#0002'>
         <Spinner visible={this.state.loadingData} textContent='Loading postcards...' />
         <NavigationBar
-          title={<Text style={styles.titleText}>My Postcards</Text>}
-          leftButton={
-            <TouchableOpacity
-              onPress={this._follow.bind(this)}>
-              <Image
-                style={styles.followButtonImage}
-                source={require('../../assets/follow-icon.png')} />
-            </TouchableOpacity>
-          }
+          title={<Text style={styles.titleText}>{title}</Text>}
+          rightButton={rightBtn}
+          leftButton={leftBtn}
           style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
 
         <View style={styles.header}>
           <Image
-            source={{uri: `data:image/jpeg;base64, ${this.props.userData.imageData}`}}
+            source={{uri: `data:image/jpeg;base64, ${this.props.userDisplayData.imageData}`}}
             style={styles.avatarImage}/>
           <Text style={[styles.text, {margin: 10}]}>{`(${this.state.trips})\nTrips`}</Text>
           <Text style={[styles.text, {margin: 10}]}>{`(${this.state.followers})\nFollowers`}</Text>
-          <TouchableOpacity
-            style={[styles.text,{position: 'absolute', right: 10, alignItems: 'center'}]}
-            onPress={() => {
-              this.props.navigator.push({
-                ident: 'NewPostcardScreen'
-              })
-            }}>
-            <Text style={styles.text}>Create Postcard</Text>
-            <Image source={require('../../assets/postcard-icon.png')} />
-          </TouchableOpacity>
+          {createPostcardBtn}
         </View>
         <ListView
           initialListSize={3}
@@ -101,7 +132,8 @@ export default class PostcardScreen extends Component {
   }
 
   _follow() {
-    this.props.firebaseRef.child(`users-followers/${this.props.userData.uid}.${this.props.uid}`).set(null).then( _ => {
+    let val = this.state.following ? null : true
+    this.props.firebaseRef.child(`users-followers/${this.props.userDisplayData.uid}/${this.props.uid}`).set(val).then( _ => {
       // successfull follow
     })
   }
@@ -110,7 +142,7 @@ export default class PostcardScreen extends Component {
     return (
       <Postcard
         {...this.props}
-        model={data}/>
+        trip={data}/>
     )
   }
 
@@ -129,8 +161,8 @@ const styles = StyleSheet.create({
     height: headerHeight,
     width: fullWidth,
     padding: 10,
-    borderBottomWidth: .5,
-    borderColor: '#ccc',
+    borderBottomWidth: 1,
+    borderColor: '#888',
     backgroundColor: Colors.beige
   },
   followButton: {

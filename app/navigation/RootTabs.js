@@ -102,7 +102,9 @@ class RootTabs extends Component {
         onPress={() => this.setState({ selectedTab: 'profile' })}>
         <AppNavigator
           {...globalScreenProps}
-          initialRoute='HomeScreen' />
+          initialRoute={{
+            ident: 'HomeScreen'
+          }} />
       </TabNavigator.Item>
       <TabNavigator.Item
         testID="travel-tab"
@@ -112,7 +114,9 @@ class RootTabs extends Component {
         onPress={() => this.setState({ selectedTab: 'travel' })}>
         <AppNavigator
           {...globalScreenProps}
-          initialRoute='ExperienceScreen' />
+          initialRoute={{
+            ident: 'ExperienceScreen'
+          }}/>
       </TabNavigator.Item>
       <TabNavigator.Item
         selected={this.state.selectedTab === 'chat'}
@@ -121,7 +125,9 @@ class RootTabs extends Component {
         onPress={() => this.setState({ selectedTab: 'chat' })}>
         <AppNavigator
           {...globalScreenProps}
-          initialRoute='ChatListScreen' />
+          initialRoute={{
+            ident: 'ChatListScreen'
+          }} />
       </TabNavigator.Item>
       <TabNavigator.Item
         selected={this.state.selectedTab === 'postcard'}
@@ -130,7 +136,10 @@ class RootTabs extends Component {
         onPress={() => this.setState({ selectedTab: 'postcard' })}>
         <AppNavigator
           {...globalScreenProps}
-          initialRoute='PostcardScreen' />
+          initialRoute={{
+            ident: 'PostcardScreen',
+            userDisplayData: this.props.userData
+          }}/>
       </TabNavigator.Item>
     </TabNavigator>
 

@@ -34,9 +34,9 @@ export default class NewPostcardScreen extends Component {
     super(props)
 
     let value
-    if(props.model) {
-      this.model = props.model
-      value = this.model.val()
+    if(props.trip) {
+      this.trip = props.trip
+      value = this.trip.val()
     }
 
     this.state = {}
@@ -314,18 +314,18 @@ export default class NewPostcardScreen extends Component {
       return props
     }, {})
 
-    if(this.model) {
-      let model = this.model.val(), changed = {}
+    if(this.trip) {
+      let trip = this.trip.val(), changed = {}
       _.each(validProps, (val, key) => {
-        if(model[key] !== val)
+        if(trip[key] !== val)
           changed[key] = val
       })
-      this.model.ref().update(changed).then( _ => {
+      this.trip.ref().update(changed).then( _ => {
         hideSpinner()
         this.props.navigator.pop()
       }).catch(hideSpinner)
     } else {
-      this.props.firebaseRef.child('trips').push(validProps).then( _ => {
+      this.props.firebaseRef.child(`trips/${this.props.uid}`).push(validProps).then( _ => {
         hideSpinner()
         this.props.navigator.pop()
       })

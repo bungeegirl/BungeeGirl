@@ -47,11 +47,10 @@
 		49F6B9731CED17F60034F299 /* Native.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F6B9721CED17F60034F299 /* Native.m */; };
 		49F93B101DE635D9001A8CB1 /* libRCTOneSignal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F93B0F1DE6358E001A8CB1 /* libRCTOneSignal.a */; };
 		4A8651506EA748BABCD4BBFF /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30FCA2512AF74BBB9DB1182F /* Ionicons.ttf */; };
-		4EA728071E4F1F2300B4B4C9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB61A68108700A75B9A /* Info.plist */; };
-		4EA728091E4F23FE00B4B4C9 /* spinweradC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EA728051E4F1AFB00B4B4C9 /* spinweradC.ttf */; };
+		4E39D41F1E52B2BD007ABB40 /* Frijole-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E39D41D1E52B2BD007ABB40 /* Frijole-Regular.ttf */; };
+		4E39D4201E52B2BD007ABB40 /* ReenieBeanie.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E39D41E1E52B2BD007ABB40 /* ReenieBeanie.ttf */; };
 		5061F534614D4F33B735CA6B /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1639727FFC846F49BE28803 /* libRNMail.a */; };
 		5347D99B27A949B19603A070 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97F606085718472FAD79F154 /* FontAwesome.ttf */; };
-		5D08F06217864C4F976E5DCD /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1DB8503753458DBAF88019 /* libRCTCamera.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		888657B1BA2749E7A3CBECB5 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6F6A6B817154ABE908494B7 /* Zocial.ttf */; };
 		8B7B75400EEE4BE4B812DBCA /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5879D55D36354DF6BBBF6B0E /* libRCTActionSheet.a */; };
@@ -146,13 +145,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 58B5115D1A9E6B3D00147676;
 			remoteInfo = RCTCameraRoll;
-		};
-		49C2B4D31CD0A1DE00DA3BAF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DEBD0D906E1D4154B031B393 /* RCTCamera.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
-			remoteInfo = RCTCamera;
 		};
 		49C2B4E31CD0A1DE00DA3BAF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -258,7 +250,8 @@
 		49EF98261D7396AD00BE3CC3 /* BungeeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BungeeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F6B9721CED17F60034F299 /* Native.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Native.m; sourceTree = "<group>"; };
 		49F93B0A1DE6358E001A8CB1 /* RCTOneSignal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTOneSignal.xcodeproj; path = "../node_modules/react-native-onesignal/ios/RCTOneSignal.xcodeproj"; sourceTree = "<group>"; };
-		4EA728051E4F1AFB00B4B4C9 /* spinweradC.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = spinweradC.ttf; sourceTree = "<group>"; };
+		4E39D41D1E52B2BD007ABB40 /* Frijole-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Frijole-Regular.ttf"; sourceTree = "<group>"; };
+		4E39D41E1E52B2BD007ABB40 /* ReenieBeanie.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ReenieBeanie.ttf; sourceTree = "<group>"; };
 		5879D55D36354DF6BBBF6B0E /* libRCTActionSheet.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTActionSheet.a; sourceTree = "<group>"; };
 		5957706F9CC5445A8911A46D /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
 		67A84A097C3746F5BE5AFC89 /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
@@ -273,12 +266,10 @@
 		8BF69ACDF4BCE9E148782618 /* Pods-BungeeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BungeeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BungeeTests/Pods-BungeeTests.release.xcconfig"; sourceTree = "<group>"; };
 		97F606085718472FAD79F154 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		992E3CBD2AE8777ABFA7CDDA /* Pods-BungeeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BungeeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BungeeTests/Pods-BungeeTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9F1DB8503753458DBAF88019 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 		A07974E3B0CE4527892D9760 /* RNMail.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNMail.xcodeproj; path = "../node_modules/react-native-mail/RNMail.xcodeproj"; sourceTree = "<group>"; };
 		BE3E2AAD19AA4A00BE0B98E5 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		C7DB1B5A330692F1E9D85CB6 /* Pods-Bungee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bungee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bungee/Pods-Bungee.debug.xcconfig"; sourceTree = "<group>"; };
 		D1639727FFC846F49BE28803 /* libRNMail.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNMail.a; sourceTree = "<group>"; };
-		DEBD0D906E1D4154B031B393 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		E6FB92FE7CCF4A778C9B03CB /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		EE4891A9F0E783192A68C2F5 /* libPods-BungeeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BungeeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6B2DDBFF89D47DABA9A8D0D /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
@@ -323,7 +314,6 @@
 				49C2B47D1CD0344900DA3BAF /* FBSDKCoreKit.framework in Frameworks */,
 				C183959A3F314700A03BF36D /* libCodePush.a in Frameworks */,
 				00763E45594C47A59B45E19E /* libRCTFBLogin.a in Frameworks */,
-				5D08F06217864C4F976E5DCD /* libRCTCamera.a in Frameworks */,
 				1A478C020C3748C4AB525450 /* libRNImagePicker.a in Frameworks */,
 				493A308D1CE393D600A419F2 /* Instabug.framework in Frameworks */,
 				8B7B75400EEE4BE4B812DBCA /* libRCTActionSheet.a in Frameworks */,
@@ -441,6 +431,8 @@
 		44DDD5AC42E24B82A1439CC4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4E39D41D1E52B2BD007ABB40 /* Frijole-Regular.ttf */,
+				4E39D41E1E52B2BD007ABB40 /* ReenieBeanie.ttf */,
 				83F167AADBC54A0F843231CF /* Entypo.ttf */,
 				2A0AFED33DD24A859A688635 /* EvilIcons.ttf */,
 				97F606085718472FAD79F154 /* FontAwesome.ttf */,
@@ -473,14 +465,6 @@
 			isa = PBXGroup;
 			children = (
 				49C2B4BD1CD08A2500DA3BAF /* libRCTCameraRoll.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		49C2B4CE1CD0A1DE00DA3BAF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				49C2B4D41CD0A1DE00DA3BAF /* libRCTCamera.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -543,7 +527,6 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				7D634936C0A3477AA0A876AA /* CodePush.xcodeproj */,
 				5957706F9CC5445A8911A46D /* RCTFBLogin.xcodeproj */,
-				DEBD0D906E1D4154B031B393 /* RCTCamera.xcodeproj */,
 				113560DC6E284159B6033D40 /* RNImagePicker.xcodeproj */,
 				76AA213883F147659CF44F0C /* RNVectorIcons.xcodeproj */,
 				A07974E3B0CE4527892D9760 /* RNMail.xcodeproj */,
@@ -567,7 +550,6 @@
 				493ECD8C1DB30ADB0030992C /* RCTFBSDKGraphRequestManager.h */,
 				493ECD8D1DB30ADB0030992C /* RCTFBSDKGraphRequestManager.m */,
 				491241EB1D061EF5004E7B92 /* ArchitectsDaughter.ttf */,
-				4EA728051E4F1AFB00B4B4C9 /* spinweradC.ttf */,
 				49F6B9721CED17F60034F299 /* Native.m */,
 				493A308B1CE393D600A419F2 /* Instabug.framework */,
 				493A308C1CE393D600A419F2 /* Instabug.bundle */,
@@ -740,10 +722,6 @@
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
 				{
-					ProductGroup = 49C2B4CE1CD0A1DE00DA3BAF /* Products */;
-					ProjectRef = DEBD0D906E1D4154B031B393 /* RCTCamera.xcodeproj */;
-				},
-				{
 					ProductGroup = 49C2B4B91CD08A2500DA3BAF /* Products */;
 					ProjectRef = 49C2B4B81CD08A2500DA3BAF /* RCTCameraRoll.xcodeproj */;
 				},
@@ -891,13 +869,6 @@
 			remoteRef = 49C2B4BC1CD08A2500DA3BAF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		49C2B4D41CD0A1DE00DA3BAF /* libRCTCamera.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTCamera.a;
-			remoteRef = 49C2B4D31CD0A1DE00DA3BAF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		49C2B4E41CD0A1DE00DA3BAF /* libRNImagePicker.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -961,17 +932,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EA728091E4F23FE00B4B4C9 /* spinweradC.ttf in Resources */,
 				491241EC1D061F00004E7B92 /* ArchitectsDaughter.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				493A308E1CE393D600A419F2 /* Instabug.bundle in Resources */,
 				39879AFFF85845449FC0847A /* Entypo.ttf in Resources */,
-				4EA728071E4F1F2300B4B4C9 /* Info.plist in Resources */,
 				EF67876C1E884ACFA89AF2A2 /* EvilIcons.ttf in Resources */,
 				5347D99B27A949B19603A070 /* FontAwesome.ttf in Resources */,
 				375ED7031A4A4FE1ABEDEE60 /* Foundation.ttf in Resources */,
+				4E39D41F1E52B2BD007ABB40 /* Frijole-Regular.ttf in Resources */,
 				4A8651506EA748BABCD4BBFF /* Ionicons.ttf in Resources */,
+				4E39D4201E52B2BD007ABB40 /* ReenieBeanie.ttf in Resources */,
 				095E3BD1DDDB4ABF92C14A6C /* MaterialIcons.ttf in Resources */,
 				A07BBB662A724A5E9BE67698 /* Octicons.ttf in Resources */,
 				888657B1BA2749E7A3CBECB5 /* Zocial.ttf in Resources */,
@@ -1239,26 +1210,23 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(inherited)/**",
+					"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/**",
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
-					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-userdefaults-ios/RNUserDefaultsIOS",
+					"$(SRCROOT)/../node_modules/react-native-userdefaults-ios/RNUserDefaultsIOS/**",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/RNGeocoder/**",
-					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager/**",
+					"$(SRCROOT)/../node_modules/react-native-mail/RNMail/**",
 				);
 				INFOPLIST_FILE = FlipTrip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Bungee\"",
-					"\"$(SRCROOT)/Bungee\"",
-					"\"$(SRCROOT)/Bungee\"",
+					"\"$(SRCROOT)/FlipTrip\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1284,26 +1252,23 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(inherited)/**",
+					"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/**",
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
-					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-userdefaults-ios/RNUserDefaultsIOS",
+					"$(SRCROOT)/../node_modules/react-native-userdefaults-ios/RNUserDefaultsIOS/**",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/RNGeocoder/**",
-					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-mail/RNMail",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager/**",
+					"$(SRCROOT)/../node_modules/react-native-mail/RNMail/**",
 				);
 				INFOPLIST_FILE = FlipTrip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Bungee\"",
-					"\"$(SRCROOT)/Bungee\"",
-					"\"$(SRCROOT)/Bungee\"",
+					"\"$(SRCROOT)/FlipTrip\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",

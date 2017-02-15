@@ -31,11 +31,16 @@ export default class ViewContainer extends Component {
         <Image
           source={require('../assets/container-background.png')}
           resizeMode='cover'
-          style={styles.backgroundImage}/>
+          style={styles.full}/>
+
         <View style={{
           height: (this.props.hidden ? 0 : 20),
-          backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : Colors.beige}} />
-        {this.props.children}
+          backgroundColor: this.props.backgroundColor || Colors.beige
+        }} />
+
+        <View style={styles.full, {backgroundColor: this.props.overlayColor || 'transparent'}}>
+          {this.props.children}
+        </View>
       </View>
     )
   }
@@ -52,11 +57,12 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "stretch",
   },
-  backgroundImage: {
+  full: {
+    backgroundColor: 'black',
     position: 'absolute',
-    height: deviceHeight,
-    width: deviceWidth,
     top: 0,
-    left: 0
+    left: 0,
+    bottom: 0,
+    right: 0
   }
 })

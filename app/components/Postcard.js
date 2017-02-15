@@ -21,30 +21,32 @@ class Postcard extends Component {
   constructor(props) {
     super(props)
 
-    this.model = props.model
+    this.trip = props.trip
     this.state = {
       liked: false,
       likes: 0,
       images: [],
-      ...props.model.val()
+      ...props.trip.val()
     }
   }
 
   componentDidMount() {
-    this.model.ref().child('likes').on('value', snap => {
+    this.tripLikesQuery = this.props.firebaseRef.child(`trips-likes/${this.trip.key()}`)
+    this.tripLikesQuery.on('value', snap => {
       this.setState({
         likesCount: snap.numChildren(),
         liked: snap.child(this.props.uid).exists()
       })
     })
-    this.model.ref().on('value', snap => {
-      this.model = snap
+    this.trip.ref().on('value', snap => {
+      this.trip = snap
       this.setState(snap.val())
     })
   }
 
   componentWillUnmount() {
-    this.model.ref().off('value')
+    this.tripLikesQuery.off('value')
+    this.trip.ref().off('value')
   }
 
   render() {
@@ -87,7 +89,10 @@ class Postcard extends Component {
         </View>
 
         <View style={styles.dateContainer}>
-          <Text style={[styles.text,{fontSize: 20}]}>{this.state.date}</Text>
+          <Text style={[styles.text, {
+            fontSize: 12
+          }]}>Travel Date</Text>
+          <Text style={[styles.text,{fontSize: 20, lineHeight: 20}]}>{this.state.date}</Text>
         </View>
 
         <TouchableOpacity
@@ -100,9 +105,10 @@ class Postcard extends Component {
           style={styles.likeBtn}
           onPress={this._like.bind(this)}>
           <Icon
-            size={32}
-            name={this.state.liked ? 'thumbs-up' : 'thumbs-o-up'} />
-          <Text>Liked by {this.state.likesCount} other{this.state.likesCount > 1 ? 's' : ''}</Text>
+            style={{color: Colors.red}}
+            size={24}
+            name={this.state.liked ? 'heart' : 'heart-o'} />
+          <Text style={styles.likesCountText}>{this.state.likesCount}</Text>
         </TouchableOpacity>
       </View>
     )
@@ -112,14 +118,14 @@ class Postcard extends Component {
     let liked = this.state.liked
     this.setState({liked: !liked})
 
-    let ref = this.model.ref().child(`likes/${this.props.uid}`)
-    liked ? ref.remove() : ref.set(true)
+    let val = liked ? null : true
+    this.props.firebaseRef.child(`trips-likes/${this.trip.key()}/${this.props.uid}`).set(val)
   }
 
   _viewTripDetails() {
     this.props.navigator.push({
       ident: 'TripDetailsScreen',
-      model: this.model,
+      trip: this.trip,
     })
   }
 
@@ -161,9 +167,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   locationText: {
-    fontSize: 40,
+    fontFamily: 'Frijole',
+    fontSize: 20,
     textAlign: 'center',
-    lineHeight: 45
+    lineHeight: 25
   },
   stampContainer: {
     position: 'absolute',
@@ -187,7 +194,7 @@ const styles = StyleSheet.create({
   },
   dateContainer: {
     position: 'absolute',
-    bottom: 60,
+    bottom: 80,
     right: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -197,11 +204,10 @@ const styles = StyleSheet.create({
   detailsButton: {
     position: 'absolute',
     right: 20,
-    bottom: 20,
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 10,
-    paddingRight: 10
+    bottom: 50,
+    padding: 5,
+    backgroundColor: '#507bc0',
+    borderRadius: 5
   },
   descriptionWrapper: {
     position: 'absolute',
@@ -213,6 +219,18 @@ const styles = StyleSheet.create({
   descriptionText: {
     height: 100,
     lineHeight: 20,
-    fontSize: 15
+    fontFamily: 'Reenie Beanie',
+    fontSize: 20
+  },
+  likeBtn: {
+    position: 'absolute',
+    bottom: 20,
+    right: 40,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  likesCountText: {
+    margin: 5,
+    fontSize: 20
   }
 })

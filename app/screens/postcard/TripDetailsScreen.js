@@ -31,7 +31,7 @@ export default class TripDetailsScreen extends Component {
   constructor(props) {
     super(props)
 
-    this.model = props.model
+    this.trip = props.trip
     this.state = {
       foods: [],
       activities: [],
@@ -39,20 +39,20 @@ export default class TripDetailsScreen extends Component {
       images: [],
       dos: [],
       donts: [],
-      ...this.model.val()
+      ...this.trip.val()
     }
     _.extend(this.state, )
   }
 
   componentDidMount() {
-    this.model.ref().on('value', snap => {
-      this.model = snap
+    this.trip.ref().on('value', snap => {
+      this.trip = snap
       this.setState(snap.val())
     })
   }
 
   componentWillUnmount() {
-    this.model.ref().off('value')
+    this.trip.ref().off('value')
   }
 
   render() {
@@ -227,7 +227,7 @@ export default class TripDetailsScreen extends Component {
 
     this.props.navigator.push({
       ident: 'NewPostcardScreen',
-      model: this.model,
+      trip: this.trip,
     })
   }
 

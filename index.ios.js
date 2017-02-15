@@ -4,6 +4,8 @@
  * @flow
  */
 
+global.__DEV__ = false
+
 import React, {
   AppRegistry,
   Component,

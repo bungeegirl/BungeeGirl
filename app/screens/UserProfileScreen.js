@@ -17,6 +17,7 @@ import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'
 import travelData from '../local_data/questions'
 import UserProfile from '../components/UserProfile'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import _ from 'underscore'
 import moment from 'moment'
 import cityData from '../local_data/cityData'
@@ -35,18 +36,33 @@ class UserProfileScreen extends Component {
      </TouchableOpacity>
 
     var content =
-    <ViewContainer backgroundColor='transparent'>
+    <ViewContainer>
       <NavigationBar
         title={title}
         leftButton={leftButton}
         style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
       <UserProfile
         {...this.props} />
-      <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={() => this._message()}>
-        <Text style={styles.buttonText}>Message</Text>
-      </TouchableOpacity>
+      <View style={styles.actionContainer}>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={() => this._postcards()}>
+          <Image
+            style={{height: 20}}
+            resizeMode='contain'
+            source={require('../assets/postcard-outline-icon.png')} />
+          <Text style={styles.buttonText}>Postcards</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={() => this._message()}>
+          <Icon
+            name='comments-o'
+            size={20}
+            style={{marginRight: 5}} />
+          <Text style={styles.buttonText}>Message</Text>
+        </TouchableOpacity>
+      </View>
     </ViewContainer>
     return content
   }
@@ -61,6 +77,14 @@ class UserProfileScreen extends Component {
       userPushToken: this.props.userDisplayData.pushToken
     })
   }
+
+  _postcards() {
+    this.props.navigator.push({
+      ident: "PostcardScreen",
+      userDisplayData: this.props.userDisplayData
+    })
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -102,21 +126,24 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 60
   },
+  actionContainer: {
+    position: 'absolute',
+    right: 10,
+    top: 55
+  },
   logoutButton: {
-    height: 48,
-    width: 150,
-    marginBottom: 50,
+    flexDirection: 'row',
+    margin: 2,
+    padding: 5,
     borderRadius: 4,
-    alignSelf: 'center',
-    backgroundColor: Colors.red,
+    backgroundColor: Colors.green,
     alignItems: 'center',
     justifyContent: 'center'
   },
   buttonText: {
     textAlign: 'center',
     fontFamily: "ArchitectsDaughter",
-    color: 'white',
-    fontSize: 21
+    fontSize: 15
   },
   backButton: {
     width: 48,
