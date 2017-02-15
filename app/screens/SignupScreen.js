@@ -113,7 +113,6 @@ class SignupScreen extends Component {
   _createUser() {
     this.setState({loadingData: true})
     var errorCallBack = (error) => {
-      console.log(error)
       this.setState({loadingData: false})
       Alert.alert('Error creating user', JSON.stringify(error.code))
     }

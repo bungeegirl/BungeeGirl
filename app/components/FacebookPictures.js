@@ -40,14 +40,10 @@ function getInstagramByMyself (access_token) {
   fetch('`https://api.instagram.com/v1/media/search?yoyo&client_id='+instagram.client_id)
   .then((response) =>
   {
-     console.log(response)
       response.json()
       .then((responseData) => {
-        console.log(responseData)
       } )
-      .catch(error => console.log('nested error', error))
   })
-  .catch(error => console.log(error))
 
   // response.json()).then((responseData) => {
   //         console.log(responseData);
@@ -90,11 +86,9 @@ class FacebookPictures extends Component {
     if (error) {
       alert('Error fetching data: ' + error.toString());
     } else {
-      console.log(result)
     }
   }
   render() {
-    console.log('rendering pics')
     return (
       <View style={{height: 200, width: 300, backgroundColor: 'red'}}/>
     )

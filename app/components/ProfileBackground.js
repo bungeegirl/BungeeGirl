@@ -37,7 +37,6 @@ class ProfileBackground extends Component {
           profileImages: profileImages
         })
       }, (error) => {
-        console.log(error)
       })
     }
   }
@@ -50,7 +49,6 @@ class ProfileBackground extends Component {
           profileImages: profileImages
         })
       }, (error) => {
-        console.log(error)
       })
     }
   }
