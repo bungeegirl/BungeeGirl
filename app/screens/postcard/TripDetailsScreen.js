@@ -41,7 +41,6 @@ export default class TripDetailsScreen extends Component {
       donts: [],
       ...this.trip.val()
     }
-    _.extend(this.state, )
   }
 
   componentDidMount() {
@@ -56,6 +55,17 @@ export default class TripDetailsScreen extends Component {
   }
 
   render() {
+    let rightBtn
+    if(this.props.uid === this.trip.ref().parent().key())
+      rightBtn =
+        <TouchableOpacity
+          style={{margin: 10}}
+          onPress={ _ => this._edit() }>
+          <Icon
+            name='pencil-square-o'
+            size={30}/>
+        </TouchableOpacity>
+
     return (
       <ViewContainer
         overlayColor='#0002'>
@@ -70,15 +80,7 @@ export default class TripDetailsScreen extends Component {
                 size={30}/>
             </TouchableOpacity>
           }
-          rightButton={
-            <TouchableOpacity
-              style={{margin: 10}}
-              onPress={ _ => this._edit() }>
-              <Icon
-                name='pencil-square-o'
-                size={30}/>
-            </TouchableOpacity>
-          }
+          rightButton={rightBtn}
           style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
 
         <ScrollView style={styles.content}>
@@ -223,7 +225,7 @@ export default class TripDetailsScreen extends Component {
   }
 
   _edit() {
-    if(this.props.uid !== this.state.userId) return false
+    if(this.props.uid !== this.trip.ref().parent().key()) return false
 
     this.props.navigator.push({
       ident: 'NewPostcardScreen',

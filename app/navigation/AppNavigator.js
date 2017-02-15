@@ -152,14 +152,14 @@ class AppNavigator extends Component {
       case "TripDetailsScreen":
         return (
           <TripDetailsScreen
-            model={route.model}
+            trip={route.trip}
             {...globalScreenProps} />
         )
 
       case "NewPostcardScreen":
         return (
           <NewPostcardScreen
-            model={route.model}
+            trip={route.trip}
             {...globalScreenProps}/>
         )
 

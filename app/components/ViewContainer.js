@@ -38,7 +38,7 @@ export default class ViewContainer extends Component {
           backgroundColor: this.props.backgroundColor || Colors.beige
         }} />
 
-        <View style={styles.full, {backgroundColor: this.props.overlayColor || 'transparent'}}>
+        <View style={{flex: 1, backgroundColor: this.props.overlayColor || 'transparent'}}>
           {this.props.children}
         </View>
       </View>
@@ -60,9 +60,9 @@ const styles = StyleSheet.create({
   full: {
     backgroundColor: 'black',
     position: 'absolute',
+    height: deviceHeight,
+    width: deviceWidth,
     top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0
-  }
+    left: 0
+  },
 })
