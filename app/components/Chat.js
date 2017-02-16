@@ -55,7 +55,7 @@ class ChatContainer extends Component {
         position: val.uid == this.props.uid && 'right' || 'left',
         date: new Date(val.date),
         userData: val.userData,
-        uniqueId: child.key(),
+        uniqueId: child.key,
         uid: val.uid
       })
     })

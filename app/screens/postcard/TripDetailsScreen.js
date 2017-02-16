@@ -44,19 +44,19 @@ export default class TripDetailsScreen extends Component {
   }
 
   componentDidMount() {
-    this.trip.ref().on('value', snap => {
+    this.trip.ref.on('value', snap => {
       this.trip = snap
       this.setState(snap.val())
     })
   }
 
   componentWillUnmount() {
-    this.trip.ref().off('value')
+    this.trip.ref.off('value')
   }
 
   render() {
     let rightBtn
-    if(this.props.uid === this.trip.ref().parent().key())
+    if(this.props.uid === this.trip.ref.parent.key)
       rightBtn =
         <TouchableOpacity
           style={{margin: 10}}
@@ -225,7 +225,7 @@ export default class TripDetailsScreen extends Component {
   }
 
   _edit() {
-    if(this.props.uid !== this.trip.ref().parent().key()) return false
+    if(this.props.uid !== this.trip.ref.parent.key) return false
 
     this.props.navigator.push({
       ident: 'NewPostcardScreen',

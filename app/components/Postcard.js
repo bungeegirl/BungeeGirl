@@ -31,14 +31,14 @@ class Postcard extends Component {
   }
 
   componentDidMount() {
-    this.tripLikesQuery = this.props.firebaseRef.child(`trips-likes/${this.trip.key()}`)
+    this.tripLikesQuery = this.props.firebaseRef.child(`trips-likes/${this.trip.key}`)
     this.tripLikesQuery.on('value', snap => {
       this.setState({
         likesCount: snap.numChildren(),
         liked: snap.child(this.props.uid).exists()
       })
     })
-    this.trip.ref().on('value', snap => {
+    this.trip.ref.on('value', snap => {
       this.trip = snap
       this.setState(snap.val())
     })
@@ -46,7 +46,7 @@ class Postcard extends Component {
 
   componentWillUnmount() {
     this.tripLikesQuery.off('value')
-    this.trip.ref().off('value')
+    this.trip.ref.off('value')
   }
 
   render() {
@@ -119,7 +119,7 @@ class Postcard extends Component {
     this.setState({liked: !liked})
 
     let val = liked ? null : true
-    this.props.firebaseRef.child(`trips-likes/${this.trip.key()}/${this.props.uid}`).set(val)
+    this.props.firebaseRef.child(`trips-likes/${this.trip.key}/${this.props.uid}`).set(val)
   }
 
   _viewTripDetails() {

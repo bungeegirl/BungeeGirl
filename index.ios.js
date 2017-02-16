@@ -21,7 +21,6 @@ import AppNavigator from './app/navigation/AppNavigator'
 import { NativeModules } from 'react-native';
 import RootTabs from './app/navigation/RootTabs'
 import OnBoardingScreen from './app/screens/OnBoardingScreen'
-import firebase from './firebase'
 import EventEmitter from 'EventEmitter'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import _ from 'underscore'
@@ -32,6 +31,10 @@ import OneSignal from 'react-native-onesignal';
 
 var { FBLoginManager } = require('react-native-facebook-login')
 
+let firebase = require('firebase/app')
+require('firebase/auth')
+require('firebase/database')
+
 Raven
   .config('https://428836d3216248a69f1dcb85c8ba9d72@sentry.io/98471', { release: "1.1" })
   .install();
@@ -39,10 +42,17 @@ Raven
 const Native = NativeModules.Native;
 
 class FlipTrip extends Component {
+
   constructor(props) {
     super(props)
     this.eventEmitter = new EventEmitter()
-    this.firebaseRef = new Firebase('https://fliptrip-dev.firebaseio.com/')
+
+    firebase.initializeApp({
+      apiKey: "AIzaSyD198BIuJpR6OcVTdogUm-C39kWSBROtqI",
+      authDomain: "fliptrip-dev.firebaseapp.com",
+      databaseURL: "https://fliptrip-dev.firebaseio.com"
+    })
+
     this.state = {
       loadingData: true,
       sawOnBoardingScreen: false,
@@ -53,7 +63,8 @@ class FlipTrip extends Component {
   }
 
   componentDidMount() {
-    var firebaseRef = this.firebaseRef
+    let firebaseRef = firebase.database().ref()
+    let auth = firebase.auth()
     var renderContext = this
     codePush.sync({updateDialog: true})
     // AsyncStorage.clear()
@@ -63,41 +74,49 @@ class FlipTrip extends Component {
       this.setState({sawOnBoardingScreen: data[1][1]})
       if(data[0][1] == 'email') {
         AsyncStorage.multiGet(['uid', 'email', 'password'], (err, stores) => {
-          this.firebaseRef.authWithPassword({
-            email: stores[1][1],
-            password: stores[2][1]
-          }, (error, authData) => {
-            var uid = stores[0][1]
-            Native.setBatchId(authData.uid)
-            let renderContext = this
-            this.firebaseRef.child('users').child(uid).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
-            console.log(authData)
-          })
+          auth().signInWithEmailAndPassword(stores[1][1], stores[2][1])
+            .catch((error, authData) => {
+              let { code } = error
+              if(code === 'auth/invalid-email') {
+              } else if(code === 'auth/wrong-password') {
+              } else if(code === 'auth/user-not-found') {
+              } else if(code === 'auth/user-disabled') {
+              } else {
+                let uid = stores[0][1]
+                Native.setBatchId(authData.uid)
+                let renderContext = this
+                firebaseRef.child('users').child(uid).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
+              }
+            })
         })
       } else if (data[0][1] == 'facebook') {
         AsyncStorage.multiGet(['uid', 'OAuthToken'], (err, stores) => {
-          if(stores[1][1]) {
-            this.firebaseRef.authWithOAuthToken('facebook',stores[1][1], (error, authData) => {
-              if(error) {
-                Alert.alert('Error', JSON.stringify(error.code))
-                this.setState({loadingData: false})
-              } else {
+          let token = stores[1][1]
+          if(token) {
+            let credential = firebase.auth.FacebookAuthProvider.credential(token)
+            auth.signInWithCredential(credential)
+              .then( result => {
+                let { user } = result
                 let renderContext = this
-                Native.setBatchId(authData.uid)
-                OneSignal.configure({
-                  onIdsAvailable: function(device) {
-                      console.log('UserId = ', device.userId);
-                      console.log('PushToken = ', device.pushToken);
-                  renderContext.firebaseRef.child('users').child(stores[0][1]).update({pushToken: device.userId})
-                  let userDataClone = _.clone(renderContext.state.userData)
-                  userDataClone['pushToken'] = device.pushToken
-                  renderContext.setState({userData: userDataClone})
-                  }
-                })
+
+                Native.setBatchId(user.uid)
+                // OneSignal.configure({
+                //   onIdsAvailable: function(device) {
+                //       console.log('UserId = ', device.userId);
+                //       console.log('PushToken = ', device.pushToken);
+                //   renderContext.firebaseRef.child('users').child(stores[0][1]).update({pushToken: device.userId})
+                //   let userDataClone = _.clone(renderContext.state.userData)
+                //   userDataClone['pushToken'] = device.pushToken
+                //   renderContext.setState({userData: userDataClone})
+                //   }
+                // })
                 var uid = stores[0][1]
-                this.firebaseRef.child('users').child(stores[0][1]).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
-              }
-            })
+                firebaseRef.child('users').child(stores[0][1]).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
+              })
+              .catch( err => {
+                Alert.alert('Error', JSON.stringify(err))
+                this.setState({loadingData: false})
+              })
           } else {
             this.setState({loadingData: false})
           }
@@ -150,14 +169,14 @@ class FlipTrip extends Component {
   }
 
   _createUser(userData, successCallBack, errorCallBack) {
-    this.firebaseRef.createUser({
+    firebaseRef.createUser({
       email: userData.email,
       password: userData.password
     }, (error, data) => {
       if (error) {
         errorCallBack(error)
       } else {
-        this.firebaseRef.authWithPassword({
+        firebaseRef.authWithPassword({
           email: userData.email,
           password: userData.password
         }, (error, authData) => {
@@ -169,8 +188,8 @@ class FlipTrip extends Component {
             onBoardingStep: 'profile',
             uid: data.uid,
           }
-          this.firebaseRef.child('users').child(data.uid).on('value', (theData) => { this._syncUserData(theData.val(),data.uid) })
-          this.firebaseRef.child('users').child(data.uid).set(userDataToWrite)
+          firebaseRef.child('users').child(data.uid).on('value', (theData) => { this._syncUserData(theData.val(),data.uid) })
+          firebaseRef.child('users').child(data.uid).set(userDataToWrite)
           successCallBack()
         })
       }
@@ -178,7 +197,7 @@ class FlipTrip extends Component {
   }
 
   _validateFacebookInfo(successCallBack, errorCallBack) {
-    var firebaseRef = this.firebaseRef
+    var firebaseRef = firebaseRef
     var renderContext = this
     FBLoginManager.loginWithPermissions(["email", "public_profile", "user_hometown", "user_photos"],function(error, data) {
       if (!error) {
@@ -224,56 +243,56 @@ class FlipTrip extends Component {
   }
 
   _createUserFromFacebook(successCallBack, errorCallBack) {
-    var firebaseRef = this.firebaseRef
+    var firebaseRef = firebase.database().ref()
     var renderContext = this
     FBLoginManager.loginWithPermissions(["email", "public_profile", "user_location", "user_photos"],function(error, data) {
       if (!error) {
         Raven.captureMessage('Facebook login data:', {extra: data});
-        console.log("Login data: ", data);
-        firebaseRef.authWithOAuthToken('facebook', data.credentials.token, (error, authData) => {
-          if(error) {
-            Raven.captureMessage('Facebook login error', {extra: error});
-            errorCallBack(error)
-          } else {
-            console.log("Authenticated successfully with payload:", { extra: authData})
-            Raven.captureMessage('Facebook successfull authentication', { extra: authData});
-            Native.setBatchId(authData.uid)
-            AsyncStorage.multiSet([['uid', authData.uid],['authMethod', 'facebook']])
+        let credential = new firebase.auth.FacebookAuthProvider.credential(data.credentials.token)
+        firebase.auth().signInWithCredential(credential)
+          .then( result => {
+            let { user } = result
+
+            Native.setBatchId(user.uid)
+            AsyncStorage.multiSet([['uid', user.uid],['authMethod', 'facebook']])
             var email, gender
-            authData.facebook.email ? email = authData.facebook.email : email = ""
-            authData.facebook.cachedUserProfile.gender ? gender = authData.facebook.cachedUserProfile.gender : gender = ''
+            user.facebook.email ? email = user.facebook.email : email = ""
+            user.facebook.cachedUserProfile.gender ? gender = user.facebook.cachedUserProfile.gender : gender = ''
             if(gender !== 'female') {
               errorCallBack('Bungee girl is for girls only!')
               FBLoginManager.logout(() => {})
             } else {
               OneSignal.configure({
                 onIdsAvailable: function(device) {
-                    console.log('UserId = ', device.userId);
-                    console.log('PushToken = ', device.pushToken);
-                firebaseRef.child('users').child(authData.uid).update({pushToken: device.userId})
+                    // console.log('UserId = ', device.userId);
+                    // console.log('PushToken = ', device.pushToken);
+                firebaseRef.child('users').child(user.uid).update({pushToken: device.userId})
                 let userDataClone = _.clone(renderContext.state.userData)
                 userDataClone['pushToken'] = device.pushToken
                 renderContext.setState({userData: userDataClone})
                 }
               })
-              firebaseRef.child('users').child(authData.uid).once('value', (theData) => {
+              firebaseRef.child('users').child(user.uid).once('value', (theData) => {
                 var onBoardingStep
-                var location = authData.facebook.cachedUserProfile.location ? authData.facebook.cachedUserProfile.location.name : 'No location verified'
+                var location = user.facebook.cachedUserProfile.location ? user.facebook.cachedUserProfile.location.name : 'No location verified'
                 _.has(theData.val(), 'onBoardingStep') ? onBoardingStep = theData.val().onBoardingStep : onBoardingStep = 'profile'
-                firebaseRef.child('users').child(authData.uid).update({
-                  provider: authData.provider,
+                firebaseRef.child('users').child(user.uid).update({
+                  provider: user.provider,
                   email: email,
                   gender: gender,
                   onBoardingStep: onBoardingStep,
-                  uid: authData.uid,
+                  uid: user.uid,
                   facebookLocation: location
                 })
-                firebaseRef.child('users').child(authData.uid).on('value', (theData) => { renderContext._syncUserData(theData.val(),authData.uid) })
+                firebaseRef.child('users').child(user.uid).on('value', (theData) => { renderContext._syncUserData(theData.val(),user.uid) })
                 successCallBack(renderContext._routeForStep(onBoardingStep))
               })
             }
-          }
-        })
+          })
+          .catch( error => {
+            Raven.captureMessage('Facebook login error', {extra: error});
+            errorCallBack(error)
+          })
       } else {
         console.log("Error: ", data);
         Raven.captureMessage('Facebook complete login error:', { extra: data});
@@ -290,37 +309,37 @@ class FlipTrip extends Component {
       imageData[imageKey] = image.imageData
     })
     userDataToWrite['onBoardingStep'] = 'questions'
-    this.firebaseRef.child('users').child(this.state.uid).update(userDataToWrite)
-    this.firebaseRef.child('userImages').child(this.state.uid).update(imageData)
+    firebaseRef.child('users').child(this.state.uid).update(userDataToWrite)
+    firebaseRef.child('userImages').child(this.state.uid).update(imageData)
     successCallBack()
   }
 
   _editProfileName(name, successCallBack, errorCallBack) {
     let update = {name: name}
-    this.firebaseRef.child('users').child(this.state.uid).update(update)
-    this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update(update)
+    firebaseRef.child('users').child(this.state.uid).update(update)
+    firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update(update)
     successCallBack()
   }
 
   _editProfileBio(bio, successCallBack, errorCallBack) {
     let update = {bio: bio}
-    this.firebaseRef.child('users').child(this.state.uid).update(update)
-    this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update(update)
+    firebaseRef.child('users').child(this.state.uid).update(update)
+    firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update(update)
     successCallBack()
   }
 
   _editBirthdate(birthdate, successCallBack, errorCallBack) {
-    this.firebaseRef.child('users').child(this.state.uid).update(birthdate)
+    firebaseRef.child('users').child(this.state.uid).update(birthdate)
     successCallBack()
   }
 
   _editAvatar(image, successCallBack, errorCallBack) {
-    this.firebaseRef.child('users').child(this.state.uid).update({imageData: image})
+    firebaseRef.child('users').child(this.state.uid).update({imageData: image})
     successCallBack()
   }
 
   _updateTravelingTo(text) {
-    this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update({travelingTo: text})
+    firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update({travelingTo: text})
   }
 
   _editProfileImages(profileImages, successCallBack, errorCallBack) {
@@ -329,18 +348,18 @@ class FlipTrip extends Component {
       var imageKey = `image${index}`
       imageData[imageKey] = image.imageData
     })
-    this.firebaseRef.child('userImages').child(this.state.uid).update(imageData)
+    firebaseRef.child('userImages').child(this.state.uid).update(imageData)
     successCallBack()
   }
 
   _updateTravelProfile(travelIdent, successCallBack, reset) {
     if(reset) {
-      this.firebaseRef.child('users').child(this.state.uid).update({
+      firebaseRef.child('users').child(this.state.uid).update({
         travelType: travelIdent,
       })
-      this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update({travelType: travelIdent})
+      firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update({travelType: travelIdent})
     } else {
-      this.firebaseRef.child('users').child(this.state.uid).update({
+      firebaseRef.child('users').child(this.state.uid).update({
         onBoardingStep: 'citySelect',
         travelType: travelIdent,
       })
@@ -351,11 +370,11 @@ class FlipTrip extends Component {
   _updateSelectedCity(selectedCity, successCallBack) {
     if(this.state.userData.city) {
       let oldCity = this.state.userData.city
-      this.firebaseRef.child('cities').child(oldCity).child(this.state.uid).once('value', (userData) => {
-        this.firebaseRef.child('cities').child(oldCity).child(this.state.uid).remove()
-        this.firebaseRef.child('cities').child(selectedCity).child(this.state.uid).update(userData.val())
+      firebaseRef.child('cities').child(oldCity).child(this.state.uid).once('value', (userData) => {
+        firebaseRef.child('cities').child(oldCity).child(this.state.uid).remove()
+        firebaseRef.child('cities').child(selectedCity).child(this.state.uid).update(userData.val())
       })
-      this.firebaseRef.child('users').child(this.state.uid).update({city: selectedCity})
+      firebaseRef.child('users').child(this.state.uid).update({city: selectedCity})
     } else {
       var input = {
         uid: this.state.uid,
@@ -366,8 +385,8 @@ class FlipTrip extends Component {
       if(this.state.userData.pushToken) {
         input.pushToken = this.state.userData.pushToken
       }
-      this.firebaseRef.child('cities').child(selectedCity).child(this.state.uid).update(input)
-      this.firebaseRef.child('users').child(this.state.uid).update({
+      firebaseRef.child('cities').child(selectedCity).child(this.state.uid).update(input)
+      firebaseRef.child('users').child(this.state.uid).update({
         city: selectedCity,
         onBoardingStep: 'home'
       })
@@ -380,12 +399,12 @@ class FlipTrip extends Component {
     var timestamp = new Date().getTime()
     var timeVisited = {}
     timeVisited[`${selectedCity}`] = timestamp
-    this.firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update(timeVisited)
+    firebaseRef.child('cities').child(this.state.userData.city).child(this.state.uid).update(timeVisited)
     successCallBack()
   }
 
   _loginUser(userData, successCallBack, errorCallBack) {
-    this.firebaseRef.authWithPassword({
+    firebaseRef.authWithPassword({
       email: userData.email,
       password: userData.password
     }, (error, authData) => {
@@ -397,7 +416,7 @@ class FlipTrip extends Component {
       }
     })
     .then((data) => {
-      this.firebaseRef.child('users').child(data.uid).once('value', (theData) => {
+      firebaseRef.child('users').child(data.uid).once('value', (theData) => {
         this._syncUserData(theData.val(), data.uid)
         var onBoardingStep
         _.has(theData.val(), 'onBoardingStep') ? onBoardingStep = theData.val().onBoardingStep : onBoardingStep = 'profile'
@@ -407,15 +426,15 @@ class FlipTrip extends Component {
   }
   _syncUserData(userData, uid) {
     this.setState({userData: userData, loadingData: false, uid: uid})
-    this.state.userData.city && this.state.userData.pushToken && this.firebaseRef.child(`cities/${this.state.userData.city}`).child(uid).update({pushToken: this.state.userData.pushToken})
+    this.state.userData.city && this.state.userData.pushToken && firebaseRef.child(`cities/${this.state.userData.city}`).child(uid).update({pushToken: this.state.userData.pushToken})
 
   }
 
   _initiateMessage(uid) {
     // send push message
     console.log("attempting initiation")
-    this.firebaseRef.child('chats').child(this.state.uid).child(uid).update({ chatRequested: true, chatAccepted: false })
-    this.firebaseRef.child('chats').child(uid).child(this.state.uid).update({ chatRequested: true, chatAccepted: false })
+    firebaseRef.child('chats').child(this.state.uid).child(uid).update({ chatRequested: true, chatAccepted: false })
+    firebaseRef.child('chats').child(uid).child(this.state.uid).update({ chatRequested: true, chatAccepted: false })
   }
 
   _sendPushWithMessage(messageData) {
@@ -440,7 +459,7 @@ class FlipTrip extends Component {
           uid={this.state.uid}
           userData={this.state.userData}
           eventEmitter={this.eventEmitter}
-          firebaseRef={this.firebaseRef}
+          firebaseRef={firebaseRef}
           initialTab='profile'/>
       } else {
         initialRoute = this._routeForStep(onBoardingStep)
@@ -450,7 +469,6 @@ class FlipTrip extends Component {
           uid={this.state.uid}
           userData={this.state.userData}
           eventEmitter={this.eventEmitter}
-          firebaseRef={this.firebaseRef}
           initialRoute={initialRoute} />
       }
     }

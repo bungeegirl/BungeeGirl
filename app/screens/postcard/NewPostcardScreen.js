@@ -320,7 +320,7 @@ export default class NewPostcardScreen extends Component {
         if(trip[key] !== val)
           changed[key] = val
       })
-      this.trip.ref().update(changed).then( _ => {
+      this.trip.ref.update(changed).then( _ => {
         hideSpinner()
         this.props.navigator.pop()
       }).catch(hideSpinner)
