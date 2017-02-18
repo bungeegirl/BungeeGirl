@@ -14,8 +14,6 @@ import Lightbox from 'react-native-lightbox'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import _ from 'underscore'
 
-var deviceWidth = Dimensions.get('window').width
-
 class Postcard extends Component {
 
   constructor(props) {
@@ -90,9 +88,9 @@ class Postcard extends Component {
 
         <View style={styles.dateContainer}>
           <Text style={[styles.text, {
-            fontSize: 12
-          }]}>Travel Date</Text>
-          <Text style={[styles.text,{fontSize: 20, lineHeight: 20}]}>{this.state.date}</Text>
+            fontSize: 12,
+          }]}>Travel dates:</Text>
+          <Text style={[styles.text,{fontSize: 18, lineHeight: 18}]}>{this.state.date}</Text>
         </View>
 
         <TouchableOpacity
@@ -159,10 +157,10 @@ const styles = StyleSheet.create({
   },
   locationContainer: {
     position: 'absolute',
-    top: 20,
+    top: 18,
     left: 6,
-    width: 180,
-    height: 80,
+    width: width/1.8,
+    height: 90,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -175,7 +173,7 @@ const styles = StyleSheet.create({
   stampContainer: {
     position: 'absolute',
     top: 15,
-    right: 15
+    right: 5
   },
   stampBackground: {
     position: 'absolute',
@@ -195,15 +193,14 @@ const styles = StyleSheet.create({
   dateContainer: {
     position: 'absolute',
     bottom: 80,
-    right: 20,
+    right: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    width: 100,
-    height: 40
+    width: width/2.7,
   },
   detailsButton: {
     position: 'absolute',
-    right: 20,
+    right: width/20,
     bottom: 50,
     padding: 5,
     backgroundColor: '#507bc0',
@@ -211,10 +208,10 @@ const styles = StyleSheet.create({
   },
   descriptionWrapper: {
     position: 'absolute',
-    left: 14,
-    bottom: 11,
+    left: width/26,
+    bottom: 9,
     height: 100,
-    width: 170
+    width: width/1.9
   },
   descriptionText: {
     height: 100,
@@ -224,8 +221,8 @@ const styles = StyleSheet.create({
   },
   likeBtn: {
     position: 'absolute',
-    bottom: 20,
-    right: 40,
+    bottom: 12,
+    right: width/9,
     flexDirection: 'row',
     alignItems: 'center'
   },

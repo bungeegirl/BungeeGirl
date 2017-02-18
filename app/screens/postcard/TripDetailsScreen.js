@@ -88,13 +88,13 @@ export default class TripDetailsScreen extends Component {
             <View style={styles.row}>
               <View style={styles.rowHeader}>
                 <Icon
-                  style={[styles.icon, {left: 10}]}
+                  style={[styles.icon, {left: 10, color: '#36f'}]}
                   size={35}
                   name='info' />
                 <Text style={[styles.text, styles.headerText]}>About</Text>
               </View>
               <View style={styles.rowContent}>
-                <Text style={[styles.text]}>{this.state.description}</Text>
+                <Text style={[styles.text, styles.contentText]}>{this.state.description}</Text>
               </View>
             </View>
             <View style={styles.row}>
@@ -263,14 +263,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   headerText: {
-    fontSize: 20,
+    fontSize: 25,
+    textDecorationLine: 'underline'
   },
   rowContent: {
     flexDirection: 'row',
     justifyContent: 'center'
   },
   contentText: {
-    fontSize: 30
+    fontSize: 20,
+    width: Dimensions.get('window').width - 10
   },
   icon: {
     width: 35,
