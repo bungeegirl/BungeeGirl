@@ -55,8 +55,8 @@ export default class TripDetailsScreen extends Component {
   }
 
   render() {
-    let rightBtn
-    if(this.props.uid === this.trip.ref().parent().key())
+    let rightBtn, deleteBtn
+    if(this.props.uid === this.trip.ref().parent().key()) {
       rightBtn =
         <TouchableOpacity
           style={{margin: 10}}
@@ -65,6 +65,26 @@ export default class TripDetailsScreen extends Component {
             name='pencil-square-o'
             size={30}/>
         </TouchableOpacity>
+
+      deleteBtn =
+        <TouchableOpacity
+          style={{
+            flex:1,
+            flexDirection: 'row',
+            margin: 5,
+            padding: 5,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 5,
+            backgroundColor: '#f11'
+          }}
+          onPress={ _ => this._delete() }>
+          <Icon
+            name='trash'
+            size={30}/>
+          <Text>Delete</Text>
+        </TouchableOpacity>
+    }
 
     return (
       <ViewContainer
@@ -169,6 +189,8 @@ export default class TripDetailsScreen extends Component {
               </View>
             </View>
           </View>
+
+          {deleteBtn}
         </ScrollView>
       </ViewContainer>
     )
@@ -230,6 +252,15 @@ export default class TripDetailsScreen extends Component {
     this.props.navigator.push({
       ident: 'NewPostcardScreen',
       trip: this.trip,
+    })
+  }
+
+  _delete() {
+    if(this.props.uid !== this.trip.ref().parent().key()) return false
+
+    this.trip.ref().remove().then( err => {
+      if(!err)
+        this.props.navigator.pop()
     })
   }
 
