@@ -41,7 +41,7 @@ class CityBrowserScreen extends Component {
       let userData
       if(this.props.homeCity) {
         userData = _.chain(users.val())
-          .reject((user) => { return user.uid == this.props.uid})
+          // .reject((user) => { return user.uid == this.props.uid})
           .sortBy((user) => { return user[`${this.props.userData.city}`]})
           .sortBy((user) => { return _.has(user, this.props.userData.city)})
           .value()

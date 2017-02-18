@@ -38,9 +38,13 @@ Raven
 
 const Native = NativeModules.Native;
 
+let instance
 class FlipTrip extends Component {
+
   constructor(props) {
     super(props)
+    instance = this
+
     this.eventEmitter = new EventEmitter()
     this.firebaseRef = new Firebase('https://fliptrip-dev.firebaseio.com/')
     this.state = {
@@ -54,7 +58,6 @@ class FlipTrip extends Component {
 
   componentDidMount() {
     var firebaseRef = this.firebaseRef
-    var renderContext = this
     codePush.sync({updateDialog: true})
     // AsyncStorage.clear()
     //   FBLoginManager.logout(() => {})
@@ -69,33 +72,22 @@ class FlipTrip extends Component {
           }, (error, authData) => {
             var uid = stores[0][1]
             Native.setBatchId(authData.uid)
-            let renderContext = this
             this.firebaseRef.child('users').child(uid).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
-            console.log(authData)
           })
         })
       } else if (data[0][1] == 'facebook') {
         AsyncStorage.multiGet(['uid', 'OAuthToken'], (err, stores) => {
-          if(stores[1][1]) {
-            this.firebaseRef.authWithOAuthToken('facebook',stores[1][1], (error, authData) => {
+          let oAuthToken = stores[1][1]
+          if(oAuthToken) {
+            this.firebaseRef.authWithOAuthToken('facebook', oAuthToken, (error, authData) => {
               if(error) {
                 Alert.alert('Error', JSON.stringify(error.code))
                 this.setState({loadingData: false})
               } else {
-                let renderContext = this
-                Native.setBatchId(authData.uid)
-                OneSignal.configure({
-                  onIdsAvailable: function(device) {
-                      console.log('UserId = ', device.userId);
-                      console.log('PushToken = ', device.pushToken);
-                  renderContext.firebaseRef.child('users').child(stores[0][1]).update({pushToken: device.userId})
-                  let userDataClone = _.clone(renderContext.state.userData)
-                  userDataClone['pushToken'] = device.pushToken
-                  renderContext.setState({userData: userDataClone})
-                  }
-                })
-                var uid = stores[0][1]
-                this.firebaseRef.child('users').child(stores[0][1]).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
+                let uid = authData.uid
+                Native.setBatchId(uid)
+                this._configureNotifications(uid)
+                this.firebaseRef.child('users').child(uid).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
               }
             })
           } else {
@@ -105,7 +97,6 @@ class FlipTrip extends Component {
         })
       } else {
         this.setState({loadingData: false})
-        console.log("no user createed")
       }
     })
     this.eventEmitter.addListener('createUser',(userData, successCallBack, errorCallBack) => this._createUser(userData, successCallBack, errorCallBack))
@@ -126,7 +117,6 @@ class FlipTrip extends Component {
 
     this.eventEmitter.addListener('sendPushWithMessage', (messageData) => this._sendPushWithMessage(messageData))
     RCTDeviceEventEmitter.addListener(FBLoginManager.Events["Login"], (loginData) => {
-      console.log(loginData)
       AsyncStorage.multiSet([['OAuthToken', loginData.credentials.token]])
       // firebaseRef.authWithOAuthToken("facebook", loginData.credentials.token, function(error, authData) {
       //   if (error) {
@@ -146,6 +136,25 @@ class FlipTrip extends Component {
       //     })
       //   }
       // })
+    })
+  }
+
+  _configureNotifications(uid) {
+    OneSignal.configure({
+      onIdsAvailable: function(device) {
+        instance.firebaseRef.child('users').child(uid).update({pushToken: device.userId})
+        let userDataClone = _.clone(instance.state.userData)
+        userDataClone['pushToken'] = device.pushToken
+        instance.setState({userData: userDataClone})
+      },
+      onNotificationOpened: function(message, data, isActive) {
+        let receivedData = data.p2p_notification
+        if(receivedData) {
+          if(!isActive && receivedData.type === 'follow') {
+            instance.eventEmitter.emit('pushUserProfile', receivedData.userId)
+          }
+        }
+      }
     })
   }
 
@@ -179,16 +188,13 @@ class FlipTrip extends Component {
 
   _validateFacebookInfo(successCallBack, errorCallBack) {
     var firebaseRef = this.firebaseRef
-    var renderContext = this
     FBLoginManager.loginWithPermissions(["email", "public_profile", "user_hometown", "user_photos"],function(error, data) {
       if (!error) {
-        console.log("Login data: ", data);
         firebaseRef.authWithOAuthToken('facebook', data.credentials.token, (error, authData) => {
           if(error) {
             errorCallBack()
           } else {
             Native.setBatchId(authData.uid)
-            console.log("Authenticated successfully with payload:", authData)
             AsyncStorage.getItem('authMethod', (error, data) => {
               if(data == 'email') {
                 AsyncStorage.multiGet(['uid', 'email', 'password'], (err, stores) => {
@@ -196,18 +202,16 @@ class FlipTrip extends Component {
                     email: stores[1][1],
                     password: stores[2][1]
                   }, (error, authData2) => {
-                    console.log("reauthenticated with email", authData)
                     if(authData.facebook.cachedUserProfile.gender) {
-                      firebaseRef.child('users').child(renderContext.state.uid).update({
+                      firebaseRef.child('users').child(instance.state.uid).update({
                         gender: authData.facebook.cachedUserProfile.gender
                       })
                     }
-                    console.log(authData)
                   })
                 })
               } else if (data == 'facebook') {
                 if(authData.facebook.cachedUserProfile.gender) {
-                  firebaseRef.child('users').child(renderContext.state.uid).update({
+                  firebaseRef.child('users').child(instance.state.uid).update({
                     gender: authData.facebook.cachedUserProfile.gender
                   })
                 }
@@ -217,7 +221,6 @@ class FlipTrip extends Component {
           }
         })
       } else {
-        console.log("Error: ", data);
         errorCallBack()
       }
     })
@@ -225,17 +228,14 @@ class FlipTrip extends Component {
 
   _createUserFromFacebook(successCallBack, errorCallBack) {
     var firebaseRef = this.firebaseRef
-    var renderContext = this
     FBLoginManager.loginWithPermissions(["email", "public_profile", "user_location", "user_photos"],function(error, data) {
       if (!error) {
         Raven.captureMessage('Facebook login data:', {extra: data});
-        console.log("Login data: ", data);
         firebaseRef.authWithOAuthToken('facebook', data.credentials.token, (error, authData) => {
           if(error) {
             Raven.captureMessage('Facebook login error', {extra: error});
             errorCallBack(error)
           } else {
-            console.log("Authenticated successfully with payload:", { extra: authData})
             Raven.captureMessage('Facebook successfull authentication', { extra: authData});
             Native.setBatchId(authData.uid)
             AsyncStorage.multiSet([['uid', authData.uid],['authMethod', 'facebook']])
@@ -246,16 +246,7 @@ class FlipTrip extends Component {
               errorCallBack('Bungee girl is for girls only!')
               FBLoginManager.logout(() => {})
             } else {
-              OneSignal.configure({
-                onIdsAvailable: function(device) {
-                    console.log('UserId = ', device.userId);
-                    console.log('PushToken = ', device.pushToken);
-                firebaseRef.child('users').child(authData.uid).update({pushToken: device.userId})
-                let userDataClone = _.clone(renderContext.state.userData)
-                userDataClone['pushToken'] = device.pushToken
-                renderContext.setState({userData: userDataClone})
-                }
-              })
+              instance._configureNotifications(authData.uid)
               firebaseRef.child('users').child(authData.uid).once('value', (theData) => {
                 var onBoardingStep
                 var location = authData.facebook.cachedUserProfile.location ? authData.facebook.cachedUserProfile.location.name : 'No location verified'
@@ -268,14 +259,13 @@ class FlipTrip extends Component {
                   uid: authData.uid,
                   facebookLocation: location
                 })
-                firebaseRef.child('users').child(authData.uid).on('value', (theData) => { renderContext._syncUserData(theData.val(),authData.uid) })
-                successCallBack(renderContext._routeForStep(onBoardingStep))
+                firebaseRef.child('users').child(authData.uid).on('value', (theData) => { instance._syncUserData(theData.val(),authData.uid) })
+                successCallBack(instance._routeForStep(onBoardingStep))
               })
             }
           }
         })
       } else {
-        console.log("Error: ", data);
         Raven.captureMessage('Facebook complete login error:', { extra: data});
         errorCallBack(data)
       }
@@ -413,7 +403,6 @@ class FlipTrip extends Component {
 
   _initiateMessage(uid) {
     // send push message
-    console.log("attempting initiation")
     this.firebaseRef.child('chats').child(this.state.uid).child(uid).update({ chatRequested: true, chatAccepted: false })
     this.firebaseRef.child('chats').child(uid).child(this.state.uid).update({ chatRequested: true, chatAccepted: false })
   }

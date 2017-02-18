@@ -22,13 +22,15 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import Icon from 'react-native-vector-icons/Ionicons'
 import _ from 'underscore'
 import moment from 'moment'
+import OneSignal from 'react-native-onesignal'
 
 export default class PostcardScreen extends Component {
 
   constructor(props) {
     super(props)
 
-    this.isOwner = this.props.userData.uid === this.props.userDisplayData.uid
+    this.displayUser = this.props.userDisplayData
+    this.isOwner = this.props.userData.uid === this.displayUser.uid
 
     this.state = {
       loadingData: true,
@@ -40,14 +42,14 @@ export default class PostcardScreen extends Component {
   }
 
   componentDidMount() {
-    this.followersRef = this.props.firebaseRef.child(`users-followers/${this.props.userDisplayData.uid}`)
+    this.followersRef = this.props.firebaseRef.child(`users-followers/${this.displayUser.uid}`)
     this.followersRef.on('value', snap => {
       this.setState({
         followers: snap.numChildren(),
         following: snap.child(this.props.uid).exists()
       })
     })
-    this.tripsRef = this.props.firebaseRef.child(`trips/${this.props.userDisplayData.uid}`)
+    this.tripsRef = this.props.firebaseRef.child(`trips/${this.displayUser.uid}`)
     this.tripsRef.on('value', snap => {
       let trips = []
       snap.forEach( trip => {
@@ -70,7 +72,7 @@ export default class PostcardScreen extends Component {
     let title, leftBtn, rightBtn, createPostcardBtn
 
     title = (this.isOwner) ?
-      'My Postcards' : `${this.props.userDisplayData.name}'s Postcards`
+      'My Postcards' : `${this.displayUser.name}'s Postcards`
 
     if(this.isOwner) {
       createPostcardBtn =
@@ -114,7 +116,7 @@ export default class PostcardScreen extends Component {
 
         <View style={styles.header}>
           <Image
-            source={{uri: `data:image/jpeg;base64, ${this.props.userDisplayData.imageData}`}}
+            source={{uri: `data:image/jpeg;base64, ${this.displayUser.imageData}`}}
             style={styles.avatarImage}/>
           <Text style={[styles.text, {margin: 10}]}>{`(${this.state.trips})\nTrips`}</Text>
           <Text style={[styles.text, {margin: 10}]}>{`(${this.state.followers})\nFollowers`}</Text>
@@ -133,8 +135,16 @@ export default class PostcardScreen extends Component {
 
   _follow() {
     let val = this.state.following ? null : true
-    this.props.firebaseRef.child(`users-followers/${this.props.userDisplayData.uid}/${this.props.uid}`).set(val).then( _ => {
-      // successfull follow
+    this.props.firebaseRef.child(`users-followers/${this.displayUser.uid}/${this.props.uid}`).set(val).then( _ => {
+      if(val) {
+        const contents = {
+            'en': `${this.props.userData.name} has started following you!`
+        }
+        OneSignal.postNotification(contents, {
+          type: 'follow',
+          userId: this.props.uid
+        }, this.displayUser.pushToken)
+      }
     })
   }
 

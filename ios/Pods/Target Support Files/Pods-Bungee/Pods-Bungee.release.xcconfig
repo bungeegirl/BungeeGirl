@@ -1,9 +1,9 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Batch/Batch.embeddedframework" "${PODS_ROOT}/OneSignal/iOS_SDK/Framework"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Batch/Batch.embeddedframework"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Batch" "${PODS_ROOT}/Headers/Public/OneSignal"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Batch" -isystem "${PODS_ROOT}/Headers/Public/OneSignal"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"sqlite3" -framework "Accelerate" -framework "Batch" -framework "CoreGraphics" -framework "CoreTelephony" -framework "CoreText" -framework "Foundation" -framework "OneSignal" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Batch"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Batch"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"sqlite3" -framework "Accelerate" -framework "Batch" -framework "CoreGraphics" -framework "CoreTelephony" -framework "CoreText" -framework "Foundation" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}/Pods

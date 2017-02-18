@@ -24,6 +24,7 @@ import cityData from '../local_data/cityData'
 import NavigationBar from 'react-native-navbar'
 
 class UserProfileScreen extends Component {
+
   render() {
     var city = _.findWhere(cityData, {ident: this.props.userDisplayData.city})
     var title = <Text style={[styles.titleText, {marginBottom: 4, color: Colors.darkGrey}]}>{`${this.props.userDisplayData.name} from ${city.name}`}</Text>
@@ -68,12 +69,12 @@ class UserProfileScreen extends Component {
   }
 
   _message() {
-    this.props.eventEmitter.emit("initiateMessage", this.props.uidToRender)
+    this.props.eventEmitter.emit("initiateMessage", this.props.userDisplayData.uid)
     this.props.navigator.push({
       ident: "ChatScreen",
       userName: this.props.userDisplayData.name,
       otherUserImage: this.props.userDisplayData.imageData,
-      userUid: this.props.uidToRender,
+      userUid: this.props.userDisplayData.uid,
       userPushToken: this.props.userDisplayData.pushToken
     })
   }

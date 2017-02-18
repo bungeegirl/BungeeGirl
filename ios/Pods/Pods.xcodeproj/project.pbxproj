@@ -14,39 +14,38 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		061262A2FDB2F1FC5168085D23D66862 /* BatchOffer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchOffer.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchOffer.h; sourceTree = "<group>"; };
 		06B5FB7D2C0AD7B01F11FFA26EECB3A3 /* Pods-BungeeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BungeeTests.release.xcconfig"; sourceTree = "<group>"; };
-		0741501AA1FE1FC6CA177DD05B56F3C2 /* BatchPush.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchPush.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchPush.h; sourceTree = "<group>"; };
+		0A19DDB10AF64044674ED280DE01FA98 /* BatchPush.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchPush.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchPush.h; sourceTree = "<group>"; };
 		0A97298B623CE3B41F7CAC830EBC436B /* Pods-Bungee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Bungee.debug.xcconfig"; sourceTree = "<group>"; };
+		10F562DA2205BD07EEFBAA6C4CAEC0CE /* Batch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Batch.framework; path = Batch.embeddedframework/Batch.framework; sourceTree = "<group>"; };
+		13FD82BF4FCD5DC4340222A314908991 /* BatchOffer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchOffer.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchOffer.h; sourceTree = "<group>"; };
+		1BE36A41A13CDC9944AFEB80008FA7E9 /* Batch.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = Batch.bundle; path = Batch.embeddedframework/Batch.bundle; sourceTree = "<group>"; };
+		1E91D2176C253134E5C5F1B8AF443307 /* BatchLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchLogger.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchLogger.h; sourceTree = "<group>"; };
 		215D15D327001AB5532707790A8B1C5E /* Pods-BungeeTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BungeeTests-dummy.m"; sourceTree = "<group>"; };
 		25897BB9F371B36DBF1EE1B5CB5361CA /* Pods-BungeeTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BungeeTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		260715E0E9DBE0D7AB6DB3CC10366551 /* BatchUnlock.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchUnlock.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchUnlock.h; sourceTree = "<group>"; };
 		37E7A8B8D625589519D1BC26FF406465 /* Pods-Bungee-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Bungee-frameworks.sh"; sourceTree = "<group>"; };
-		38616F396107322298C12DB4C6BB54B9 /* Batch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Batch.h; path = Batch.embeddedframework/Batch.framework/Headers/Batch.h; sourceTree = "<group>"; };
 		3B3C78DB83DAC8384BB4DFC8BB264CBC /* libPods-BungeeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-BungeeTests.a"; path = "libPods-BungeeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E78FE0CB92ED46DE238D0B34FDB6E9B /* libPods-Bungee.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Bungee.a"; path = "libPods-Bungee.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5565F0AE6C6FCAA1F4F43D71A8CF1833 /* Batch.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = Batch.bundle; path = Batch.embeddedframework/Batch.bundle; sourceTree = "<group>"; };
 		56F741A735B8FD860C250F6AEEB4A070 /* Pods-Bungee-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Bungee-acknowledgements.plist"; sourceTree = "<group>"; };
+		5F014B4CA7771B56042BF90C3C2484D9 /* BatchAdsDeprecated.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchAdsDeprecated.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchAdsDeprecated.h; sourceTree = "<group>"; };
+		605033696F1073A5BD11546217927898 /* BatchCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchCore.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchCore.h; sourceTree = "<group>"; };
 		6483EB4B54EF8529E3E72CBF6AF12375 /* Pods-Bungee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Bungee.release.xcconfig"; sourceTree = "<group>"; };
-		766C35894F3890FCE2533CC9F55F36D8 /* OneSignal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OneSignal.framework; path = iOS_SDK/Framework/OneSignal.framework; sourceTree = "<group>"; };
 		80A5B9890CC5F657D49FFC7E2769380E /* Pods-Bungee-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Bungee-resources.sh"; sourceTree = "<group>"; };
 		8B200F4F0039E51ABAEF43E5FE54A691 /* Pods-Bungee-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Bungee-dummy.m"; sourceTree = "<group>"; };
 		8BB68911006B6517457C38567A69A661 /* Pods-BungeeTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BungeeTests-frameworks.sh"; sourceTree = "<group>"; };
-		90042645CA1F1DED999A216C3C72CEFE /* Batch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Batch.framework; path = Batch.embeddedframework/Batch.framework; sourceTree = "<group>"; };
+		91A4CBEC27D2AAE24F2BC29B588E60E8 /* BatchUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchUser.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchUser.h; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9DBBC20DE5DDA689038EEDEE75C3E05A /* BatchUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchUser.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchUser.h; sourceTree = "<group>"; };
-		9F294576295F83523DF36E67456AF4B9 /* BatchLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchLogger.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchLogger.h; sourceTree = "<group>"; };
+		9E18B5094AD30BB9111EBA80731C55DB /* Batch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Batch.h; path = Batch.embeddedframework/Batch.framework/Headers/Batch.h; sourceTree = "<group>"; };
+		A65F6280F9B4953F8502DC8D4BCD49CE /* BatchNativeAd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchNativeAd.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchNativeAd.h; sourceTree = "<group>"; };
 		A840F2B46B0FDF3CB8B979063428B788 /* Pods-BungeeTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BungeeTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		CAA23A08F587E23BD7BCFBEA7293B4BF /* BatchCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchCore.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchCore.h; sourceTree = "<group>"; };
+		BD226DE945A54187323CBA72FEE5F62C /* BatchAds.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchAds.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchAds.h; sourceTree = "<group>"; };
 		CABBB84FAC75AD3156314EDDE4588D60 /* Pods-BungeeTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BungeeTests-resources.sh"; sourceTree = "<group>"; };
 		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		CCCBED52429C6CDF5CA3C8E943DD3EB5 /* BatchError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchError.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchError.h; sourceTree = "<group>"; };
-		D5FCD88D38509C2F07B3E09C25633BA3 /* BatchAds.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchAds.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchAds.h; sourceTree = "<group>"; };
+		DF1B2D5659A3AD5586C2D6BA46A401B7 /* BatchUnlock.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchUnlock.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchUnlock.h; sourceTree = "<group>"; };
+		E3144CCC1636FF8FDF14B41EE95EB52D /* BatchError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchError.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchError.h; sourceTree = "<group>"; };
 		E6A728A96B9736EC776246FCF588C096 /* Pods-BungeeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BungeeTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E87F2B57D4F5A85987855569BEFAE7D3 /* BatchAdsDeprecated.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchAdsDeprecated.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchAdsDeprecated.h; sourceTree = "<group>"; };
-		F4FB62154F758613A1144037AEAF7E79 /* BatchNativeAd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchNativeAd.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchNativeAd.h; sourceTree = "<group>"; };
+		F285971AC209D6CC3971DB586238108A /* BatchUserProfile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchUserProfile.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchUserProfile.h; sourceTree = "<group>"; };
 		FADE4D19988C839123292830A80D69F8 /* Pods-Bungee-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Bungee-acknowledgements.markdown"; sourceTree = "<group>"; };
-		FE48EC48503074D222B586ACA0338DBA /* BatchUserProfile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BatchUserProfile.h; path = Batch.embeddedframework/Batch.framework/Headers/BatchUserProfile.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,43 +77,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0D41C9943F75E98122CA61A7B7FEBD88 /* Resources */ = {
+		4A49F0FDFF6024F43FDCD0DF46D9C503 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5565F0AE6C6FCAA1F4F43D71A8CF1833 /* Batch.bundle */,
+				10F562DA2205BD07EEFBAA6C4CAEC0CE /* Batch.framework */,
 			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		337E6990FFE44693A62DAAADD4A48074 /* OneSignal */ = {
-			isa = PBXGroup;
-			children = (
-				79311C49CDC32B7E157A8933ABE5B361 /* Frameworks */,
-			);
-			name = OneSignal;
-			path = OneSignal;
-			sourceTree = "<group>";
-		};
-		45F78B7D468F2F5501090CCC2EE82876 /* Batch */ = {
-			isa = PBXGroup;
-			children = (
-				38616F396107322298C12DB4C6BB54B9 /* Batch.h */,
-				D5FCD88D38509C2F07B3E09C25633BA3 /* BatchAds.h */,
-				E87F2B57D4F5A85987855569BEFAE7D3 /* BatchAdsDeprecated.h */,
-				CAA23A08F587E23BD7BCFBEA7293B4BF /* BatchCore.h */,
-				CCCBED52429C6CDF5CA3C8E943DD3EB5 /* BatchError.h */,
-				9F294576295F83523DF36E67456AF4B9 /* BatchLogger.h */,
-				F4FB62154F758613A1144037AEAF7E79 /* BatchNativeAd.h */,
-				061262A2FDB2F1FC5168085D23D66862 /* BatchOffer.h */,
-				0741501AA1FE1FC6CA177DD05B56F3C2 /* BatchPush.h */,
-				260715E0E9DBE0D7AB6DB3CC10366551 /* BatchUnlock.h */,
-				9DBBC20DE5DDA689038EEDEE75C3E05A /* BatchUser.h */,
-				FE48EC48503074D222B586ACA0338DBA /* BatchUserProfile.h */,
-				838CA34D5EEA3012BA5F06451006F8A2 /* Frameworks */,
-				0D41C9943F75E98122CA61A7B7FEBD88 /* Resources */,
-			);
-			name = Batch;
-			path = Batch;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		5B998C80FF8B6EA557F104650A1ED148 /* Pods-Bungee */ = {
@@ -140,31 +108,15 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		79311C49CDC32B7E157A8933ABE5B361 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				766C35894F3890FCE2533CC9F55F36D8 /* OneSignal.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				B356CF43AB4F2D2E3EC63967CEED5470 /* Pods */,
+				A23BCD218151199736C8FA2F36DF9CA6 /* Pods */,
 				0778D2AC72B40AF7FD48046994483D7E /* Products */,
 				8ED2B5CFC9AD0DA4C91D5775D5364E32 /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		838CA34D5EEA3012BA5F06451006F8A2 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				90042645CA1F1DED999A216C3C72CEFE /* Batch.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		8DB3612F211202C80D10A0B889192A08 /* Pods-BungeeTests */ = {
@@ -191,11 +143,18 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		B356CF43AB4F2D2E3EC63967CEED5470 /* Pods */ = {
+		9081BF9C84E5531ED8CD939279FF12AD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				45F78B7D468F2F5501090CCC2EE82876 /* Batch */,
-				337E6990FFE44693A62DAAADD4A48074 /* OneSignal */,
+				1BE36A41A13CDC9944AFEB80008FA7E9 /* Batch.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		A23BCD218151199736C8FA2F36DF9CA6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E6D4D6395E21B35300750F628DD6E16E /* Batch */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -206,6 +165,28 @@
 				7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E6D4D6395E21B35300750F628DD6E16E /* Batch */ = {
+			isa = PBXGroup;
+			children = (
+				9E18B5094AD30BB9111EBA80731C55DB /* Batch.h */,
+				BD226DE945A54187323CBA72FEE5F62C /* BatchAds.h */,
+				5F014B4CA7771B56042BF90C3C2484D9 /* BatchAdsDeprecated.h */,
+				605033696F1073A5BD11546217927898 /* BatchCore.h */,
+				E3144CCC1636FF8FDF14B41EE95EB52D /* BatchError.h */,
+				1E91D2176C253134E5C5F1B8AF443307 /* BatchLogger.h */,
+				A65F6280F9B4953F8502DC8D4BCD49CE /* BatchNativeAd.h */,
+				13FD82BF4FCD5DC4340222A314908991 /* BatchOffer.h */,
+				0A19DDB10AF64044674ED280DE01FA98 /* BatchPush.h */,
+				DF1B2D5659A3AD5586C2D6BA46A401B7 /* BatchUnlock.h */,
+				91A4CBEC27D2AAE24F2BC29B588E60E8 /* BatchUser.h */,
+				F285971AC209D6CC3971DB586238108A /* BatchUserProfile.h */,
+				4A49F0FDFF6024F43FDCD0DF46D9C503 /* Frameworks */,
+				9081BF9C84E5531ED8CD939279FF12AD /* Resources */,
+			);
+			name = Batch;
+			path = Batch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

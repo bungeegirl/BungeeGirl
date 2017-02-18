@@ -22,6 +22,17 @@ class RootTabs extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.eventEmitter.addListener('pushUserProfile', userId => {
+      this.props.firebaseRef.child(`users/${userId}`).once('value', snap => {
+        this.refs[`${this.state.selectedTab}Navigator`].getNavigator().push({
+          ident: 'UserProfileScreen',
+          userDisplayData: snap.val()
+        })
+      })
+    })
+  }
+
   render() {
     var globalScreenProps = {
       uid: this.props.uid,
@@ -101,6 +112,7 @@ class RootTabs extends Component {
         renderSelectedIcon={() => profileIconSelected}
         onPress={() => this.setState({ selectedTab: 'profile' })}>
         <AppNavigator
+          ref='profileNavigator'
           {...globalScreenProps}
           initialRoute={{
             ident: 'HomeScreen'
@@ -113,6 +125,7 @@ class RootTabs extends Component {
         renderSelectedIcon={() => travelIconSelected}
         onPress={() => this.setState({ selectedTab: 'travel' })}>
         <AppNavigator
+          ref='travelNavigator'
           {...globalScreenProps}
           initialRoute={{
             ident: 'ExperienceScreen'
@@ -124,6 +137,7 @@ class RootTabs extends Component {
         renderSelectedIcon={() => chatIconSelected}
         onPress={() => this.setState({ selectedTab: 'chat' })}>
         <AppNavigator
+          ref='chatNavigator'
           {...globalScreenProps}
           initialRoute={{
             ident: 'ChatListScreen'
@@ -135,6 +149,7 @@ class RootTabs extends Component {
         renderSelectedIcon={() => postcardIconSelected}
         onPress={() => this.setState({ selectedTab: 'postcard' })}>
         <AppNavigator
+          ref='postcardNavigator'
           {...globalScreenProps}
           initialRoute={{
             ident: 'PostcardScreen',
