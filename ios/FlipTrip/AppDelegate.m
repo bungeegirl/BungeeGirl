@@ -48,11 +48,10 @@
   #ifdef DEBUG
 //  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 //    jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
-  jsCodeLocation = [NSURL URLWithString:@"http://192.168.0.12:8081/index.ios.bundle?platform=ios&dev=true"];
+    jsCodeLocation = [NSURL URLWithString:@"http://192.168.0.12:8081/index.ios.bundle?platform=ios&dev=true"];
 
   #else
-  //    jsCodeLocation = [CodePush bundleURL];
-    jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+    jsCodeLocation = [CodePush bundleURL];
 
     //instabug
     [Instabug startWithToken:@"2b24356f56a8bc6e24ef2895bf7f3ea5" invocationEvent:IBGInvocationEventShake];

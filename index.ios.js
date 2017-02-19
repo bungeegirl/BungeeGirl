@@ -16,7 +16,9 @@ import React, {
   AsyncStorage,
 } from 'react-native'
 
-import codePush from "react-native-code-push"
+import codePush, {
+  InstallMode
+} from "react-native-code-push"
 import AppNavigator from './app/navigation/AppNavigator'
 import { NativeModules } from 'react-native';
 import RootTabs from './app/navigation/RootTabs'
@@ -58,7 +60,10 @@ class FlipTrip extends Component {
 
   componentDidMount() {
     var firebaseRef = this.firebaseRef
-    codePush.sync({updateDialog: true})
+    codePush.sync({
+      updateDialog: true,
+      installMode: InstallMode.IMMEDIATE
+    })
     // AsyncStorage.clear()
     //   FBLoginManager.logout(() => {})
 
