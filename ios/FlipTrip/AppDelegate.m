@@ -74,7 +74,8 @@
   // onesignal
 
   self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
-                                                         appId:@"ee39b3fd-581b-4c8c-bf57-548f625b3ded"];
+                                                         appId:@"ee39b3fd-581b-4c8c-bf57-548f625b3ded"
+                                                      settings:@{kOSSettingsKeyInFocusDisplayOption : @(OSNotificationDisplayTypeNone), kOSSettingsKeyAutoPrompt : @YES}];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];

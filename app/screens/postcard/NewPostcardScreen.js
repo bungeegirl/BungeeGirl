@@ -28,6 +28,10 @@ import {
   Hoshi
 } from 'react-native-textinput-effects'
 
+import {
+  SERVER_URL
+} from '../../utils/constants'
+
 export default class NewPostcardScreen extends Component {
 
   constructor(props) {
@@ -326,8 +330,19 @@ export default class NewPostcardScreen extends Component {
       }).catch(hideSpinner)
     } else {
       this.props.firebaseRef.child(`trips/${this.props.uid}`).push(validProps).then( _ => {
-        hideSpinner()
-        this.props.navigator.pop()
+        fetch(`${SERVER_URL}/notification/followers/${this.props.uid}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `${this.props.userData.name} has added a new postcard!`,
+            type: 'new postcard'
+          })
+        }).then( response => {
+          hideSpinner()
+          this.props.navigator.pop()
+        })
       })
     }
   }

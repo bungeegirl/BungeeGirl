@@ -31,6 +31,10 @@ import Spinner from 'react-native-loading-spinner-overlay';
 var Raven = require('raven-js');
 require('raven-js/plugins/react-native')(Raven);
 import OneSignal from 'react-native-onesignal';
+import {
+  MessageBar,
+  MessageBarManager
+} from 'react-native-message-bar'
 
 var { FBLoginManager } = require('react-native-facebook-login')
 
@@ -66,6 +70,8 @@ class FlipTrip extends Component {
     })
     // AsyncStorage.clear()
     //   FBLoginManager.logout(() => {})
+
+    MessageBarManager.registerMessageBar(this.refs.alert)
 
     AsyncStorage.multiGet(['authMethod','onBoardingScreen'], (error, data) => {
       this.setState({sawOnBoardingScreen: data[1][1]})
@@ -144,21 +150,52 @@ class FlipTrip extends Component {
     })
   }
 
+  componentWillUnmount() {
+    MessageBarManager.unregisterMessageBar()
+  }
+
   _configureNotifications(uid) {
-    OneSignal.configure({
-      onIdsAvailable: function(device) {
-        instance.firebaseRef.child('users').child(uid).update({pushToken: device.userId})
-        let userDataClone = _.clone(instance.state.userData)
-        userDataClone['pushToken'] = device.pushToken
-        instance.setState({userData: userDataClone})
-      },
-      onNotificationOpened: function(message, data, isActive) {
-        let receivedData = data.p2p_notification
-        if(receivedData) {
-          if(!isActive && receivedData.type === 'follow') {
-            instance.eventEmitter.emit('pushUserProfile', receivedData.userId)
+    OneSignal.addEventListener('ids', (device) => {
+      instance.firebaseRef.child('users').child(uid).update({pushToken: device.userId})
+      let userDataClone = _.clone(instance.state.userData)
+      userDataClone['pushToken'] = device.pushToken
+      instance.setState({userData: userDataClone})
+    })
+    OneSignal.addEventListener('received', (notification) => {
+      console.log(notification)
+    })
+    OneSignal.addEventListener('opened', (result) => {
+      let {
+        isAppInFocus,
+        payload: {
+          body,
+          additionalData: {
+            type,
+            userId
           }
         }
+      } = result.notification
+
+      if(type === 'follow') {
+        instance.firebaseRef.child(`users/${userId}`).once('value', snap => {
+          instance.eventEmitter.emit('pushRoute', {
+            ident: 'UserProfileScreen',
+            userDisplayData: snap.val()
+          })
+        })
+      } else if(type == 'new postcard') {
+        MessageBarManager.showAlert({
+          title: 'New Postcard',
+          message: body,
+          onTapped: _ => {
+            instance.firebaseRef.child(`users/${userId}`).once('value', snap => {
+              instance.eventEmitter.emit('pushRoute', {
+                ident: 'PostcardScreen',
+                userDisplayData: snap.val()
+              })
+            })
+          }
+        })
       }
     })
   }
@@ -448,7 +485,12 @@ class FlipTrip extends Component {
           initialRoute={initialRoute} />
       }
     }
-    return mainContent
+    return (
+      <View style={{flex: 1}}>
+        {mainContent}
+        <MessageBar ref='alert' />
+      </View>
+    )
   }
 
   _routeForStep(onBoardingStep) {

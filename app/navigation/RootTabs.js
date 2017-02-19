@@ -23,13 +23,8 @@ class RootTabs extends Component {
   }
 
   componentDidMount() {
-    this.props.eventEmitter.addListener('pushUserProfile', userId => {
-      this.props.firebaseRef.child(`users/${userId}`).once('value', snap => {
-        this.refs[`${this.state.selectedTab}Navigator`].getNavigator().push({
-          ident: 'UserProfileScreen',
-          userDisplayData: snap.val()
-        })
-      })
+    this.props.eventEmitter.addListener('pushRoute', route => {
+      this.refs[`${this.state.selectedTab}Navigator`].getNavigator().push(route)
     })
   }
 
