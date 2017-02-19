@@ -268,6 +268,7 @@ class HomeScreen extends Component {
         content =
         <ProfileImagePicker
           excludeIntro={true}
+          navigator={this.props.navigator}
           year={this.props.userData.year}
           month={this.props.userData.month}
           days={this.props.userData.day}
