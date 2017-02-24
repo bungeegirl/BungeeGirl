@@ -23,7 +23,6 @@ class Postcard extends Component {
     this.state = {
       liked: false,
       likes: 0,
-      images: [],
       ...props.trip.val()
     }
   }
@@ -77,12 +76,12 @@ class Postcard extends Component {
                     width: Dimensions.get('window').width,
                     height: Dimensions.get('window').height
                   }}
-                  source={{uri: `data:image/jpeg;base64, ${this.state.images[0]}`}} />
+                  source={{uri: `data:image/jpeg;base64, ${this.state.image0}`}} />
               )
             }}>
             <Image
               style={styles.stampImage}
-              source={{uri: `data:image/jpeg;base64, ${this.state.images[0]}`}} />
+              source={{uri: `data:image/jpeg;base64, ${this.state.image0}`}} />
           </Lightbox>
         </View>
 

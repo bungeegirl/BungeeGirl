@@ -205,8 +205,8 @@ export default class TripDetailsScreen extends Component {
   }
   _buildImages() {
     let images = []
-    for(let i = 0; i < this.state.images.length; i++) {
-      let imageData = this.state.images[i]
+    for(let i = 0; i < 4; i++) {
+      let imageData = this.state[`image${i}`]
       if(imageData)
         images.push(
           <Lightbox

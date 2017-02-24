@@ -23,6 +23,10 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import MIcon from 'react-native-vector-icons/MaterialIcons'
 import _ from 'lodash'
 import moment from 'moment'
+// import ImageResizer from 'react-native-image-resizer'
+import {
+  Buffer
+} from 'buffer'
 
 import {
   Hoshi
@@ -48,7 +52,6 @@ export default class NewPostcardScreen extends Component {
       savingData: false,
       userId: props.uid,
       name: props.userData.name,
-      images: [],
       foods: [],
       activities: [],
       events: [],
@@ -243,10 +246,12 @@ export default class NewPostcardScreen extends Component {
 
   _buildImages() {
     let cameraImage = require('../../assets/camera.png')
-    return this._buildItems('images', i => {
-      let image = this.state.images[i] ? {uri: `data:image/jpeg;base64, ${this.state.images[i]}`} : cameraImage
-      return (
+    let images = []
+    for(let i = 0; i < 4; i++) {
+      let image = this.state[`image${i}`] ? {uri: `data:image/jpeg;base64, ${this.state['image'+i]}`} : cameraImage
+      images.push(
         <TouchableOpacity
+          key={`image-${i}`}
           style={{
             justifyContent: 'center',
             alignSelf: 'center',
@@ -265,16 +270,29 @@ export default class NewPostcardScreen extends Component {
             source={image} />
         </TouchableOpacity>
       )
-    })
+    }
+    return images
   }
   _selectImage(i) {
     this.props.navigator.push({
       ident: 'CameraImagePicker',
       onBack: _ => this.props.navigator.pop(),
       onFinishLoad: data => {
-        let arr = this.state.images
-        arr.splice(i,1,data)
-        this.setState({images: arr})
+        // ImageResizer.createResizedImage(`data:image/jpeg;base64, ${this.state['image'+i]}`, 800, 600, 'JPEG', 65).then((resizedImageUri) => {
+        //   console.log(resizeImageUri)
+        //   // resizeImageUri is the URI of the new image that can now be displayed, uploaded... 
+        // }).catch((err) => {
+        //   console.log(err)
+        //   // Oops, something went wrong. Check that the filename is correct and 
+        //   // inspect err to get more details. 
+        // })
+        if(Buffer.byteLength(data) < 10000000) {
+          let state = {}
+          state[`image${i}`] = data
+          this.setState(state)
+        } else {
+          Alert.alert('Image too big', 'Sorry, that image is too large!')
+        }
       }
     })
   }
