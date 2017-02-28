@@ -43,6 +43,7 @@ Raven
 const Native = NativeModules.Native;
 
 let instance
+let device
 class FlipTrip extends Component {
 
   constructor(props) {
@@ -58,6 +59,10 @@ class FlipTrip extends Component {
       },
       uid: '',
     }
+  }
+
+  componentWillMount() {
+    this._configureNotifications()
   }
 
   componentDidMount() {
@@ -95,7 +100,7 @@ class FlipTrip extends Component {
               } else {
                 let uid = authData.uid
                 Native.setBatchId(uid)
-                this._configureNotifications(uid)
+                this._updateUserPushToken(uid)
                 this.firebaseRef.child('users').child(uid).on('value', (userData) => { this._syncUserData(userData.val(),uid) })
               }
             })
@@ -152,12 +157,16 @@ class FlipTrip extends Component {
     MessageBarManager.unregisterMessageBar()
   }
 
-  _configureNotifications(uid) {
-    OneSignal.addEventListener('ids', (device) => {
-      instance.firebaseRef.child('users').child(uid).update({pushToken: device.userId})
-      let userDataClone = _.clone(instance.state.userData)
-      userDataClone['pushToken'] = device.pushToken
-      instance.setState({userData: userDataClone})
+  _updateUserPushToken(uid) {
+    this.firebaseRef.child('users').child(uid).update({pushToken: device.userId})
+    let userDataClone = _.clone(this.state.userData)
+    userDataClone['pushToken'] = device.pushToken
+    this.setState({userData: userDataClone})
+  }
+
+  _configureNotifications() {
+    OneSignal.addEventListener('ids', (d) => {
+      device = d
     })
     OneSignal.addEventListener('received', (notification) => {
       console.log(notification)
@@ -286,7 +295,7 @@ class FlipTrip extends Component {
               errorCallBack('Bungee girl is for girls only!')
               FBLoginManager.logout(() => {})
             } else {
-              instance._configureNotifications(authData.uid)
+              instance._updateUserPushToken(authData.uid)
               firebaseRef.child('users').child(authData.uid).once('value', (theData) => {
                 var onBoardingStep
                 var location = authData.facebook.cachedUserProfile.location ? authData.facebook.cachedUserProfile.location.name : 'No location verified'
