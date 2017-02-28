@@ -75,7 +75,7 @@ export default class PostcardScreen extends Component {
       'My Postcards' : `${this.displayUser.name}'s Postcards`
 
     if(this.isOwner) {
-      createPostcardBtn =
+      headerActionBtn =
         <TouchableOpacity
           style={[styles.text,{position: 'absolute', right: 10, alignItems: 'center'}]}
           onPress={() => {
@@ -95,12 +95,18 @@ export default class PostcardScreen extends Component {
             source={require('../../assets/Nav-Back.png')} />
         </TouchableOpacity>
 
-      rightBtn =
+      headerActionBtn =
         <TouchableOpacity
+          style={[styles.text,{
+            position: 'absolute',
+            top: 20,
+            right: 10,
+            padding: 10,
+            backgroundColor: Colors.green,
+            borderRadius: 5
+          }]}
           onPress={this._follow.bind(this)}>
-          <Image
-            style={styles.followButtonImage}
-            source={require('../../assets/follow-icon.png')} />
+          <Text style={{fontWeight: 'bold'}}>Follow</Text>
         </TouchableOpacity>
     }
 
@@ -120,7 +126,7 @@ export default class PostcardScreen extends Component {
             style={styles.avatarImage}/>
           <Text style={[styles.text, {margin: 10}]}>{`(${this.state.trips})\nTrips`}</Text>
           <Text style={[styles.text, {margin: 10}]}>{`(${this.state.followers})\nFollowers`}</Text>
-          {createPostcardBtn}
+          {headerActionBtn}
         </View>
         <ListView
           initialListSize={3}
