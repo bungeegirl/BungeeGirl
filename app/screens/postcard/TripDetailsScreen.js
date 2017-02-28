@@ -119,10 +119,10 @@ export default class TripDetailsScreen extends Component {
             </View>
             <View style={styles.row}>
               <View style={styles.rowHeader}>
-                <Image
-                  style={styles.icon}
-                  resizeMode='contain'
-                  source={require('../../assets/location-pin.png')} />
+                <Icon
+                  style={[styles.icon]}
+                  size={30}
+                  name='hotel' />
                 <Text style={[styles.text, styles.headerText]}>Stayed at</Text>
               </View>
               <View style={styles.rowContent}>
