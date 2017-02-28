@@ -30,13 +30,14 @@ class ImageRow extends Component {
     var { asset, imageIndex, source } = this.props
     var profileImages = this.props.getProfileImages()
     if(this.props.pickerType !== 'facebook') {
-      NativeModules.ReadImageData.readImage(asset.node.image.uri, (image) => {
+      let uri = asset.node.image.uri
+      NativeModules.ReadImageData.readImage(uri, (image) => {
         if(profileImages) {
           var profileImageClone = _.clone(profileImages)
-          profileImageClone[imageIndex] = {uri: asset.node.image.uri, imageData: image}
+          profileImageClone[imageIndex] = {uri: uri, imageData: image}
           this.props.onFinishLoad(profileImageClone)
         } else {
-          this.props.onFinishLoad(image)
+          this.props.onFinishLoad(uri, image)
         }
         if(this.props.onClose)
           this.props.onClose()

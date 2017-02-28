@@ -31,10 +31,7 @@ import {
 import {
   Hoshi
 } from 'react-native-textinput-effects'
-
-import {
-  SERVER_URL
-} from '../../utils/constants'
+import appRequest from '../../utils/fetch'
 
 export default class NewPostcardScreen extends Component {
 
@@ -248,7 +245,7 @@ export default class NewPostcardScreen extends Component {
     let cameraImage = require('../../assets/camera.png')
     let images = []
     for(let i = 0; i < 4; i++) {
-      let image = this.state[`image${i}`] ? {uri: `data:image/jpeg;base64, ${this.state['image'+i]}`} : cameraImage
+      let image = this.state[`image${i}`] ? {uri: this.state[`image${i}`]} : cameraImage
       images.push(
         <TouchableOpacity
           key={`image-${i}`}
@@ -277,22 +274,10 @@ export default class NewPostcardScreen extends Component {
     this.props.navigator.push({
       ident: 'CameraImagePicker',
       onBack: _ => this.props.navigator.pop(),
-      onFinishLoad: data => {
-        // ImageResizer.createResizedImage(`data:image/jpeg;base64, ${this.state['image'+i]}`, 800, 600, 'JPEG', 65).then((resizedImageUri) => {
-        //   console.log(resizeImageUri)
-        //   // resizeImageUri is the URI of the new image that can now be displayed, uploaded... 
-        // }).catch((err) => {
-        //   console.log(err)
-        //   // Oops, something went wrong. Check that the filename is correct and 
-        //   // inspect err to get more details. 
-        // })
-        if(Buffer.byteLength(data) < 10000000) {
-          let state = {}
-          state[`image${i}`] = data
-          this.setState(state)
-        } else {
-          Alert.alert('Image too big', 'Sorry, that image is too large!')
-        }
+      onFinishLoad: (uri, image) => {
+        let state = {}
+        state[`image${i}`] = `data:image/jpeg;base64,${image}`
+        this.setState(state)
       }
     })
   }
@@ -328,13 +313,47 @@ export default class NewPostcardScreen extends Component {
     let hideSpinner = _ => this.setState({savingData: false})
 
     let skipKeys = [
-      'savingData'
+      'savingData',
+      'image0',
+      'image1',
+      'image2',
+      'image3'
     ]
     let validProps = _.reduce(this.state, (props, val, key) => {
       if(!_.some(skipKeys, k => k === key))
         props[key] = val
       return props
     }, {})
+
+    let postImages = (tripRef, val) => {
+      let promises = []
+
+      let imageRequest = index => {
+        if(this.state[`image${index}`] === val[`image${index}`]) return
+
+        promises.push(
+          fetch('https://api.cloudinary.com/v1_1/bungee-girl/image/upload', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              file: this.state[`image${index}`],
+              upload_preset: 'bi5kbxa3'
+            })
+          }).then( response => response.json() ).then( response => {
+            tripRef.child(`image${index}`).set(response.url)
+          })
+        )
+      }
+
+      imageRequest(0)
+      imageRequest(1)
+      imageRequest(2)
+      imageRequest(3)
+
+      return Promise.all(promises)
+    }
 
     if(this.trip) {
       let trip = this.trip.val(), changed = {}
@@ -343,27 +362,32 @@ export default class NewPostcardScreen extends Component {
           changed[key] = val
       })
       this.trip.ref().update(changed).then( _ => {
-        hideSpinner()
-        this.props.navigator.pop()
-      }).catch(hideSpinner)
+        postImages(this.trip.ref(), this.trip.val()).then( _ => {
+          hideSpinner()
+          this.props.navigator.pop()
+        })
+      }).catch( err => {
+        console.log(err)
+      })
     } else {
-      this.props.firebaseRef.child(`trips/${this.props.uid}`).push(validProps).then( _ => {
-        fetch(`${SERVER_URL}/notification/followers/${this.props.uid}`, {
+      let newTrip = this.props.firebaseRef.child(`trips/${this.props.uid}`).push()
+      newTrip.set(validProps).then( _ => {
+        appRequest(`/notification/followers/${this.props.uid}`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
           body: JSON.stringify({
             message: `${this.props.userData.name} has added a new postcard!`,
             type: 'new postcard'
           })
         }).then( response => {
-          hideSpinner()
-          this.props.navigator.pop()
+          postImages(newTrip,validProps).then( _ => {
+            hideSpinner()
+            this.props.navigator.pop()
+          })
         })
       })
     }
   }
+
 }
 
 const styles = StyleSheet.create({

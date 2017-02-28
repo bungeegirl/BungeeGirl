@@ -76,12 +76,12 @@ class Postcard extends Component {
                     width: Dimensions.get('window').width,
                     height: Dimensions.get('window').height
                   }}
-                  source={{uri: `data:image/jpeg;base64, ${this.state.image0}`}} />
+                  source={{uri: this.state.image0}} />
               )
             }}>
             <Image
               style={styles.stampImage}
-              source={{uri: `data:image/jpeg;base64, ${this.state.image0}`}} />
+              source={{uri: this.state.image0}} />
           </Lightbox>
         </View>
 

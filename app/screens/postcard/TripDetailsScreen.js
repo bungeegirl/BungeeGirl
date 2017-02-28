@@ -222,14 +222,14 @@ export default class TripDetailsScreen extends Component {
                     width: Dimensions.get('window').width,
                     height: Dimensions.get('window').height
                   }}
-                  source={{uri: `data:image/jpeg;base64, ${imageData}`}} />
+                  source={{uri: imageData}} />
               )
             }}>
 
             <Image
               style={styles.userImage}
               resizeMode='contain'
-              source={{uri: `data:image/jpeg;base64, ${imageData}`}} />
+              source={{uri: imageData}} />
           </Lightbox>
         )
     }
