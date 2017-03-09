@@ -384,27 +384,23 @@ const styles = StyleSheet.create({
   mySelfie: {
     width: 125,
     height: 125,
+    borderRadius: 62.5
   },
   mySelfieContainer: {
     height: mySelfieContainerHeight,
     width: 200,
     backgroundColor: 'transparent',
     alignItems: 'center',
+    alignSelf: 'center',
     justifyContent: 'center',
-    marginRight: 10,
-    borderColor: Colors.fadedGrey,
-    borderWidth: 1,
   },
   herSelfieContainer: {
     height: herSelfieContainerHeight,
     width: 250,
     backgroundColor: 'transparent',
     alignItems: 'center',
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
     justifyContent: 'center',
-    marginLeft: 10,
-    borderColor: Colors.fadedGrey,
-    borderWidth: 1,
   },
   approvalText: {
     fontSize: 12,
