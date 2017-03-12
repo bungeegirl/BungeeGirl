@@ -67,37 +67,37 @@ var cityData = [
   },
   {
     ident: 'auckland',
-    name: 'Auckland, New Zealand',
+    name: 'Auckland',
     asset: require('../assets/cities/auckland.png'),
     backgroundAsset: require('../assets/cities/auckland-background.png')
   },
   {
     ident: 'amsterdam',
-    name: 'Amsterdam, Netherlands',
+    name: 'Amsterdam',
     asset: require('../assets/cities/amsterdam.png'),
     backgroundAsset: require('../assets/cities/amsterdam-background.png')
   },
   {
     ident: 'dubrovnik',
-    name: 'Dubrovnik, Croatia',
+    name: 'Dubrovnik',
     asset: require('../assets/cities/dubrovnik.png'),
     backgroundAsset: require('../assets/cities/dubrovnik-background.png')
   },
   {
     ident: 'cartagena',
-    name: 'Cartagena, Colombia',
+    name: 'Cartagena',
     asset: require('../assets/cities/cartagena.png'),
     backgroundAsset: require('../assets/cities/cartagena-background.png')
   },
   {
     ident: 'cape-town',
-    name: 'Cape Town, South Africa',
+    name: 'Cape Town',
     asset: require('../assets/cities/cape-town.png'),
     backgroundAsset: require('../assets/cities/cape-town-background.png')
   },
   {
     ident: 'new-orleans',
-    name: 'New Orleans, Louisiana',
+    name: 'New Orleans',
     asset: require('../assets/cities/new-orleans.png'),
     backgroundAsset: require('../assets/cities/new-orleans-background.png')
   },
