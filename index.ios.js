@@ -177,11 +177,16 @@ class FlipTrip extends Component {
         payload: {
           body,
           additionalData: {
+            p2p_notification,
             type,
             userId
           }
         }
       } = result.notification
+      if(p2p_notification) {
+        type = p2p_notification.type
+        userId = p2p_notification.userId
+      }
 
       if(type === 'follow') {
         instance.firebaseRef.child(`users/${userId}`).once('value', snap => {

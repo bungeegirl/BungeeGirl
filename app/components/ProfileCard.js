@@ -42,16 +42,26 @@ class ProfileCard extends Component {
 
   render() {
     var content
-    var image, button
-    if(!_.isEmpty(this.state.userData)){
+    var image
+    let { userData } = this.state
+    let loading = _.isEmpty(this.state.userData)
+    let travelDispay = this.props.travelType.toLowerCase() === 'danger' ? 'danger junkie' : this.props.travelType
+    if(!loading){
       var uri = `data:image/jpeg;base64, ${this.state.userData.imageData}`
       image =
       <Image
         resizeMode='cover'
         style={styles.avatar}
         source={{uri: uri}}/>
-      button =
+    } else {
+      image =
+      <ActivityIndicatorIOS
+        style={styles.avatar}
+        animating={true}/>
+    }
+      let button =
       <TouchableOpacity
+        disabled={loading}
         onPress={() => {
           this.props.navigator.push({
             ident: 'UserProfileScreen',
@@ -60,22 +70,13 @@ class ProfileCard extends Component {
           })
         }}
         style={styles.button}>
-        <Text style={styles.buttonText}>Connect</Text>
+        <Text style={styles.buttonText}>{ loading ? 'Loading...' : 'Connect' }</Text>
         <View style={{flex: 1}} />
         <Image
           resizeMode='contain'
           source={require('../assets/selection-arrow.png')}
           style={{width: 48, height: 14, marginRight: 10}}/>
       </TouchableOpacity>
-    } else {
-      image =
-      <ActivityIndicatorIOS
-        style={styles.avatar}
-        animating={_.isEmpty(this.state.userData)}/>
-      button = <View />
-    }
-    let { userData } = this.state
-    let travelDispay = this.props.travelType.toLowerCase() === 'danger' ? 'danger junkie' : this.props.travelType
     content =
     <View style={styles.cardContainer}>
       <Image
