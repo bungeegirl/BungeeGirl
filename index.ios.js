@@ -68,8 +68,8 @@ class FlipTrip extends Component {
   componentDidMount() {
     var firebaseRef = this.firebaseRef
     codePush.sync({
-      updateDialog: true,
-      installMode: InstallMode.IMMEDIATE
+      // updateDialog: true,
+      // installMode: InstallMode.IMMEDIATE
     })
     // AsyncStorage.clear()
     //   FBLoginManager.logout(() => {})
