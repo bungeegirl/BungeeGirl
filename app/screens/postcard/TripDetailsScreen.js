@@ -168,8 +168,10 @@ export default class TripDetailsScreen extends Component {
           </View>
 
           <View style={{
-            flexDirection: 'column',
-            margin: 10
+            flexWrap: 1,
+            flexDirection: 'row',
+            margin: 10,
+            justifyContent: 'center'
           }}>
             {this._buildImages()}
           </View>
@@ -212,7 +214,7 @@ export default class TripDetailsScreen extends Component {
           <Lightbox
             key={`image-box-${i}`}
             style={{
-              margin: 5
+              margin: 5,
             }}
             renderContent={ _ => {
               return (
@@ -228,7 +230,7 @@ export default class TripDetailsScreen extends Component {
 
             <Image
               style={styles.userImage}
-              resizeMode='contain'
+              resizeMode='cover'
               source={{uri: imageData}} />
           </Lightbox>
         )
@@ -324,6 +326,8 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline'
   },
   userImage: {
-    height: 100
+    height: 150,
+    width: 150,
+    borderRadius: 75
   }
 })
