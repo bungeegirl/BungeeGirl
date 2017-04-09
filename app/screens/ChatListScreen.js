@@ -1,17 +1,5 @@
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  Alert,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  ActivityIndicatorIOS,
-  View,
-  Picker,
-  ListView,
-} from 'react-native'
+import React, { Component } from 'react';
+import { AppRegistry, StyleSheet, Text, Alert, TouchableOpacity, Image, Dimensions, ActivityIndicator, View, Picker, ListView } from 'react-native';
 
 import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'
@@ -96,7 +84,7 @@ class ChatListScreen extends Component {
         title={title}
         style={{backgroundColor: Colors.beige, marginTop: -20, alignItems: 'center', borderBottomWidth: 1, borderColor: '#BEBEBE'}} />
       { this.state.loadingData &&
-        <ActivityIndicatorIOS
+        <ActivityIndicator
           style={{alignItems: 'center', justifyContent: 'center', height: 80}}
           animating={this.state.loadingData}/> }
       { !this.state.loadingData &&

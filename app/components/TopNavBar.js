@@ -1,13 +1,6 @@
 
-import React, {
-  Component,
-  StyleSheet,
-  Text,
-  Image,
-  TouchableOpacity,
-  View,
-  Dimensions
-} from 'react-native'
+import React, { Component } from 'react';
+import { StyleSheet, Text, Image, TouchableOpacity, View, Dimensions } from 'react-native';
 
 import Colors from '../styles/Colors'
 

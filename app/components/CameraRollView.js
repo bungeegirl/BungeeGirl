@@ -15,18 +15,16 @@
  * @flow
  */
 'use strict';
-
-var React = require('react');
-var ReactNative = require('react-native');
-var {
-  ActivityIndicatorIOS,
+import React, { Component } from 'react';
+import {
+  ActivityIndicator,
   CameraRoll,
   Image,
   ListView,
   Platform,
   StyleSheet,
   View,
-} = ReactNative;
+} from 'react-native';
 
 var groupByEveryN = require('groupByEveryN');
 var logError = require('logError');
@@ -191,7 +189,7 @@ var CameraRollView = React.createClass({
 
   _renderFooterSpinner: function() {
     if (!this.state.noMore) {
-      return <ActivityIndicatorIOS style={styles.spinner} />;
+      return <ActivityIndicator style={styles.spinner} />;
     }
     return null;
   },

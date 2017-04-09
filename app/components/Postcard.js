@@ -1,13 +1,5 @@
-import React, {
-  Component,
-  StyleSheet,
-  Text,
-  Image,
-  TextInput,
-  View,
-  TouchableOpacity,
-  Dimensions
-} from 'react-native'
+import React, { Component } from 'react';
+import { StyleSheet, Text, Image, TextInput, View, TouchableOpacity, Dimensions } from 'react-native';
 
 import Colors from '../styles/Colors'
 import Lightbox from 'react-native-lightbox'
@@ -132,8 +124,8 @@ module.exports = Postcard
 
 let cushion = 10,
   postcardHeight = 225
-  width = Dimensions.get('window').width - 50,
-  borderWidth = .5
+width = Dimensions.get('window').width - 50,
+borderWidth = .5
 
 const styles = StyleSheet.create({
   container: {

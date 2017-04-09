@@ -1,16 +1,6 @@
 
-import React, {
-  Component,
-  StyleSheet,
-  Text,
-  Image,
-  ActivityIndicatorIOS,
-  TouchableOpacity,
-  View,
-  Alert,
-  AsyncStorage,
-  Dimensions
-} from 'react-native'
+import React, { Component } from 'react';
+import { StyleSheet, Text, Image, ActivityIndicator, TouchableOpacity, View, Alert, AsyncStorage, Dimensions } from 'react-native';
 
 import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'
@@ -51,7 +41,7 @@ class LoginScreen extends Component {
         </View>
         { this.state.isLoading && (
           <View style={styles.loadingContainer}>
-            <ActivityIndicatorIOS
+            <ActivityIndicator
               size='large'
               animating={true}/>
           </View>

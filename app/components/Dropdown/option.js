@@ -1,11 +1,10 @@
-const React = require('react-native');
 
-const {
+import React, { Component } from 'react';
+import {
   StyleSheet,
-  Component,
   View,
   Text
-} = React;
+} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {

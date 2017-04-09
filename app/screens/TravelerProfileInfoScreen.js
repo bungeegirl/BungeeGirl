@@ -1,14 +1,5 @@
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  View,
-  ScrollView,
-} from 'react-native'
+import React, { Component } from 'react';
+import { AppRegistry, StyleSheet, Text, TouchableOpacity, Image, Dimensions, View, ScrollView } from 'react-native';
 
 var deviceWidth = Dimensions.get('window').width
 import questions from '../local_data/questions'

@@ -1,12 +1,5 @@
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View,
-  PropTypes,
-  Navigator
-} from 'react-native'
+import React, { Component, PropTypes } from 'react';
+import { AppRegistry, StyleSheet, Text, View, Navigator } from 'react-native';
 
 import LoginScreen from '../screens/LoginScreen'
 import SignInScreen from '../screens/SignInScreen'
@@ -179,10 +172,10 @@ class AppNavigator extends Component {
         initialRoute={this.props.initialRoute}
         renderScene={(route, navigator) => this.renderScene(route, navigator)}
         configureScene={(route) => ({
-          ...route.sceneConfig || Navigator.SceneConfigs.FloatFromRight,
+          ...(route.sceneConfig || Navigator.SceneConfigs.FloatFromRight),
           gestures: route.gestures
         })}/>
-    )
+    );
   }
 
   getNavigator() {

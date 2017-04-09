@@ -1,18 +1,5 @@
-import React, {
-  AppRegistry,
-  ActivityIndicatorIOS,
-  Component,
-  StyleSheet,
-  Text,
-  Alert,
-  TouchableOpacity,
-  TouchableHighlight,
-  Image,
-  Dimensions,
-  View,
-  Picker,
-  ListView,
-} from 'react-native'
+import React, { Component } from 'react';
+import { AppRegistry, ActivityIndicator, StyleSheet, Text, Alert, TouchableOpacity, TouchableHighlight, Image, Dimensions, View, Picker, ListView } from 'react-native';
 
 import Colors from '../styles/Colors'
 import cityData from '../local_data/cityData'
@@ -55,7 +42,7 @@ class ProfileCard extends Component {
         source={{uri: uri}}/>
     } else {
       image =
-      <ActivityIndicatorIOS
+      <ActivityIndicator
         style={styles.avatar}
         animating={true}/>
     }

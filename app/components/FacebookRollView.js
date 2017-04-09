@@ -14,18 +14,16 @@
  * @flow
  */
 'use strict';
-
-var React = require('react');
-var ReactNative = require('react-native');
-var {
-  ActivityIndicatorIOS,
+import React from 'react';
+import {
+  ActivityIndicator,
   CameraRoll,
   Image,
   ListView,
   Platform,
   StyleSheet,
   View,
-} = ReactNative;
+} from 'react-native';
 
 var groupByEveryN = require('groupByEveryN');
 var logError = require('logError');
@@ -176,7 +174,7 @@ var FacebookRollView = React.createClass({
 
   _renderFooterSpinner: function() {
     if (this.state.loadingMore) {
-      return <ActivityIndicatorIOS style={styles.spinner} />;
+      return <ActivityIndicator style={styles.spinner} />;
     }
     return null;
   },

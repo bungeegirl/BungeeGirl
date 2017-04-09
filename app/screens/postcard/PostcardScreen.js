@@ -1,18 +1,5 @@
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  ActionSheetIOS,
-  Alert,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  AsyncStorage,
-  Dimensions,
-  View,
-  ListView,
-} from 'react-native'
+import React, { Component } from 'react';
+import { AppRegistry, StyleSheet, Text, ActionSheetIOS, Alert, TextInput, TouchableOpacity, Image, AsyncStorage, Dimensions, View, ListView } from 'react-native';
 
 import ViewContainer from '../../components/ViewContainer'
 import Postcard from '../../components/Postcard'

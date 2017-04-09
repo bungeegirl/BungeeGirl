@@ -1,13 +1,12 @@
-const React = require('react-native');
-const Overlay = require('./overlay');
-const Items = require('./items');
-
-const {
+import React, { Component } from 'react';
+import {
   Dimensions,
   StyleSheet,
-  Component,
   View
-} = React;
+} from 'react-native';
+
+const Overlay = require('./overlay');
+const Items = require('./items');
 
 const window = Dimensions.get('window');
 

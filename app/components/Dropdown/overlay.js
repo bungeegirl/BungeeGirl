@@ -1,12 +1,10 @@
-const React = require('react-native');
-
-const {
+import React, { Component } from 'react';
+import {
   Dimensions,
   StyleSheet,
-  Component,
   TouchableWithoutFeedback,
   View
-} = React;
+} from 'react-native';
 
 const window = Dimensions.get('window');
 

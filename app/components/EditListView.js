@@ -1,15 +1,5 @@
-import React, {
-  AppRegistry,
-  AsyncStorage,
-  Component,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  View,
-  ListView,
-} from 'react-native'
+import React, { Component } from 'react';
+import { AppRegistry, AsyncStorage, StyleSheet, Text, TouchableOpacity, Image, Dimensions, View, ListView } from 'react-native';
 
 var deviceWidth = Dimensions.get('window').width
 

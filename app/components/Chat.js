@@ -1,17 +1,5 @@
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  Alert,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  View,
-  ActivityIndicatorIOS,
-  Picker,
-  ListView,
-} from 'react-native'
+import React, { Component } from 'react';
+import { AppRegistry, StyleSheet, Text, Alert, TouchableOpacity, Image, Dimensions, View, ActivityIndicator, Picker, ListView } from 'react-native';
 
 import Colors from '../styles/Colors'
 import GiftedMessenger from '../../react-native-gifted-messenger'
@@ -188,7 +176,7 @@ class ChatContainer extends Component {
 
   render() {
     if(!this.state.herVerifiedLoaded || !this.state.myVerifiedLoaded) {
-      return <ActivityIndicatorIOS animating={true}/>
+      return <ActivityIndicator animating={true}/>
     }
     let mySelfieHeight = 0
     let herSelfieHeight = 0

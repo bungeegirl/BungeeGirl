@@ -4,15 +4,9 @@
  * @flow
  */
 
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  Alert,
-  View,
-  AsyncStorage,
-} from 'react-native'
+import React, { Component } from 'react';
+
+import { AppRegistry, StyleSheet, Text, Alert, View, AsyncStorage } from 'react-native';
 
 import codePush, {
   InstallMode

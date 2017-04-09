@@ -1,20 +1,6 @@
 
-import React, {
-  Component,
-  StyleSheet,
-  Text,
-  Image,
-  TextInput,
-  NativeModules,
-  ScrollView,
-  View,
-  Modal,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  Dimensions,
-  ActivityIndicatorIOS,
-  ActionSheetIOS
-} from 'react-native'
+import React, { Component } from 'react';
+import { StyleSheet, Text, Image, TextInput, NativeModules, ScrollView, View, Modal, TouchableWithoutFeedback, TouchableOpacity, Dimensions, ActivityIndicator, ActionSheetIOS } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import Colors from '../styles/Colors'

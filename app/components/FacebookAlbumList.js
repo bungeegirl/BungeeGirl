@@ -1,19 +1,6 @@
 
-import React, {
-  Component,
-  StyleSheet,
-  Text,
-  Image,
-  NativeModules,
-  ScrollView,
-  View,
-  ListView,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  Dimensions,
-  ActivityIndicatorIOS,
-  ActionSheetIOS
-} from 'react-native'
+import React, { Component } from 'react';
+import { StyleSheet, Text, Image, NativeModules, ScrollView, View, ListView, TouchableWithoutFeedback, TouchableOpacity, Dimensions, ActivityIndicator, ActionSheetIOS } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 import Colors from '../styles/Colors'
 import FBSDK from 'react-native-fbsdk'
@@ -113,7 +100,7 @@ class FacebookAlbumList extends Component {
           </View>
           <View style={styles.item}/>
         </View>
-        { this.state.loading && <ActivityIndicatorIOS animating={true} size='large' style={{marginTop: 48}}/> }
+        { this.state.loading && <ActivityIndicator animating={true} size='large' style={{marginTop: 48}}/> }
         { !this.state.loading && (
           <ListView
             renderRow={(rowData) => this.renderRow(rowData)}
@@ -134,7 +121,7 @@ class FacebookAlbumList extends Component {
             style={styles.previewStyle}
             source={{uri: rowData.photoUri}}/>)}
         {rowData.photoUri === '' && (
-          <ActivityIndicatorIOS style={styles.previewStyle} animating={true}/>)}
+          <ActivityIndicator style={styles.previewStyle} animating={true}/>)}
         <View style={styles.rowTextContainer}>
           <Text style={{fontSize: 14, fontWeight: '500'}}>{rowData.name}</Text>
           <Text>{rowData.photo_count} Photos</Text>

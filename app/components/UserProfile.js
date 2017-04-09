@@ -1,16 +1,5 @@
-import React, {
-  Component,
-  StyleSheet,
-  Text,
-  Alert,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  AsyncStorage,
-  Dimensions,
-  View,
-  ListView,
-} from 'react-native'
+import React, { Component } from 'react';
+import { StyleSheet, Text, Alert, TextInput, TouchableOpacity, Image, AsyncStorage, Dimensions, View, ListView } from 'react-native';
 
 import ProfileBackground from './ProfileBackground'
 import _ from 'underscore'

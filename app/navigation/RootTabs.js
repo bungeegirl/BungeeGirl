@@ -1,11 +1,5 @@
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View,
-  Image
-} from 'react-native'
+import React, { Component } from 'react';
+import { AppRegistry, StyleSheet, Text, View, Image } from 'react-native';
 
 import TabNavigator from '../../react-native-tab-navigator'
 import AppNavigator from './AppNavigator'

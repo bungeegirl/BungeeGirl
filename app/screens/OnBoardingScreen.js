@@ -1,11 +1,5 @@
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  Alert,
-  View,
-} from 'react-native'
+import React, { Component } from 'react';
+import { AppRegistry, StyleSheet, Text, Alert, View } from 'react-native';
 
 import Swiper from 'react-native-swiper'
 import Colors from '../styles/Colors'

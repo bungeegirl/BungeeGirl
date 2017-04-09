@@ -1,0 +1,6 @@
+framework module Pods_Bungee {
+  umbrella header "Pods-Bungee-umbrella.h"
+
+  export *
+  module * { export * }
+}

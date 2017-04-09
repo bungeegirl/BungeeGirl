@@ -1,12 +1,31 @@
 PODS:
   - Batch (1.5.4)
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.8.4)
+  - FBSDKCoreKit (4.20.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.20.0):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.20.0):
+    - FBSDKCoreKit
 
 DEPENDENCIES:
-  - Batch (~> 1.5)
+  - Batch
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
 
 SPEC CHECKSUMS:
   Batch: 13083f81837fe1da9ea84b0533a2965c73ff74c6
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  FBSDKCoreKit: 2d16979b28fe28c2b95af0d275ad5f9703c6c8de
+  FBSDKLoginKit: a9d9391506c687e2304a590bf9312837fce7f375
+  FBSDKShareKit: 1b91af62a603d67f392bc7fde63bc4a0705dde31
 
-PODFILE CHECKSUM: ad7c3ea458e912df2b9ff096dce36fe4c73df32e
+PODFILE CHECKSUM: 96ad6e440a11471310830758c8c96669a45ccc1c
 
 COCOAPODS: 1.1.1

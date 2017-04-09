@@ -1,17 +1,6 @@
 
-import React, {
-  Component,
-  StyleSheet,
-  Text,
-  Image,
-  TextInput,
-  NativeModules,
-  ScrollView,
-  View,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  Dimensions
-} from 'react-native'
+import React, { Component } from 'react';
+import { StyleSheet, Text, Image, TextInput, NativeModules, ScrollView, View, TouchableWithoutFeedback, TouchableOpacity, Dimensions } from 'react-native';
 
 import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'

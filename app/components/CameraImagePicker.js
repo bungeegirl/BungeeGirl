@@ -1,18 +1,6 @@
 
-import React, {
-  Component,
-  StyleSheet,
-  Text,
-  Image,
-  NativeModules,
-  ScrollView,
-  View,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  Dimensions,
-  ActivityIndicatorIOS,
-  ActionSheetIOS
-} from 'react-native'
+import React, { Component } from 'react';
+import { StyleSheet, Text, Image, NativeModules, ScrollView, View, TouchableWithoutFeedback, TouchableOpacity, Dimensions, ActivityIndicator, ActionSheetIOS } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import Colors from '../styles/Colors'
@@ -41,7 +29,13 @@ class ImageRow extends Component {
         }
         if(this.props.onClose)
           this.props.onClose()
-        this.props.navigator.pop()
+        try {
+            this.props.navigator.pop()
+        } catch(e) {
+          console.log("error popping from navigator in ImageRow:")
+          console.log(e)
+        }
+
       })
     } else {
       NativeModules.Native.getBase64String(source, (err, base64) => {

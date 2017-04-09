@@ -1,10 +1,5 @@
-import React, {
-  Component,
-  View,
-  StyleSheet,
-  Dimensions,
-  Image
-} from 'react-native'
+import React, { Component } from 'react';
+import { View, StyleSheet, Dimensions, Image, StatusBar } from 'react-native';
 
 import Colors from '../styles/Colors'
 
@@ -17,11 +12,11 @@ export default class ViewContainer extends Component {
   }
 
   render() {
-    React.StatusBar.setBarStyle('default')
+    StatusBar.setBarStyle('default')
     if(this.props.statusBarOptions) {
-      React.StatusBar.setHidden(true, 'none')
+      StatusBar.setHidden(true, 'none')
     } else {
-      React.StatusBar.setHidden(false, 'slide')
+      StatusBar.setHidden(false, 'slide')
     }
 
     return (
@@ -66,3 +61,5 @@ const styles = StyleSheet.create({
     left: 0
   },
 })
+
+module.exports = ViewContainer

@@ -1,16 +1,5 @@
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  Alert,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  View,
-  Picker,
-  ListView,
-} from 'react-native'
+import React, { Component } from 'react';
+import { AppRegistry, StyleSheet, Text, Alert, TouchableOpacity, Image, Dimensions, View, Picker, ListView } from 'react-native';
 
 import ViewContainer from '../components/ViewContainer'
 import Colors from '../styles/Colors'
